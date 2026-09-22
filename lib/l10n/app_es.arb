@@ -1,0 +1,294 @@
+﻿{
+    "@@locale":  "es",
+    "appTitle":  "3-9-12 Taş",
+    "home":  "Inicio",
+    "selectGameTitle":  "Elige tu juego",
+    "selectGameSubtitle":  "Tres juegos clÃ¡sicos de estrategia en un solo espacio social y tranquilo.",
+    "game3Name":  "Molino de tres",
+    "game3Description":  "RÃ¡pido, sencillo y tÃ¡ctico.",
+    "game9Name":  "Molino de nueve",
+    "game9Description":  "El juego clÃ¡sico principal.",
+    "game12Name":  "Molino de doce",
+    "game12Description":  "Un tablero mÃ¡s denso y una estrategia mÃ¡s profunda.",
+    "selectModeTitle":  "Â¿CÃ³mo quieres jugar a {gameName}?",
+    "online":  "En lÃ­nea",
+    "onlineSubtitle":  "Encuentra un rival real en todo el mundo",
+    "challenge":  "Desafiar",
+    "challengeSubtitle":  "Invita a un amigo dentro del juego o con un enlace",
+    "offline":  "Sin conexiÃ³n",
+    "offlineSubtitle":  "Juega contra la IA o dos jugadores en un dispositivo",
+    "computerModeTitle":  "Jugar contra la computadora",
+    "computerModeSubtitle":  "No requiere internet â€¢ elige dificultad",
+    "sameDeviceSubtitle":  "Dos jugadores por turnos en este dispositivo",
+    "howToPlay":  "CÃ³mo jugar",
+    "friends":  "Amigos",
+    "rankings":  "ClasificaciÃ³n",
+    "profile":  "Perfil",
+    "settings":  "Ajustes",
+    "language":  "Idioma",
+    "systemLanguage":  "Usar idioma del dispositivo",
+    "languageTurkish":  "TÃ¼rkÃ§e",
+    "languageEnglish":  "English",
+    "languageGerman":  "Deutsch",
+    "languageSpanish":  "EspaÃ±ol",
+    "languageFrench":  "FranÃ§ais",
+    "languagePortugueseBrazil":  "PortuguÃªs (Brasil)",
+    "languageArabic":  "Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©",
+    "languageHindi":  "à¤¹à¤¿à¤¨à¥à¤¦à¥€",
+    "restart":  "Reiniciar",
+    "lightPlayer":  "Claro",
+    "darkPlayer":  "Oscuro",
+    "playerWon":  "{player} ganÃ³",
+    "draw":  "Empate",
+    "capturePrompt":  "{player}: retira una pieza rival",
+    "placePrompt":  "{player}: coloca una pieza",
+    "movePrompt":  "{player}: haz tu movimiento",
+    "quickGoodMove":  "Â¡Buen movimiento!",
+    "quickCongrats":  "Â¡Felicidades!",
+    "quickGoodGame":  "Â¡Buena partida!",
+    "quickMore":  "MÃ¡s",
+    "shareInvite":  "Desafiar por WhatsApp",
+    "challengeButton":  "Desafiar",
+    "challengePrepared":  "El desafÃ­o para {name} estÃ¡ listo.",
+    "presenceOnline":  "En lÃ­nea",
+    "presenceInMatch":  "En partida",
+    "presenceOffline":  "Sin conexiÃ³n",
+    "offlineDifficultyTitle":  "Elige dificultad",
+    "beginner":  "Principiante",
+    "easy":  "FÃ¡cil",
+    "medium":  "Media",
+    "hard":  "DifÃ­cil",
+    "master":  "Maestro",
+    "sameDevice":  "Dos jugadores en este dispositivo",
+    "featureComingSoon":  "{feature} es el siguiente paso de desarrollo.",
+    "errorMatchFinished":  "Esta partida terminÃ³.",
+    "errorCaptureRequired":  "Primero retira una pieza rival.",
+    "errorPlacementFinished":  "La fase de colocaciÃ³n terminÃ³.",
+    "errorPointOccupied":  "Este punto estÃ¡ ocupado.",
+    "errorNotMovementPhase":  "AÃºn no se pueden mover las piezas.",
+    "errorNotYourPiece":  "Esa pieza no es tuya.",
+    "errorTargetOccupied":  "El destino estÃ¡ ocupado.",
+    "errorNotAdjacent":  "MuÃ©vete por una lÃ­nea conectada a un punto adyacente.",
+    "errorNoCaptureRight":  "Ahora no puedes capturar.",
+    "errorOpponentPieceRequired":  "Elige una pieza rival.",
+    "errorProtectedMillPiece":  "Elige primero una pieza fuera de un molino.",
+    "errorInvalidPoint":  "Punto de tablero no vÃ¡lido.",
+    "errorBoardMismatch":  "Esta partida usa un tablero incompatible.",
+    "continueMatch":  "Continuar partida",
+    "continueMatchSubtitle":  "Retoma tu partida de {gameName}",
+    "@continueMatchSubtitle":  {
+                                   "placeholders":  {
+                                                        "gameName":  {
+                                                                         "type":  "String"
+                                                                     }
+                                                    }
+                               },
+    "resume":  "Volver a la partida",
+    "saveAndExit":  "Guardar y salir",
+    "abandonMatch":  "Abandonar partida",
+    "matchInProgressTitle":  "Partida en curso",
+    "matchInProgressBody":  "Tu posiciÃ³n actual se guarda automÃ¡ticamente. Â¿QuÃ© quieres hacer?",
+    "matchLoadError":  "No se pudo abrir la partida guardada.",
+    "errorTitle":  "Algo saliÃ³ mal",
+    "routeError":  "No se pudo abrir esta pantalla de forma segura.",
+    "backHome":  "Volver al inicio",
+    "noFriendsYet":  "AÃºn no tienes amigos.",
+    "sound":  "Sonido",
+    "haptic":  "Respuesta hÃ¡ptica",
+    "boardView":  "Vista del tablero",
+    "viewFlat":  "2D",
+    "viewRealistic":  "Realista",
+    "viewPerspective":  "3D",
+    "guestPlayer":  "Invitado",
+    "localProfile":  "Perfil local",
+    "genericLoadError":  "No se pudo cargar el contenido.",
+    "retry":  "Reintentar",
+    "restartMatchTitle":  "Â¿Reiniciar partida?",
+    "restartMatchBody":  "La posiciÃ³n guardada actual serÃ¡ reemplazada por una partida nueva.",
+    "cancel":  "Cancelar",
+    "aiFoundationNotice":  "Los niveles mÃ¡s altos calculan mÃ¡s jugadas y cometen menos errores tÃ¡cticos.",
+    "saveFailedStayInMatch":  "La partida no se pudo guardar de forma segura. Permanece en la partida e intÃ©ntalo de nuevo.",
+    "piecesToPlaceStatus":  "Claras: {light}  â€¢  Oscuras: {dark}",
+    "aiThinking":  "El ordenador estÃ¡ pensandoâ€¦",
+    "computerPlayer":  "Computadora",
+    "you":  "TÃº",
+    "moveCountLabel":  "Jugada {count}",
+    "@moveCountLabel":  {
+                            "placeholders":  {
+                                                 "count":  {
+                                                               "type":  "int"
+                                                           }
+                                             }
+                        },
+    "boardPointLight":  "Punto {number}, ficha clara",
+    "@boardPointLight":  {
+                             "placeholders":  {
+                                                  "number":  {
+                                                                 "type":  "int"
+                                                             }
+                                              }
+                         },
+    "boardPointDark":  "Punto {number}, ficha oscura",
+    "@boardPointDark":  {
+                            "placeholders":  {
+                                                 "number":  {
+                                                                "type":  "int"
+                                                            }
+                                             }
+                        },
+    "boardPointEmpty":  "Punto {number}, vacÃ­o",
+    "@boardPointEmpty":  {
+                             "placeholders":  {
+                                                  "number":  {
+                                                                 "type":  "int"
+                                                             }
+                                              }
+                         },
+    "ratingValue":  "PuntuaciÃ³n {rating}",
+    "@ratingValue":  {
+                         "placeholders":  {
+                                              "rating":  {
+                                                             "type":  "int"
+                                                         }
+                                          }
+                     },
+    "inviteLinkReady":  "El enlace de invitaciÃ³n estÃ¡ listo.",
+    "ratings":  "Puntuaciones",
+    "statistics":  "EstadÃ­sticas",
+    "wins":  "Victorias",
+    "losses":  "Derrotas",
+    "bestStreak":  "Mejor racha",
+    "winRate":  "Porcentaje de victorias",
+    "countryProfile":  "PaÃ­s: {code}",
+    "@countryProfile":  {
+                            "placeholders":  {
+                                                 "code":  {
+                                                              "type":  "String"
+                                                          }
+                                             }
+                        },
+    "world":  "Mundo",
+    "country":  "PaÃ­s",
+    "recordValue":  "{wins} V â€¢ {losses} D",
+    "@recordValue":  {
+                         "placeholders":  {
+                                              "wins":  {
+                                                           "type":  "int"
+                                                       },
+                                              "losses":  {
+                                                             "type":  "int"
+                                                         }
+                                          }
+                     },
+    "onlineArena":  "Arena en lÃ­nea",
+    "onlineArenaSubtitle":  "Partidas rÃ¡pidas, retos a amigos y clasificaciones en un solo lugar.",
+    "quickMatch":  "Partida rÃ¡pida",
+    "onlineBackendRequired":  "La base del cliente en lÃ­nea estÃ¡ lista. El emparejamiento competitivo permanece desactivado hasta desplegar Firebase Auth, Realtime Database y Cloud Functions.",
+    "challengeFriends":  "Retar a amigos",
+    "viewRankings":  "Ver clasificaciÃ³n",
+    "tutorialProgress":  "Paso {current} de {total}",
+    "@tutorialProgress":  {
+                              "placeholders":  {
+                                                   "current":  {
+                                                                   "type":  "int"
+                                                               },
+                                                   "total":  {
+                                                                 "type":  "int"
+                                                             }
+                                               }
+                          },
+    "tutorialPlaceTitle":  "Coloca tus fichas",
+    "tutorialPlaceBody":  "Durante la colocaciÃ³n toca un punto vacÃ­o. Crea planes y bloquea al rival.",
+    "tutorialMillTitle":  "Forma un molino",
+    "tutorialMillBody":  "Tres fichas propias en una lÃ­nea vÃ¡lida forman un molino.",
+    "tutorialCaptureTitle":  "Captura una ficha",
+    "tutorialCaptureBody":  "Tras formar un molino elige una ficha rival resaltada. Primero se capturan fichas fuera de molinos cuando existan.",
+    "tutorialMoveTitle":  "MuÃ©vete por las lÃ­neas",
+    "tutorialMoveBody":  "Al terminar la colocaciÃ³n mueve una ficha a un punto vacÃ­o adyacente. TambiÃ©n puedes mantener pulsado y arrastrar.",
+    "tutorialBlockTitle":  "Bloquea al rival",
+    "tutorialBlockBody":  "Controla intersecciones y cierra rutas. Sin movimientos legales se pierde en 9 y 12 fichas.",
+    "tutorialFlyTitle":  "Vuela con tres fichas",
+    "tutorialFlyBody":  "Con la regla de vuelo, al quedar tres fichas puedes mover a cualquier punto vacÃ­o.",
+    "tutorialDoubleMillTitle":  "Crea amenazas repetidas",
+    "tutorialDoubleMillBody":  "El juego avanzado conecta molinos, fuerza capturas y conserva movilidad.",
+    "previous":  "Anterior",
+    "finish":  "Finalizar",
+    "next":  "Siguiente",
+    "gameExperience":  "Experiencia de juego",
+    "reduceMotion":  "Reducir movimiento",
+    "reduceMotionSubtitle":  "Desactiva pulsos y movimientos no esenciales.",
+    "showMoveHints":  "Mostrar ayudas de jugada",
+    "showMoveHintsSubtitle":  "Resalta destinos legales y objetivos capturables.",
+    "colorAssist":  "Ayuda de color",
+    "colorAssistSubtitle":  "AÃ±ade formas y bordes para no depender solo del color.",
+    "boardSurface":  "Superficie del tablero",
+    "surfaceWood":  "Madera",
+    "surfaceDarkStone":  "Piedra oscura",
+    "surfaceMarble":  "MÃ¡rmol",
+    "surfaceMinimal":  "Minimalista",
+    "pieceTheme":  "Estilo de fichas",
+    "pieceClassic":  "ClÃ¡sico",
+    "pieceMarble":  "MÃ¡rmol",
+    "pieceObsidian":  "Obsidiana",
+    "progression":  "Progreso",
+    "levelLabel":  "Nivel {level}",
+    "@levelLabel":  {
+                        "placeholders":  {
+                                             "level":  {
+                                                           "type":  "int"
+                                                       }
+                                         }
+                    },
+    "xpProgress":  "{current} / {target} XP",
+    "@xpProgress":  {
+                        "placeholders":  {
+                                             "current":  {
+                                                             "type":  "int"
+                                                         },
+                                             "target":  {
+                                                            "type":  "int"
+                                                        }
+                                         }
+                    },
+    "addFriendTitle":  "AÃ±adir amigo",
+    "addFriendSubtitle":  "AÃ±ade un jugador por su nombre.",
+    "friendNameLabel":  "Nombre del jugador",
+    "friendNameHint":  "Escribe un nombre",
+    "addFriendButton":  "AÃ±adir amigo",
+    "friendNameTooShort":  "Escribe al menos 2 caracteres.",
+    "friendAlreadyAdded":  "Este jugador ya estÃ¡ en tu lista de amigos.",
+    "friendAdded":  "{name} se aÃ±adiÃ³ a tus amigos.",
+    "whatsappChallengeInvite":  "Â¡Te reto a {game} en Morris World! Abre o instala el juego aquÃ­: {link}",
+    "resultVictoryPraise":  "Â¡Felicidades! Gran partida. Â¿Revancha?",
+    "resultDefeatPraise":  "Â¡Buena lucha! Â¿Listo para la revancha?",
+    "resultDrawPraise":  "Gran partida: terminÃ³ en empate. Â¿Otra?",
+    "resultLocalPraise":  "Â¡Gran partida! Â¿Jugamos la revancha?",
+    "rematch":  "Jugar revancha",
+    "@friendAdded":  {
+                         "placeholders":  {
+                                              "name":  {
+                                                           "type":  "String"
+                                                       }
+                                          }
+                     },
+    "@whatsappChallengeInvite":  {
+                                     "placeholders":  {
+                                                          "game":  {
+                                                                       "type":  "String"
+                                                                   },
+                                                          "link":  {
+                                                                       "type":  "String"
+                                                                   }
+                                                      }
+                                 },
+    "editProfile":  "Editar perfil",
+    "playerName":  "Nombre de jugador",
+    "countryCode":  "CÃ³digo de paÃ­s",
+    "saveProfile":  "Guardar perfil",
+    "profileSaved":  "Perfil guardado.",
+    "profileSaveFailed":  "No se pudo guardar el perfil.",
+    "profileNameRequired":  "El nombre de jugador no puede estar vacÃ­o.",
+    "profileCountryCodeHint":  "p. ej. ES",
+    "profileCountryCodeInvalid":  "El cÃ³digo de paÃ­s debe tener dos letras.",
+    "profileLocalSaveNote":  "Los datos de tu perfil se guardan de forma segura en este dispositivo."
+}

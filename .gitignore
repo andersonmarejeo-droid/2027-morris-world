@@ -1,0 +1,29 @@
+.dart_tool/
+.packages
+.pub/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.idea/
+*.iml
+
+# Machine-specific Android files and Gradle state.
+android/.gradle/
+android/local.properties
+
+# Generated iOS Flutter integration files.
+ios/Flutter/ephemeral/
+ios/Flutter/Generated.xcconfig
+ios/Flutter/flutter_export_environment.sh
+
+# Local backups and legacy delivery artifacts. Keep them locally if useful,
+# but do not add them to source control.
+.mw_backup/
+.mw_v111_diagnostic_backup.txt
+morris_world_flutter_offline_ai_v040.zip
+MW_FULL_INSTALL_V042.ps1
+README_FIRST.txt
+
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+lib/firebase_options.dart

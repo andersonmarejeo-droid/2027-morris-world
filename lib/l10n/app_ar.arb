@@ -1,0 +1,294 @@
+﻿{
+    "@@locale":  "ar",
+    "appTitle":  "3-9-12 Taş",
+    "home":  "Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©",
+    "selectGameTitle":  "Ø§Ø®ØªØ± Ù„Ø¹Ø¨ØªÙƒ",
+    "selectGameSubtitle":  "Ø«Ù„Ø§Ø« Ø£Ù„Ø¹Ø§Ø¨ Ø§Ø³ØªØ±Ø§ØªÙŠØ¬ÙŠØ© ÙƒÙ„Ø§Ø³ÙŠÙƒÙŠØ© ÙÙŠ Ø¹Ø§Ù„Ù… Ø§Ø¬ØªÙ…Ø§Ø¹ÙŠ Ù‡Ø§Ø¯Ø¦.",
+    "game3Name":  "3 Ø£Ø­Ø¬Ø§Ø±",
+    "game3Description":  "Ø³Ø±ÙŠØ¹Ø© ÙˆØ¨Ø³ÙŠØ·Ø© ÙˆØªÙƒØªÙŠÙƒÙŠØ©.",
+    "game9Name":  "9 Ø£Ø­Ø¬Ø§Ø±",
+    "game9Description":  "Ø§Ù„Ù„Ø¹Ø¨Ø© Ø§Ù„ÙƒÙ„Ø§Ø³ÙŠÙƒÙŠØ© Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©.",
+    "game12Name":  "12 Ø­Ø¬Ø±Ù‹Ø§",
+    "game12Description":  "Ù„ÙˆØ­Ø© Ø£ÙƒØ«Ø± ÙƒØ«Ø§ÙØ© ÙˆØ§Ø³ØªØ±Ø§ØªÙŠØ¬ÙŠØ© Ø£Ø¹Ù…Ù‚.",
+    "selectModeTitle":  "ÙƒÙŠÙ ØªØ±ÙŠØ¯ Ù„Ø¹Ø¨ {gameName}ØŸ",
+    "online":  "Ø¹Ø¨Ø± Ø§Ù„Ø¥Ù†ØªØ±Ù†Øª",
+    "onlineSubtitle":  "Ø§Ø¹Ø«Ø± Ø¹Ù„Ù‰ Ù…Ù†Ø§ÙØ³ Ø­Ù‚ÙŠÙ‚ÙŠ Ù…Ù† Ø§Ù„Ø¹Ø§Ù„Ù…",
+    "challenge":  "ØªØ­Ø¯Ù‘Ù",
+    "challengeSubtitle":  "Ø§Ø¯Ø¹Ù ØµØ¯ÙŠÙ‚Ù‹Ø§ Ù…Ù† Ø¯Ø§Ø®Ù„ Ø§Ù„Ù„Ø¹Ø¨Ø© Ø£Ùˆ Ø¹Ø¨Ø± Ø±Ø§Ø¨Ø·",
+    "offline":  "Ø¯ÙˆÙ† Ø§ØªØµØ§Ù„",
+    "offlineSubtitle":  "Ø§Ù„Ø¹Ø¨ Ø¶Ø¯ Ø§Ù„Ø°ÙƒØ§Ø¡ Ø§Ù„Ø§ØµØ·Ù†Ø§Ø¹ÙŠ Ø£Ùˆ Ù„Ø§Ø¹Ø¨ÙŠÙ† Ø¹Ù„Ù‰ Ø¬Ù‡Ø§Ø² ÙˆØ§Ø­Ø¯",
+    "computerModeTitle":  "Ø§Ù„Ø¹Ø¨ Ø¶Ø¯ Ø§Ù„ÙƒÙ…Ø¨ÙŠÙˆØªØ±",
+    "computerModeSubtitle":  "Ù„Ø§ ÙŠØ­ØªØ§Ø¬ Ø¥Ù„Ù‰ Ø¥Ù†ØªØ±Ù†Øª â€¢ Ø§Ø®ØªØ± Ù…Ø³ØªÙˆÙ‰ Ø§Ù„ØµØ¹ÙˆØ¨Ø©",
+    "sameDeviceSubtitle":  "Ù„Ø§Ø¹Ø¨Ø§Ù† ÙŠØªÙ†Ø§ÙˆØ¨Ø§Ù† Ø¹Ù„Ù‰ Ù‡Ø°Ø§ Ø§Ù„Ø¬Ù‡Ø§Ø²",
+    "howToPlay":  "Ø·Ø±ÙŠÙ‚Ø© Ø§Ù„Ù„Ø¹Ø¨",
+    "friends":  "Ø§Ù„Ø£ØµØ¯Ù‚Ø§Ø¡",
+    "rankings":  "Ø§Ù„ØªØ±ØªÙŠØ¨",
+    "profile":  "Ø§Ù„Ù…Ù„Ù Ø§Ù„Ø´Ø®ØµÙŠ",
+    "settings":  "Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª",
+    "language":  "Ø§Ù„Ù„ØºØ©",
+    "systemLanguage":  "Ø§Ø³ØªØ®Ø¯Ø§Ù… Ù„ØºØ© Ø§Ù„Ø¬Ù‡Ø§Ø²",
+    "languageTurkish":  "TÃ¼rkÃ§e",
+    "languageEnglish":  "English",
+    "languageGerman":  "Deutsch",
+    "languageSpanish":  "EspaÃ±ol",
+    "languageFrench":  "FranÃ§ais",
+    "languagePortugueseBrazil":  "PortuguÃªs (Brasil)",
+    "languageArabic":  "Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©",
+    "languageHindi":  "à¤¹à¤¿à¤¨à¥à¤¦à¥€",
+    "restart":  "Ø¥Ø¹Ø§Ø¯Ø© Ø§Ù„Ø¨Ø¯Ø¡",
+    "lightPlayer":  "ÙØ§ØªØ­",
+    "darkPlayer":  "Ø¯Ø§ÙƒÙ†",
+    "playerWon":  "ÙØ§Ø² {player}",
+    "draw":  "ØªØ¹Ø§Ø¯Ù„",
+    "capturePrompt":  "{player}: Ø£Ø²Ù„ Ø­Ø¬Ø±Ù‹Ø§ Ù„Ù„Ø®ØµÙ…",
+    "placePrompt":  "{player}: Ø¶Ø¹ Ø­Ø¬Ø±Ù‹Ø§",
+    "movePrompt":  "{player}: Ù‚Ù… Ø¨Ø­Ø±ÙƒØªÙƒ",
+    "quickGoodMove":  "Ø­Ø±ÙƒØ© Ø¬ÙŠØ¯Ø©!",
+    "quickCongrats":  "ØªÙ‡Ø§Ù†ÙŠÙ†Ø§!",
+    "quickGoodGame":  "Ù„Ø¹Ø¨Ø© Ø¬Ù…ÙŠÙ„Ø©!",
+    "quickMore":  "Ø§Ù„Ù…Ø²ÙŠØ¯",
+    "shareInvite":  "ØªØ­Ø¯ÙÙ‘ Ø¹Ø¨Ø± ÙˆØ§ØªØ³Ø§Ø¨",
+    "challengeButton":  "ØªØ­Ø¯Ù‘Ù",
+    "challengePrepared":  "ØªÙ… ØªØ¬Ù‡ÙŠØ² Ø§Ù„ØªØ­Ø¯ÙŠ Ù„Ù€ {name}.",
+    "presenceOnline":  "Ù…ØªØµÙ„",
+    "presenceInMatch":  "ÙÙŠ Ù…Ø¨Ø§Ø±Ø§Ø©",
+    "presenceOffline":  "ØºÙŠØ± Ù…ØªØµÙ„",
+    "offlineDifficultyTitle":  "Ø§Ø®ØªØ± Ù…Ø³ØªÙˆÙ‰ Ø§Ù„ØµØ¹ÙˆØ¨Ø©",
+    "beginner":  "Ù…Ø¨ØªØ¯Ø¦",
+    "easy":  "Ø³Ù‡Ù„",
+    "medium":  "Ù…ØªÙˆØ³Ø·",
+    "hard":  "ØµØ¹Ø¨",
+    "master":  "Ø®Ø¨ÙŠØ±",
+    "sameDevice":  "Ù„Ø§Ø¹Ø¨Ø§Ù† Ø¹Ù„Ù‰ Ù‡Ø°Ø§ Ø§Ù„Ø¬Ù‡Ø§Ø²",
+    "featureComingSoon":  "Ø¨Ù†ÙŠØ© {feature} Ù‡ÙŠ Ø®Ø·ÙˆØ© Ø§Ù„ØªØ·ÙˆÙŠØ± Ø§Ù„ØªØ§Ù„ÙŠØ©.",
+    "errorMatchFinished":  "Ø§Ù†ØªÙ‡Øª Ù‡Ø°Ù‡ Ø§Ù„Ù…Ø¨Ø§Ø±Ø§Ø©.",
+    "errorCaptureRequired":  "Ø£Ø²Ù„ Ø­Ø¬Ø±Ù‹Ø§ Ù„Ù„Ø®ØµÙ… Ø£ÙˆÙ„Ù‹Ø§.",
+    "errorPlacementFinished":  "Ø§Ù†ØªÙ‡Øª Ù…Ø±Ø­Ù„Ø© ÙˆØ¶Ø¹ Ø§Ù„Ø£Ø­Ø¬Ø§Ø±.",
+    "errorPointOccupied":  "Ù‡Ø°Ù‡ Ø§Ù„Ù†Ù‚Ø·Ø© Ù…Ø´ØºÙˆÙ„Ø©.",
+    "errorNotMovementPhase":  "Ù„Ø§ ÙŠÙ…ÙƒÙ† ØªØ­Ø±ÙŠÙƒ Ø§Ù„Ø£Ø­Ø¬Ø§Ø± Ø¨Ø¹Ø¯.",
+    "errorNotYourPiece":  "Ù‡Ø°Ø§ Ø§Ù„Ø­Ø¬Ø± Ù„ÙŠØ³ Ù„Ùƒ.",
+    "errorTargetOccupied":  "Ø§Ù„Ù†Ù‚Ø·Ø© Ø§Ù„Ù…Ø³ØªÙ‡Ø¯ÙØ© Ù…Ø´ØºÙˆÙ„Ø©.",
+    "errorNotAdjacent":  "ØªØ­Ø±Ùƒ Ø¹Ù„Ù‰ Ø®Ø· Ù…ØªØµÙ„ Ø¥Ù„Ù‰ Ù†Ù‚Ø·Ø© Ù…Ø¬Ø§ÙˆØ±Ø©.",
+    "errorNoCaptureRight":  "Ù„Ø§ ÙŠÙ…ÙƒÙ†Ùƒ Ø£Ø®Ø° Ø­Ø¬Ø± Ø§Ù„Ø¢Ù†.",
+    "errorOpponentPieceRequired":  "Ø§Ø®ØªØ± Ø­Ø¬Ø±Ù‹Ø§ Ù„Ù„Ø®ØµÙ….",
+    "errorProtectedMillPiece":  "Ø§Ø®ØªØ± Ø£ÙˆÙ„Ù‹Ø§ Ø­Ø¬Ø±Ù‹Ø§ Ø®Ø§Ø±Ø¬ ØµÙ Ù…ÙƒØªÙ…Ù„.",
+    "errorInvalidPoint":  "Ù†Ù‚Ø·Ø© Ù„ÙˆØ­Ø© ØºÙŠØ± ØµØ§Ù„Ø­Ø©.",
+    "errorBoardMismatch":  "ØªØ³ØªØ®Ø¯Ù… Ù‡Ø°Ù‡ Ø§Ù„Ù…Ø¨Ø§Ø±Ø§Ø© Ù„ÙˆØ­Ø© ØºÙŠØ± Ù…ØªÙˆØ§ÙÙ‚Ø©.",
+    "continueMatch":  "Ù…ØªØ§Ø¨Ø¹Ø© Ø§Ù„Ù…Ø¨Ø§Ø±Ø§Ø©",
+    "continueMatchSubtitle":  "ØªØ§Ø¨Ø¹ Ù…Ø¨Ø§Ø±Ø§Ø© {gameName} Ù…Ù† Ø­ÙŠØ« ØªÙˆÙ‚ÙØª",
+    "@continueMatchSubtitle":  {
+                                   "placeholders":  {
+                                                        "gameName":  {
+                                                                         "type":  "String"
+                                                                     }
+                                                    }
+                               },
+    "resume":  "Ø§Ù„Ø¹ÙˆØ¯Ø© Ø¥Ù„Ù‰ Ø§Ù„Ù…Ø¨Ø§Ø±Ø§Ø©",
+    "saveAndExit":  "Ø­ÙØ¸ ÙˆØ®Ø±ÙˆØ¬",
+    "abandonMatch":  "Ø¥Ù†Ù‡Ø§Ø¡ Ø§Ù„Ù…Ø¨Ø§Ø±Ø§Ø©",
+    "matchInProgressTitle":  "Ø§Ù„Ù…Ø¨Ø§Ø±Ø§Ø© Ù…Ø³ØªÙ…Ø±Ø©",
+    "matchInProgressBody":  "ÙŠØªÙ… Ø­ÙØ¸ ÙˆØ¶Ø¹ Ø§Ù„Ù…Ø¨Ø§Ø±Ø§Ø© Ø§Ù„Ø­Ø§Ù„ÙŠ ØªÙ„Ù‚Ø§Ø¦ÙŠÙ‹Ø§. Ù…Ø§Ø°Ø§ ØªØ±ÙŠØ¯ Ø£Ù† ØªÙØ¹Ù„ØŸ",
+    "matchLoadError":  "ØªØ¹Ø°Ø± ÙØªØ­ Ø§Ù„Ù…Ø¨Ø§Ø±Ø§Ø© Ø§Ù„Ù…Ø­ÙÙˆØ¸Ø©.",
+    "errorTitle":  "Ø­Ø¯Ø« Ø®Ø·Ø£",
+    "routeError":  "ØªØ¹Ø°Ø± ÙØªØ­ Ù‡Ø°Ù‡ Ø§Ù„Ø´Ø§Ø´Ø© Ø¨Ø£Ù…Ø§Ù†.",
+    "backHome":  "Ø§Ù„Ø¹ÙˆØ¯Ø© Ù„Ù„Ø±Ø¦ÙŠØ³ÙŠØ©",
+    "noFriendsYet":  "Ù„Ø§ ÙŠÙˆØ¬Ø¯ Ø£ØµØ¯Ù‚Ø§Ø¡ Ø¨Ø¹Ø¯.",
+    "sound":  "Ø§Ù„ØµÙˆØª",
+    "haptic":  "Ø§Ù„Ø§Ù‡ØªØ²Ø§Ø² Ø§Ù„Ù„Ù…Ø³ÙŠ",
+    "boardView":  "Ø¹Ø±Ø¶ Ø§Ù„Ù„ÙˆØ­Ø©",
+    "viewFlat":  "2D",
+    "viewRealistic":  "ÙˆØ§Ù‚Ø¹ÙŠ",
+    "viewPerspective":  "3D",
+    "guestPlayer":  "Ø¶ÙŠÙ",
+    "localProfile":  "Ù…Ù„Ù Ù…Ø­Ù„ÙŠ",
+    "genericLoadError":  "ØªØ¹Ø°Ø± ØªØ­Ù…ÙŠÙ„ Ø§Ù„Ù…Ø­ØªÙˆÙ‰.",
+    "retry":  "Ø¥Ø¹Ø§Ø¯Ø© Ø§Ù„Ù…Ø­Ø§ÙˆÙ„Ø©",
+    "restartMatchTitle":  "Ø¥Ø¹Ø§Ø¯Ø© Ø¨Ø¯Ø¡ Ø§Ù„Ù…Ø¨Ø§Ø±Ø§Ø©ØŸ",
+    "restartMatchBody":  "Ø³ÙŠØªÙ… Ø§Ø³ØªØ¨Ø¯Ø§Ù„ Ø§Ù„ÙˆØ¶Ø¹ Ø§Ù„Ù…Ø­ÙÙˆØ¸ Ø§Ù„Ø­Ø§Ù„ÙŠ Ø¨Ù…Ø¨Ø§Ø±Ø§Ø© Ø¬Ø¯ÙŠØ¯Ø©.",
+    "cancel":  "Ø¥Ù„ØºØ§Ø¡",
+    "aiFoundationNotice":  "ÙƒÙ„Ù…Ø§ Ø§Ø±ØªÙØ¹ Ø§Ù„Ù…Ø³ØªÙˆÙ‰ØŒ Ø­Ø³Ø¨ Ø§Ù„Ø°ÙƒØ§Ø¡ Ø§Ù„Ø§ØµØ·Ù†Ø§Ø¹ÙŠ Ø¹Ø¯Ø¯Ø§Ù‹ Ø£ÙƒØ¨Ø± Ù…Ù† Ø§Ù„Ù†Ù‚Ù„Ø§Øª ÙˆÙ‚Ù„Ù‘Øª Ø£Ø®Ø·Ø§Ø¤Ù‡ Ø§Ù„ØªÙƒØªÙŠÙƒÙŠØ©.",
+    "saveFailedStayInMatch":  "ØªØ¹Ø°Ø± Ø­ÙØ¸ Ø§Ù„Ù…Ø¨Ø§Ø±Ø§Ø© Ø¨Ø£Ù…Ø§Ù†. Ø§Ø¨Ù‚Ù ÙÙŠ Ø§Ù„Ù…Ø¨Ø§Ø±Ø§Ø© ÙˆØ­Ø§ÙˆÙ„ Ù…Ø±Ø© Ø£Ø®Ø±Ù‰.",
+    "piecesToPlaceStatus":  "Ø§Ù„ÙØ§ØªØ­: {light}  â€¢  Ø§Ù„Ø¯Ø§ÙƒÙ†: {dark}",
+    "aiThinking":  "Ø§Ù„ÙƒÙ…Ø¨ÙŠÙˆØªØ± ÙŠÙÙƒØ±â€¦",
+    "computerPlayer":  "Ø§Ù„ÙƒÙ…Ø¨ÙŠÙˆØªØ±",
+    "you":  "Ø£Ù†Øª",
+    "moveCountLabel":  "Ø§Ù„Ù†Ù‚Ù„Ø© {count}",
+    "@moveCountLabel":  {
+                            "placeholders":  {
+                                                 "count":  {
+                                                               "type":  "int"
+                                                           }
+                                             }
+                        },
+    "boardPointLight":  "Ø§Ù„Ù†Ù‚Ø·Ø© {number}ØŒ Ø­Ø¬Ø± ÙØ§ØªØ­",
+    "@boardPointLight":  {
+                             "placeholders":  {
+                                                  "number":  {
+                                                                 "type":  "int"
+                                                             }
+                                              }
+                         },
+    "boardPointDark":  "Ø§Ù„Ù†Ù‚Ø·Ø© {number}ØŒ Ø­Ø¬Ø± Ø¯Ø§ÙƒÙ†",
+    "@boardPointDark":  {
+                            "placeholders":  {
+                                                 "number":  {
+                                                                "type":  "int"
+                                                            }
+                                             }
+                        },
+    "boardPointEmpty":  "Ø§Ù„Ù†Ù‚Ø·Ø© {number}ØŒ ÙØ§Ø±ØºØ©",
+    "@boardPointEmpty":  {
+                             "placeholders":  {
+                                                  "number":  {
+                                                                 "type":  "int"
+                                                             }
+                                              }
+                         },
+    "ratingValue":  "Ø§Ù„ØªØµÙ†ÙŠÙ {rating}",
+    "@ratingValue":  {
+                         "placeholders":  {
+                                              "rating":  {
+                                                             "type":  "int"
+                                                         }
+                                          }
+                     },
+    "inviteLinkReady":  "Ø±Ø§Ø¨Ø· Ø§Ù„Ø¯Ø¹ÙˆØ© Ø¬Ø§Ù‡Ø² Ù„Ù„Ù…Ø´Ø§Ø±ÙƒØ©.",
+    "ratings":  "Ø§Ù„ØªØµÙ†ÙŠÙØ§Øª",
+    "statistics":  "Ø§Ù„Ø¥Ø­ØµØ§Ø¡Ø§Øª",
+    "wins":  "Ø§Ù„Ø§Ù†ØªØµØ§Ø±Ø§Øª",
+    "losses":  "Ø§Ù„Ø®Ø³Ø§Ø¦Ø±",
+    "bestStreak":  "Ø£ÙØ¶Ù„ Ø³Ù„Ø³Ù„Ø©",
+    "winRate":  "Ù†Ø³Ø¨Ø© Ø§Ù„ÙÙˆØ²",
+    "countryProfile":  "Ø§Ù„Ø¨Ù„Ø¯: {code}",
+    "@countryProfile":  {
+                            "placeholders":  {
+                                                 "code":  {
+                                                              "type":  "String"
+                                                          }
+                                             }
+                        },
+    "world":  "Ø§Ù„Ø¹Ø§Ù„Ù…",
+    "country":  "Ø§Ù„Ø¨Ù„Ø¯",
+    "recordValue":  "{wins} Ù â€¢ {losses} Ø®",
+    "@recordValue":  {
+                         "placeholders":  {
+                                              "wins":  {
+                                                           "type":  "int"
+                                                       },
+                                              "losses":  {
+                                                             "type":  "int"
+                                                         }
+                                          }
+                     },
+    "onlineArena":  "Ø§Ù„Ø³Ø§Ø­Ø© Ø¹Ø¨Ø± Ø§Ù„Ø¥Ù†ØªØ±Ù†Øª",
+    "onlineArenaSubtitle":  "Ù…Ø¨Ø§Ø±ÙŠØ§Øª Ø³Ø±ÙŠØ¹Ø© ÙˆØªØ­Ø¯ÙŠØ§Øª Ù„Ù„Ø£ØµØ¯Ù‚Ø§Ø¡ ÙˆØªØµÙ†ÙŠÙØ§Øª ÙÙŠ Ù…ÙƒØ§Ù† ÙˆØ§Ø­Ø¯.",
+    "quickMatch":  "Ù…Ø¨Ø§Ø±Ø§Ø© Ø³Ø±ÙŠØ¹Ø©",
+    "onlineBackendRequired":  "Ø£Ø³Ø§Ø³ Ø§Ù„Ø¹Ù…ÙŠÙ„ Ø¹Ø¨Ø± Ø§Ù„Ø¥Ù†ØªØ±Ù†Øª Ø¬Ø§Ù‡Ø². ÙŠØ¨Ù‚Ù‰ Ø§Ù„ØªÙˆÙÙŠÙ‚ Ø§Ù„Ù…ØµÙ†Ù Ù…Ø¹Ø·Ù„Ø§Ù‹ Ø¨Ø£Ù…Ø§Ù† Ø­ØªÙ‰ Ù†Ø´Ø± Firebase Auth ÙˆRealtime Database ÙˆCloud Functions.",
+    "challengeFriends":  "ØªØ­Ø¯ÙŠ Ø§Ù„Ø£ØµØ¯Ù‚Ø§Ø¡",
+    "viewRankings":  "Ø¹Ø±Ø¶ Ø§Ù„ØªØµÙ†ÙŠÙØ§Øª",
+    "tutorialProgress":  "Ø§Ù„Ø®Ø·ÙˆØ© {current} Ù…Ù† {total}",
+    "@tutorialProgress":  {
+                              "placeholders":  {
+                                                   "current":  {
+                                                                   "type":  "int"
+                                                               },
+                                                   "total":  {
+                                                                 "type":  "int"
+                                                             }
+                                               }
+                          },
+    "tutorialPlaceTitle":  "Ø¶Ø¹ Ø£Ø­Ø¬Ø§Ø±Ùƒ",
+    "tutorialPlaceBody":  "Ø£Ø«Ù†Ø§Ø¡ Ù…Ø±Ø­Ù„Ø© Ø§Ù„ÙˆØ¶Ø¹ Ø§Ø¶ØºØ· Ù†Ù‚Ø·Ø© ÙØ§Ø±ØºØ©. Ø§Ø¨Ù†Ù Ø®Ø·ØªÙƒ ÙˆØ§Ù…Ù†Ø¹ Ø®ØµÙ…Ùƒ.",
+    "tutorialMillTitle":  "ÙƒÙˆÙ‘Ù† Ø·Ø§Ø­ÙˆÙ†Ø©",
+    "tutorialMillBody":  "Ø«Ù„Ø§Ø«Ø© Ø£Ø­Ø¬Ø§Ø± Ù„Ùƒ Ø¹Ù„Ù‰ Ø®Ø· ØµØ§Ù„Ø­ ØªÙƒÙˆÙ‘Ù† Ø·Ø§Ø­ÙˆÙ†Ø©.",
+    "tutorialCaptureTitle":  "Ø§Ù„ØªÙ‚Ø· Ø­Ø¬Ø±Ø§Ù‹",
+    "tutorialCaptureBody":  "Ø¨Ø¹Ø¯ ØªÙƒÙˆÙŠÙ† Ø·Ø§Ø­ÙˆÙ†Ø© Ø§Ø®ØªØ± Ø­Ø¬Ø±Ø§Ù‹ Ù„Ù„Ø®ØµÙ… Ù…Ù…ÙŠØ²Ø§Ù‹. ÙŠØ¬Ø¨ Ø£Ø®Ø° Ø§Ù„Ø£Ø­Ø¬Ø§Ø± Ø®Ø§Ø±Ø¬ Ø§Ù„Ø·ÙˆØ§Ø­ÙŠÙ† Ø£ÙˆÙ„Ø§Ù‹ Ø¹Ù†Ø¯ ØªÙˆÙØ±Ù‡Ø§.",
+    "tutorialMoveTitle":  "ØªØ­Ø±Ùƒ Ø¹Ù„Ù‰ Ø§Ù„Ø®Ø·ÙˆØ·",
+    "tutorialMoveBody":  "Ø¨Ø¹Ø¯ ÙˆØ¶Ø¹ Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø£Ø­Ø¬Ø§Ø± Ø­Ø±Ù‘Ùƒ Ø­Ø¬Ø±Ø§Ù‹ Ø¥Ù„Ù‰ Ù†Ù‚Ø·Ø© ÙØ§Ø±ØºØ© Ù…Ø¬Ø§ÙˆØ±Ø©. ÙˆÙŠÙ…ÙƒÙ† Ø§Ù„Ø³Ø­Ø¨ Ø¨Ø§Ù„Ø¶ØºØ· Ø§Ù„Ù…Ø·ÙˆÙ„.",
+    "tutorialBlockTitle":  "Ø§Ø­Ø§ØµØ± Ø§Ù„Ø®ØµÙ…",
+    "tutorialBlockBody":  "Ø³ÙŠØ·Ø± Ø¹Ù„Ù‰ Ø§Ù„ØªÙ‚Ø§Ø·Ø¹Ø§Øª ÙˆØ£ØºÙ„Ù‚ Ø§Ù„Ù…Ø³Ø§Ø±Ø§Øª. Ù…Ù† Ù„Ø§ ÙŠÙ…Ù„Ùƒ Ø­Ø±ÙƒØ© Ù‚Ø§Ù†ÙˆÙ†ÙŠØ© ÙŠØ®Ø³Ø± ÙÙŠ 9 Ùˆ12 Ø­Ø¬Ø±Ø§Ù‹.",
+    "tutorialFlyTitle":  "Ø§Ø·ÙØ± Ø¨Ø«Ù„Ø§Ø«Ø© Ø£Ø­Ø¬Ø§Ø±",
+    "tutorialFlyBody":  "Ø¹Ù†Ø¯ ØªÙØ¹ÙŠÙ„ Ø§Ù„Ø·ÙŠØ±Ø§Ù† ÙˆÙˆØµÙˆÙ„Ùƒ Ø¥Ù„Ù‰ Ø«Ù„Ø§Ø«Ø© Ø£Ø­Ø¬Ø§Ø± ÙŠÙ…ÙƒÙ†Ùƒ Ø§Ù„Ø§Ù†ØªÙ‚Ø§Ù„ Ø¥Ù„Ù‰ Ø£ÙŠ Ù†Ù‚Ø·Ø© ÙØ§Ø±ØºØ©.",
+    "tutorialDoubleMillTitle":  "Ø§ØµÙ†Ø¹ ØªÙ‡Ø¯ÙŠØ¯Ø§Øª Ù…ØªÙƒØ±Ø±Ø©",
+    "tutorialDoubleMillBody":  "Ø§Ù„Ù„Ø¹Ø¨ Ø§Ù„Ù…ØªÙ‚Ø¯Ù… ÙŠØ±Ø¨Ø· Ø§Ù„Ø·ÙˆØ§Ø­ÙŠÙ† ÙˆÙŠÙØ±Ø¶ Ø§Ù„Ø§Ù„ØªÙ‚Ø§Ø· ÙˆÙŠØ­Ø§ÙØ¸ Ø¹Ù„Ù‰ Ø§Ù„Ø­Ø±ÙƒØ©.",
+    "previous":  "Ø§Ù„Ø³Ø§Ø¨Ù‚",
+    "finish":  "Ø¥Ù†Ù‡Ø§Ø¡",
+    "next":  "Ø§Ù„ØªØ§Ù„ÙŠ",
+    "gameExperience":  "ØªØ¬Ø±Ø¨Ø© Ø§Ù„Ù„Ø¹Ø¨",
+    "reduceMotion":  "ØªÙ‚Ù„ÙŠÙ„ Ø§Ù„Ø­Ø±ÙƒØ©",
+    "reduceMotionSubtitle":  "ÙŠØ¹Ø·Ù„ Ø§Ù„Ù†Ø¨Ø¶ ÙˆØ§Ù„Ø­Ø±ÙƒØ§Øª ØºÙŠØ± Ø§Ù„Ø¶Ø±ÙˆØ±ÙŠØ©.",
+    "showMoveHints":  "Ø¥Ø¸Ù‡Ø§Ø± ØªÙ„Ù…ÙŠØ­Ø§Øª Ø§Ù„Ù†Ù‚Ù„",
+    "showMoveHintsSubtitle":  "ÙŠØ¨Ø±Ø² Ø§Ù„ÙˆØ¬Ù‡Ø§Øª Ø§Ù„Ù‚Ø§Ù†ÙˆÙ†ÙŠØ© ÙˆØ£Ù‡Ø¯Ø§Ù Ø§Ù„Ø§Ù„ØªÙ‚Ø§Ø·.",
+    "colorAssist":  "Ù…Ø³Ø§Ø¹Ø¯Ø© Ø§Ù„Ø£Ù„ÙˆØ§Ù†",
+    "colorAssistSubtitle":  "ÙŠØ¶ÙŠÙ Ø£Ø´ÙƒØ§Ù„Ø§Ù‹ ÙˆØ­Ø¯ÙˆØ¯Ø§Ù‹ Ø­ØªÙ‰ Ù„Ø§ ØªØ¹ØªÙ…Ø¯ Ø§Ù„Ø­Ø§Ù„Ø§Øª Ø¹Ù„Ù‰ Ø§Ù„Ù„ÙˆÙ† ÙÙ‚Ø·.",
+    "boardSurface":  "Ø³Ø·Ø­ Ø§Ù„Ù„ÙˆØ­Ø©",
+    "surfaceWood":  "Ø®Ø´Ø¨",
+    "surfaceDarkStone":  "Ø­Ø¬Ø± Ø¯Ø§ÙƒÙ†",
+    "surfaceMarble":  "Ø±Ø®Ø§Ù…",
+    "surfaceMinimal":  "Ø¨Ø³ÙŠØ·",
+    "pieceTheme":  "Ù†Ù…Ø· Ø§Ù„Ø£Ø­Ø¬Ø§Ø±",
+    "pieceClassic":  "ÙƒÙ„Ø§Ø³ÙŠÙƒÙŠ",
+    "pieceMarble":  "Ø±Ø®Ø§Ù…",
+    "pieceObsidian":  "Ø³Ø¨Ø¬",
+    "progression":  "Ø§Ù„ØªÙ‚Ø¯Ù…",
+    "levelLabel":  "Ø§Ù„Ù…Ø³ØªÙˆÙ‰ {level}",
+    "@levelLabel":  {
+                        "placeholders":  {
+                                             "level":  {
+                                                           "type":  "int"
+                                                       }
+                                         }
+                    },
+    "xpProgress":  "{current} / {target} XP",
+    "@xpProgress":  {
+                        "placeholders":  {
+                                             "current":  {
+                                                             "type":  "int"
+                                                         },
+                                             "target":  {
+                                                            "type":  "int"
+                                                        }
+                                         }
+                    },
+    "addFriendTitle":  "Ø¥Ø¶Ø§ÙØ© ØµØ¯ÙŠÙ‚",
+    "addFriendSubtitle":  "Ø£Ø¶Ù Ù„Ø§Ø¹Ø¨Ù‹Ø§ Ø¥Ù„Ù‰ Ù‚Ø§Ø¦Ù…Ø© Ø£ØµØ¯Ù‚Ø§Ø¦Ùƒ Ø¨Ø§Ù„Ø§Ø³Ù….",
+    "friendNameLabel":  "Ø§Ø³Ù… Ø§Ù„Ù„Ø§Ø¹Ø¨",
+    "friendNameHint":  "Ø§ÙƒØªØ¨ Ø§Ø³Ù… Ø§Ù„Ù„Ø§Ø¹Ø¨",
+    "addFriendButton":  "Ø¥Ø¶Ø§ÙØ© ØµØ¯ÙŠÙ‚",
+    "friendNameTooShort":  "Ø£Ø¯Ø®Ù„ Ø­Ø±ÙÙŠÙ† Ø¹Ù„Ù‰ Ø§Ù„Ø£Ù‚Ù„.",
+    "friendAlreadyAdded":  "Ù‡Ø°Ø§ Ø§Ù„Ù„Ø§Ø¹Ø¨ Ù…ÙˆØ¬ÙˆØ¯ Ø¨Ø§Ù„ÙØ¹Ù„ ÙÙŠ Ù‚Ø§Ø¦Ù…Ø© Ø£ØµØ¯Ù‚Ø§Ø¦Ùƒ.",
+    "friendAdded":  "ØªÙ…Øª Ø¥Ø¶Ø§ÙØ© {name} Ø¥Ù„Ù‰ Ø£ØµØ¯Ù‚Ø§Ø¦Ùƒ.",
+    "whatsappChallengeInvite":  "Ø£ØªØ­Ø¯Ø§Ùƒ ÙÙŠ {game} Ø¹Ù„Ù‰ Morris World! Ø§ÙØªØ­ Ø§Ù„Ù„Ø¹Ø¨Ø© Ø£Ùˆ Ø«Ø¨Ù‘ØªÙ‡Ø§ Ù…Ù† Ù‡Ù†Ø§: {link}",
+    "resultVictoryPraise":  "ØªÙ‡Ø§Ù†ÙŠÙ†Ø§! Ù„Ø¹Ø¨ Ø±Ø§Ø¦Ø¹. Ù‡Ù„ ØªØ±ÙŠØ¯ Ù…Ø¨Ø§Ø±Ø§Ø© Ø«Ø£Ø±ÙŠØ©ØŸ",
+    "resultDefeatPraise":  "Ù…Ø¨Ø§Ø±Ø§Ø© Ø¬ÙŠØ¯Ø©! Ù‡Ù„ Ø£Ù†Øª Ù…Ø³ØªØ¹Ø¯ Ù„Ù„Ø«Ø£Ø±ØŸ",
+    "resultDrawPraise":  "Ù…Ø¨Ø§Ø±Ø§Ø© Ø±Ø§Ø¦Ø¹Ø© ÙˆØ§Ù†ØªÙ‡Øª Ø¨Ø§Ù„ØªØ¹Ø§Ø¯Ù„. Ø¬ÙˆÙ„Ø© Ø£Ø®Ø±Ù‰ØŸ",
+    "resultLocalPraise":  "Ù…Ø¨Ø§Ø±Ø§Ø© Ø±Ø§Ø¦Ø¹Ø©! Ù‡Ù„ ØªØ±ÙŠØ¯Ø§Ù† Ù…Ø¨Ø§Ø±Ø§Ø© Ø«Ø£Ø±ÙŠØ©ØŸ",
+    "rematch":  "Ù…Ø¨Ø§Ø±Ø§Ø© Ø«Ø£Ø±ÙŠØ©",
+    "@friendAdded":  {
+                         "placeholders":  {
+                                              "name":  {
+                                                           "type":  "String"
+                                                       }
+                                          }
+                     },
+    "@whatsappChallengeInvite":  {
+                                     "placeholders":  {
+                                                          "game":  {
+                                                                       "type":  "String"
+                                                                   },
+                                                          "link":  {
+                                                                       "type":  "String"
+                                                                   }
+                                                      }
+                                 },
+    "editProfile":  "ØªØ¹Ø¯ÙŠÙ„ Ø§Ù„Ù…Ù„Ù Ø§Ù„Ø´Ø®ØµÙŠ",
+    "playerName":  "Ø§Ø³Ù… Ø§Ù„Ù„Ø§Ø¹Ø¨",
+    "countryCode":  "Ø±Ù…Ø² Ø§Ù„Ø¯ÙˆÙ„Ø©",
+    "saveProfile":  "Ø­ÙØ¸ Ø§Ù„Ù…Ù„Ù Ø§Ù„Ø´Ø®ØµÙŠ",
+    "profileSaved":  "ØªÙ… Ø­ÙØ¸ Ø§Ù„Ù…Ù„Ù Ø§Ù„Ø´Ø®ØµÙŠ.",
+    "profileSaveFailed":  "ØªØ¹Ø°Ø± Ø­ÙØ¸ Ø§Ù„Ù…Ù„Ù Ø§Ù„Ø´Ø®ØµÙŠ.",
+    "profileNameRequired":  "Ù„Ø§ ÙŠÙ…ÙƒÙ† Ø£Ù† ÙŠÙƒÙˆÙ† Ø§Ø³Ù… Ø§Ù„Ù„Ø§Ø¹Ø¨ ÙØ§Ø±ØºÙ‹Ø§.",
+    "profileCountryCodeHint":  "Ù…Ø«Ø§Ù„: TR",
+    "profileCountryCodeInvalid":  "ÙŠØ¬Ø¨ Ø£Ù† ÙŠØªÙƒÙˆÙ† Ø±Ù…Ø² Ø§Ù„Ø¯ÙˆÙ„Ø© Ù…Ù† Ø­Ø±ÙÙŠÙ†.",
+    "profileLocalSaveNote":  "ÙŠØªÙ… Ø­ÙØ¸ Ø¨ÙŠØ§Ù†Ø§Øª Ù…Ù„ÙÙƒ Ø§Ù„Ø´Ø®ØµÙŠ Ø¨Ø£Ù…Ø§Ù† Ø¹Ù„Ù‰ Ù‡Ø°Ø§ Ø§Ù„Ø¬Ù‡Ø§Ø²."
+}

@@ -1,0 +1,294 @@
+﻿{
+    "@@locale":  "de",
+    "appTitle":  "3-9-12 Taş",
+    "home":  "Startseite",
+    "selectGameTitle":  "Spiel auswÃ¤hlen",
+    "selectGameSubtitle":  "Drei klassische Strategiespiele in einer ruhigen sozialen Welt.",
+    "game3Name":  "Drei-MÃ¼hle",
+    "game3Description":  "Schnell, einfach und taktisch.",
+    "game9Name":  "MÃ¼hle",
+    "game9Description":  "Das klassische Hauptspiel.",
+    "game12Name":  "ZwÃ¶lf-MÃ¼hle",
+    "game12Description":  "Dichteres Brett, tiefere Strategie.",
+    "selectModeTitle":  "Wie mÃ¶chtest du {gameName} spielen?",
+    "online":  "Online",
+    "onlineSubtitle":  "Finde weltweit einen echten Gegner",
+    "challenge":  "Herausfordern",
+    "challengeSubtitle":  "Freund im Spiel oder per Link einladen",
+    "offline":  "Offline",
+    "offlineSubtitle":  "Gegen KI oder zu zweit auf einem GerÃ¤t",
+    "computerModeTitle":  "Gegen Computer spielen",
+    "computerModeSubtitle":  "Kein Internet nÃ¶tig â€¢ Schwierigkeit wÃ¤hlen",
+    "sameDeviceSubtitle":  "Zu zweit abwechselnd auf diesem GerÃ¤t spielen",
+    "howToPlay":  "Spielregeln",
+    "friends":  "Freunde",
+    "rankings":  "Rangliste",
+    "profile":  "Profil",
+    "settings":  "Einstellungen",
+    "language":  "Sprache",
+    "systemLanguage":  "GerÃ¤tesprache verwenden",
+    "languageTurkish":  "TÃ¼rkÃ§e",
+    "languageEnglish":  "English",
+    "languageGerman":  "Deutsch",
+    "languageSpanish":  "EspaÃ±ol",
+    "languageFrench":  "FranÃ§ais",
+    "languagePortugueseBrazil":  "PortuguÃªs (Brasil)",
+    "languageArabic":  "Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©",
+    "languageHindi":  "à¤¹à¤¿à¤¨à¥à¤¦à¥€",
+    "restart":  "Neu starten",
+    "lightPlayer":  "Hell",
+    "darkPlayer":  "Dunkel",
+    "playerWon":  "{player} hat gewonnen",
+    "draw":  "Unentschieden",
+    "capturePrompt":  "{player}: gegnerischen Stein entfernen",
+    "placePrompt":  "{player}: Stein setzen",
+    "movePrompt":  "{player}: ziehen",
+    "quickGoodMove":  "Guter Zug!",
+    "quickCongrats":  "GlÃ¼ckwunsch!",
+    "quickGoodGame":  "Gutes Spiel!",
+    "quickMore":  "Mehr",
+    "shareInvite":  "Ãœber WhatsApp herausfordern",
+    "challengeButton":  "Herausfordern",
+    "challengePrepared":  "Herausforderung fÃ¼r {name} ist bereit.",
+    "presenceOnline":  "Online",
+    "presenceInMatch":  "Im Spiel",
+    "presenceOffline":  "Offline",
+    "offlineDifficultyTitle":  "Schwierigkeit wÃ¤hlen",
+    "beginner":  "AnfÃ¤nger",
+    "easy":  "Leicht",
+    "medium":  "Mittel",
+    "hard":  "Schwer",
+    "master":  "Meister",
+    "sameDevice":  "Zwei Spieler auf diesem GerÃ¤t",
+    "featureComingSoon":  "{feature} ist der nÃ¤chste Entwicklungsschritt.",
+    "errorMatchFinished":  "Dieses Spiel ist beendet.",
+    "errorCaptureRequired":  "Entferne zuerst einen gegnerischen Stein.",
+    "errorPlacementFinished":  "Die Setzphase ist beendet.",
+    "errorPointOccupied":  "Dieser Punkt ist belegt.",
+    "errorNotMovementPhase":  "Steine kÃ¶nnen noch nicht bewegt werden.",
+    "errorNotYourPiece":  "Dieser Stein gehÃ¶rt dir nicht.",
+    "errorTargetOccupied":  "Der Zielpunkt ist belegt.",
+    "errorNotAdjacent":  "Ziehe entlang einer Linie zu einem benachbarten Punkt.",
+    "errorNoCaptureRight":  "Du darfst jetzt keinen Stein entfernen.",
+    "errorOpponentPieceRequired":  "WÃ¤hle einen gegnerischen Stein.",
+    "errorProtectedMillPiece":  "WÃ¤hle zuerst einen Stein auÃŸerhalb einer MÃ¼hle.",
+    "errorInvalidPoint":  "UngÃ¼ltiger Brettpunkt.",
+    "errorBoardMismatch":  "Dieses Spiel verwendet ein inkompatibles Brett.",
+    "continueMatch":  "Spiel fortsetzen",
+    "continueMatchSubtitle":  "Setze dein {gameName}-Spiel fort",
+    "@continueMatchSubtitle":  {
+                                   "placeholders":  {
+                                                        "gameName":  {
+                                                                         "type":  "String"
+                                                                     }
+                                                    }
+                               },
+    "resume":  "Zum Spiel zurÃ¼ck",
+    "saveAndExit":  "Speichern und beenden",
+    "abandonMatch":  "Spiel aufgeben",
+    "matchInProgressTitle":  "Spiel lÃ¤uft",
+    "matchInProgressBody":  "Deine aktuelle Position wird automatisch gespeichert. Was mÃ¶chtest du tun?",
+    "matchLoadError":  "Das gespeicherte Spiel konnte nicht geÃ¶ffnet werden.",
+    "errorTitle":  "Etwas ist schiefgelaufen",
+    "routeError":  "Diese Seite konnte nicht sicher geÃ¶ffnet werden.",
+    "backHome":  "Zur Startseite",
+    "noFriendsYet":  "Noch keine Freunde.",
+    "sound":  "Ton",
+    "haptic":  "Haptisches Feedback",
+    "boardView":  "Brettansicht",
+    "viewFlat":  "2D",
+    "viewRealistic":  "Realistisch",
+    "viewPerspective":  "3D",
+    "guestPlayer":  "Gast",
+    "localProfile":  "Lokales Profil",
+    "genericLoadError":  "Der Inhalt konnte nicht geladen werden.",
+    "retry":  "Erneut versuchen",
+    "restartMatchTitle":  "Spiel neu starten?",
+    "restartMatchBody":  "Der aktuell gespeicherte Stand wird durch ein neues Spiel ersetzt.",
+    "cancel":  "Abbrechen",
+    "aiFoundationNotice":  "HÃ¶here Stufen berechnen mehr ZÃ¼ge voraus und machen weniger taktische Fehler.",
+    "saveFailedStayInMatch":  "Das Spiel konnte nicht sicher gespeichert werden. Bleibe im Spiel und versuche es erneut.",
+    "piecesToPlaceStatus":  "Hell: {light}  â€¢  Dunkel: {dark}",
+    "aiThinking":  "Computer denkt nachâ€¦",
+    "computerPlayer":  "Computer",
+    "you":  "Du",
+    "moveCountLabel":  "Zug {count}",
+    "@moveCountLabel":  {
+                            "placeholders":  {
+                                                 "count":  {
+                                                               "type":  "int"
+                                                           }
+                                             }
+                        },
+    "boardPointLight":  "Punkt {number}, heller Stein",
+    "@boardPointLight":  {
+                             "placeholders":  {
+                                                  "number":  {
+                                                                 "type":  "int"
+                                                             }
+                                              }
+                         },
+    "boardPointDark":  "Punkt {number}, dunkler Stein",
+    "@boardPointDark":  {
+                            "placeholders":  {
+                                                 "number":  {
+                                                                "type":  "int"
+                                                            }
+                                             }
+                        },
+    "boardPointEmpty":  "Punkt {number}, leer",
+    "@boardPointEmpty":  {
+                             "placeholders":  {
+                                                  "number":  {
+                                                                 "type":  "int"
+                                                             }
+                                              }
+                         },
+    "ratingValue":  "Wertung {rating}",
+    "@ratingValue":  {
+                         "placeholders":  {
+                                              "rating":  {
+                                                             "type":  "int"
+                                                         }
+                                          }
+                     },
+    "inviteLinkReady":  "Einladungslink ist bereit.",
+    "ratings":  "Wertungen",
+    "statistics":  "Statistiken",
+    "wins":  "Siege",
+    "losses":  "Niederlagen",
+    "bestStreak":  "Beste Serie",
+    "winRate":  "Siegquote",
+    "countryProfile":  "Land: {code}",
+    "@countryProfile":  {
+                            "placeholders":  {
+                                                 "code":  {
+                                                              "type":  "String"
+                                                          }
+                                             }
+                        },
+    "world":  "Welt",
+    "country":  "Land",
+    "recordValue":  "{wins} S â€¢ {losses} N",
+    "@recordValue":  {
+                         "placeholders":  {
+                                              "wins":  {
+                                                           "type":  "int"
+                                                       },
+                                              "losses":  {
+                                                             "type":  "int"
+                                                         }
+                                          }
+                     },
+    "onlineArena":  "Online-Arena",
+    "onlineArenaSubtitle":  "Schnelle Partien, Herausforderungen und Ranglisten an einem Ort.",
+    "quickMatch":  "Schnelles Spiel",
+    "onlineBackendRequired":  "Die Online-Clientbasis ist bereit. Ranglisten-Matchmaking bleibt deaktiviert, bis Firebase Auth, Realtime Database und Cloud Functions bereitgestellt sind.",
+    "challengeFriends":  "Freunde herausfordern",
+    "viewRankings":  "Rangliste ansehen",
+    "tutorialProgress":  "Schritt {current} von {total}",
+    "@tutorialProgress":  {
+                              "placeholders":  {
+                                                   "current":  {
+                                                                   "type":  "int"
+                                                               },
+                                                   "total":  {
+                                                                 "type":  "int"
+                                                             }
+                                               }
+                          },
+    "tutorialPlaceTitle":  "Steine setzen",
+    "tutorialPlaceBody":  "Tippe in der Setzphase auf einen freien Punkt. Plane eigene MÃ¼hlen und blockiere den Gegner.",
+    "tutorialMillTitle":  "MÃ¼hle bilden",
+    "tutorialMillBody":  "Drei eigene Steine auf einer gÃ¼ltigen Linie bilden eine MÃ¼hle.",
+    "tutorialCaptureTitle":  "Stein schlagen",
+    "tutorialCaptureBody":  "Nach einer MÃ¼hle wÃ¤hlst du einen markierten gegnerischen Stein. Steine auÃŸerhalb von MÃ¼hlen mÃ¼ssen zuerst geschlagen werden.",
+    "tutorialMoveTitle":  "Entlang der Linien ziehen",
+    "tutorialMoveBody":  "Nach dem Setzen ziehst du zu einem benachbarten freien Punkt. Langes DrÃ¼cken und Ziehen ist ebenfalls mÃ¶glich.",
+    "tutorialBlockTitle":  "Gegner blockieren",
+    "tutorialBlockBody":  "Kontrolliere Kreuzungen und sperre Wege. Ohne legalen Zug verliert man bei 9/12 Steinen.",
+    "tutorialFlyTitle":  "Mit drei Steinen fliegen",
+    "tutorialFlyBody":  "Bei aktivierter Flugregel darfst du mit drei Steinen auf jeden freien Punkt ziehen.",
+    "tutorialDoubleMillTitle":  "Wiederholte Drohungen",
+    "tutorialDoubleMillBody":  "Fortgeschrittenes Spiel verbindet MÃ¼hlen, erzwingt SchlÃ¤ge und erhÃ¤lt Beweglichkeit.",
+    "previous":  "ZurÃ¼ck",
+    "finish":  "Fertig",
+    "next":  "Weiter",
+    "gameExperience":  "Spielerlebnis",
+    "reduceMotion":  "Bewegung reduzieren",
+    "reduceMotionSubtitle":  "Deaktiviert Pulsieren und unnÃ¶tige Bewegung.",
+    "showMoveHints":  "Zughinweise anzeigen",
+    "showMoveHintsSubtitle":  "Markiert gÃ¼ltige Ziele und Schlagsteine.",
+    "colorAssist":  "FarbunterstÃ¼tzung",
+    "colorAssistSubtitle":  "ZusÃ¤tzliche Formen und RÃ¤nder vermitteln ZustÃ¤nde nicht nur durch Farbe.",
+    "boardSurface":  "BrettoberflÃ¤che",
+    "surfaceWood":  "Holz",
+    "surfaceDarkStone":  "Dunkler Stein",
+    "surfaceMarble":  "Marmor",
+    "surfaceMinimal":  "Minimal",
+    "pieceTheme":  "Steinstil",
+    "pieceClassic":  "Klassisch",
+    "pieceMarble":  "Marmor",
+    "pieceObsidian":  "Obsidian",
+    "progression":  "Fortschritt",
+    "levelLabel":  "Stufe {level}",
+    "@levelLabel":  {
+                        "placeholders":  {
+                                             "level":  {
+                                                           "type":  "int"
+                                                       }
+                                         }
+                    },
+    "xpProgress":  "{current} / {target} XP",
+    "@xpProgress":  {
+                        "placeholders":  {
+                                             "current":  {
+                                                             "type":  "int"
+                                                         },
+                                             "target":  {
+                                                            "type":  "int"
+                                                        }
+                                         }
+                    },
+    "addFriendTitle":  "Freund hinzufÃ¼gen",
+    "addFriendSubtitle":  "FÃ¼ge einen Spieler per Name zu deiner Freundesliste hinzu.",
+    "friendNameLabel":  "Spielername",
+    "friendNameHint":  "Spielername eingeben",
+    "addFriendButton":  "Freund hinzufÃ¼gen",
+    "friendNameTooShort":  "Gib mindestens 2 Zeichen ein.",
+    "friendAlreadyAdded":  "Dieser Spieler ist bereits in deiner Freundesliste.",
+    "friendAdded":  "{name} wurde zu deinen Freunden hinzugefÃ¼gt.",
+    "whatsappChallengeInvite":  "Ich fordere dich in Morris World zu {game} heraus! Ã–ffne oder installiere das Spiel hier: {link}",
+    "resultVictoryPraise":  "GlÃ¼ckwunsch! Stark gespielt. Lust auf eine Revanche?",
+    "resultDefeatPraise":  "Gut gekÃ¤mpft! Bereit fÃ¼r eine Revanche?",
+    "resultDrawPraise":  "Tolles Spiel â€” unentschieden. Noch eine Runde?",
+    "resultLocalPraise":  "Tolles Spiel! Lust auf eine Revanche?",
+    "rematch":  "Revanche spielen",
+    "@friendAdded":  {
+                         "placeholders":  {
+                                              "name":  {
+                                                           "type":  "String"
+                                                       }
+                                          }
+                     },
+    "@whatsappChallengeInvite":  {
+                                     "placeholders":  {
+                                                          "game":  {
+                                                                       "type":  "String"
+                                                                   },
+                                                          "link":  {
+                                                                       "type":  "String"
+                                                                   }
+                                                      }
+                                 },
+    "editProfile":  "Profil bearbeiten",
+    "playerName":  "Spielername",
+    "countryCode":  "LÃ¤ndercode",
+    "saveProfile":  "Profil speichern",
+    "profileSaved":  "Profil gespeichert.",
+    "profileSaveFailed":  "Das Profil konnte nicht gespeichert werden.",
+    "profileNameRequired":  "Der Spielername darf nicht leer sein.",
+    "profileCountryCodeHint":  "z. B. DE",
+    "profileCountryCodeInvalid":  "Der LÃ¤ndercode muss aus zwei Buchstaben bestehen.",
+    "profileLocalSaveNote":  "Deine Profildaten werden sicher auf diesem GerÃ¤t gespeichert."
+}

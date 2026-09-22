@@ -1,0 +1,353 @@
+﻿{
+    "@@locale":  "en",
+    "appTitle":  "3-9-12 Taş",
+    "home":  "Home",
+    "selectGameTitle":  "Choose your game",
+    "selectGameSubtitle":  "Three classic strategy games, one calm social world.",
+    "game3Name":  "Three Men\u0027s Morris",
+    "game3Description":  "Fast, simple and tactical.",
+    "game9Name":  "Nine Men\u0027s Morris",
+    "game9Description":  "The classic main game.",
+    "game12Name":  "Twelve Men\u0027s Morris",
+    "game12Description":  "A denser board with deeper strategy.",
+    "selectModeTitle":  "How would you like to play {gameName}?",
+    "@selectModeTitle":  {
+                             "placeholders":  {
+                                                  "gameName":  {
+                                                                   "type":  "String"
+                                                               }
+                                              }
+                         },
+    "online":  "Online",
+    "onlineSubtitle":  "Find a real opponent worldwide",
+    "challenge":  "Challenge",
+    "challengeSubtitle":  "Invite a friend in-game or by link",
+    "offline":  "Offline",
+    "offlineSubtitle":  "Play AI or two players on one device",
+    "computerModeTitle":  "Play vs Computer",
+    "computerModeSubtitle":  "No internet required â€¢ choose a difficulty",
+    "sameDeviceSubtitle":  "Take turns with two players on this device",
+    "howToPlay":  "How to play",
+    "friends":  "Friends",
+    "rankings":  "Rankings",
+    "profile":  "Profile",
+    "settings":  "Settings",
+    "language":  "Language",
+    "systemLanguage":  "Use device language",
+    "languageTurkish":  "TÃ¼rkÃ§e",
+    "languageEnglish":  "English",
+    "languageGerman":  "Deutsch",
+    "languageSpanish":  "EspaÃ±ol",
+    "languageFrench":  "FranÃ§ais",
+    "languagePortugueseBrazil":  "PortuguÃªs (Brasil)",
+    "languageArabic":  "Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©",
+    "languageHindi":  "à¤¹à¤¿à¤¨à¥à¤¦à¥€",
+    "restart":  "Restart",
+    "lightPlayer":  "Light",
+    "darkPlayer":  "Dark",
+    "playerWon":  "{player} won",
+    "@playerWon":  {
+                       "placeholders":  {
+                                            "player":  {
+                                                           "type":  "String"
+                                                       }
+                                        }
+                   },
+    "draw":  "Draw",
+    "capturePrompt":  "{player}: remove one opponent piece",
+    "@capturePrompt":  {
+                           "placeholders":  {
+                                                "player":  {
+                                                               "type":  "String"
+                                                           }
+                                            }
+                       },
+    "placePrompt":  "{player}: place a piece",
+    "@placePrompt":  {
+                         "placeholders":  {
+                                              "player":  {
+                                                             "type":  "String"
+                                                         }
+                                          }
+                     },
+    "movePrompt":  "{player}: make your move",
+    "@movePrompt":  {
+                        "placeholders":  {
+                                             "player":  {
+                                                            "type":  "String"
+                                                        }
+                                         }
+                    },
+    "quickGoodMove":  "Good move!",
+    "quickCongrats":  "Congratulations!",
+    "quickGoodGame":  "Good game!",
+    "quickMore":  "More",
+    "shareInvite":  "Challenge via WhatsApp",
+    "challengeButton":  "Challenge",
+    "challengePrepared":  "Challenge for {name} is ready.",
+    "@challengePrepared":  {
+                               "placeholders":  {
+                                                    "name":  {
+                                                                 "type":  "String"
+                                                             }
+                                                }
+                           },
+    "presenceOnline":  "Online",
+    "presenceInMatch":  "In match",
+    "presenceOffline":  "Offline",
+    "offlineDifficultyTitle":  "Choose difficulty",
+    "beginner":  "Beginner",
+    "easy":  "Easy",
+    "medium":  "Medium",
+    "hard":  "Hard",
+    "master":  "Master",
+    "sameDevice":  "Two players on this device",
+    "featureComingSoon":  "{feature} infrastructure is next in the roadmap.",
+    "@featureComingSoon":  {
+                               "placeholders":  {
+                                                    "feature":  {
+                                                                    "type":  "String"
+                                                                }
+                                                }
+                           },
+    "errorMatchFinished":  "This match is finished.",
+    "errorCaptureRequired":  "Remove an opponent piece first.",
+    "errorPlacementFinished":  "Placement is already finished.",
+    "errorPointOccupied":  "This point is occupied.",
+    "errorNotMovementPhase":  "Pieces cannot move yet.",
+    "errorNotYourPiece":  "That piece is not yours.",
+    "errorTargetOccupied":  "The target point is occupied.",
+    "errorNotAdjacent":  "Move along a connected line to an adjacent point.",
+    "errorNoCaptureRight":  "You cannot capture a piece now.",
+    "errorOpponentPieceRequired":  "Choose an opponent piece.",
+    "errorProtectedMillPiece":  "Choose a piece outside a mill first.",
+    "errorInvalidPoint":  "Invalid board point.",
+    "errorBoardMismatch":  "This match uses an incompatible board definition.",
+    "continueMatch":  "Continue match",
+    "continueMatchSubtitle":  "Resume your {gameName} match",
+    "@continueMatchSubtitle":  {
+                                   "placeholders":  {
+                                                        "gameName":  {
+                                                                         "type":  "String"
+                                                                     }
+                                                    }
+                               },
+    "resume":  "Return to match",
+    "saveAndExit":  "Save and exit",
+    "abandonMatch":  "Abandon match",
+    "matchInProgressTitle":  "Match in progress",
+    "matchInProgressBody":  "Your current position is saved automatically. What would you like to do?",
+    "matchLoadError":  "The saved match could not be opened.",
+    "errorTitle":  "Something went wrong",
+    "routeError":  "This screen could not be opened safely.",
+    "backHome":  "Back to home",
+    "noFriendsYet":  "No friends yet.",
+    "sound":  "Sound",
+    "haptic":  "Haptic feedback",
+    "boardView":  "Board view",
+    "viewFlat":  "2D",
+    "viewRealistic":  "Realistic",
+    "viewPerspective":  "3D",
+    "guestPlayer":  "Guest",
+    "localProfile":  "Local profile",
+    "genericLoadError":  "The content could not be loaded.",
+    "retry":  "Retry",
+    "restartMatchTitle":  "Restart match?",
+    "restartMatchBody":  "The current saved position will be replaced by a new match.",
+    "cancel":  "Cancel",
+    "aiFoundationNotice":  "Higher levels look further ahead and make fewer tactical mistakes.",
+    "saveFailedStayInMatch":  "The match could not be saved safely. Stay in the match and try again.",
+    "piecesToPlaceStatus":  "Light: {light}  â€¢  Dark: {dark}",
+    "@piecesToPlaceStatus":  {
+                                 "placeholders":  {
+                                                      "light":  {
+                                                                    "type":  "int"
+                                                                },
+                                                      "dark":  {
+                                                                   "type":  "int"
+                                                               }
+                                                  }
+                             },
+    "aiThinking":  "Computer is thinkingâ€¦",
+    "computerPlayer":  "Computer",
+    "you":  "You",
+    "moveCountLabel":  "Move {count}",
+    "@moveCountLabel":  {
+                            "placeholders":  {
+                                                 "count":  {
+                                                               "type":  "int"
+                                                           }
+                                             }
+                        },
+    "boardPointLight":  "Point {number}, light piece",
+    "@boardPointLight":  {
+                             "placeholders":  {
+                                                  "number":  {
+                                                                 "type":  "int"
+                                                             }
+                                              }
+                         },
+    "boardPointDark":  "Point {number}, dark piece",
+    "@boardPointDark":  {
+                            "placeholders":  {
+                                                 "number":  {
+                                                                "type":  "int"
+                                                            }
+                                             }
+                        },
+    "boardPointEmpty":  "Point {number}, empty",
+    "@boardPointEmpty":  {
+                             "placeholders":  {
+                                                  "number":  {
+                                                                 "type":  "int"
+                                                             }
+                                              }
+                         },
+    "ratingValue":  "Rating {rating}",
+    "@ratingValue":  {
+                         "placeholders":  {
+                                              "rating":  {
+                                                             "type":  "int"
+                                                         }
+                                          }
+                     },
+    "inviteLinkReady":  "Invite link is ready to share.",
+    "ratings":  "Ratings",
+    "statistics":  "Statistics",
+    "wins":  "Wins",
+    "losses":  "Losses",
+    "bestStreak":  "Best streak",
+    "winRate":  "Win rate",
+    "countryProfile":  "Country: {code}",
+    "@countryProfile":  {
+                            "placeholders":  {
+                                                 "code":  {
+                                                              "type":  "String"
+                                                          }
+                                             }
+                        },
+    "world":  "World",
+    "country":  "Country",
+    "recordValue":  "{wins} W â€¢ {losses} L",
+    "@recordValue":  {
+                         "placeholders":  {
+                                              "wins":  {
+                                                           "type":  "int"
+                                                       },
+                                              "losses":  {
+                                                             "type":  "int"
+                                                         }
+                                          }
+                     },
+    "onlineArena":  "Online Arena",
+    "onlineArenaSubtitle":  "Quick matches, friend challenges and rankings in one place.",
+    "quickMatch":  "Quick Match",
+    "onlineBackendRequired":  "The online client foundation is ready. Ranked matchmaking stays safely disabled until Firebase Auth, Realtime Database and Cloud Functions are deployed.",
+    "challengeFriends":  "Challenge Friends",
+    "viewRankings":  "View Rankings",
+    "tutorialProgress":  "Step {current} of {total}",
+    "@tutorialProgress":  {
+                              "placeholders":  {
+                                                   "current":  {
+                                                                   "type":  "int"
+                                                               },
+                                                   "total":  {
+                                                                 "type":  "int"
+                                                             }
+                                               }
+                          },
+    "tutorialPlaceTitle":  "Place your pieces",
+    "tutorialPlaceBody":  "During placement, tap an empty point. Build plans while also blocking your opponent.",
+    "tutorialMillTitle":  "Build a mill",
+    "tutorialMillBody":  "Three of your pieces on one valid line form a mill. The highlighted line shows the pattern.",
+    "tutorialCaptureTitle":  "Capture a piece",
+    "tutorialCaptureBody":  "After forming a mill, choose a highlighted opponent piece. Pieces outside mills must be captured first when available.",
+    "tutorialMoveTitle":  "Move along the lines",
+    "tutorialMoveBody":  "After all pieces are placed, move one piece to an adjacent empty point. You can also long-press and drag.",
+    "tutorialBlockTitle":  "Block the opponent",
+    "tutorialBlockBody":  "Control intersections and close routes. A player with no legal move loses in standard 9 and 12 Stone.",
+    "tutorialFlyTitle":  "Fly with three pieces",
+    "tutorialFlyBody":  "When flying is enabled and you are down to three pieces, a piece can move to any empty point.",
+    "tutorialDoubleMillTitle":  "Create repeating threats",
+    "tutorialDoubleMillBody":  "Advanced play is about moving between connected mills, forcing captures while keeping mobility.",
+    "previous":  "Previous",
+    "finish":  "Finish",
+    "next":  "Next",
+    "gameExperience":  "Game experience",
+    "reduceMotion":  "Reduce motion",
+    "reduceMotionSubtitle":  "Turns off pulsing and nonessential movement.",
+    "showMoveHints":  "Show move hints",
+    "showMoveHintsSubtitle":  "Highlights legal destinations and capture targets.",
+    "colorAssist":  "Color assistance",
+    "colorAssistSubtitle":  "Adds shapes and borders so states are not communicated by color alone.",
+    "boardSurface":  "Board surface",
+    "surfaceWood":  "Wood",
+    "surfaceDarkStone":  "Dark stone",
+    "surfaceMarble":  "Marble",
+    "surfaceMinimal":  "Minimal",
+    "pieceTheme":  "Piece style",
+    "pieceClassic":  "Classic",
+    "pieceMarble":  "Marble",
+    "pieceObsidian":  "Obsidian",
+    "progression":  "Progress",
+    "levelLabel":  "Level {level}",
+    "@levelLabel":  {
+                        "placeholders":  {
+                                             "level":  {
+                                                           "type":  "int"
+                                                       }
+                                         }
+                    },
+    "xpProgress":  "{current} / {target} XP",
+    "@xpProgress":  {
+                        "placeholders":  {
+                                             "current":  {
+                                                             "type":  "int"
+                                                         },
+                                             "target":  {
+                                                            "type":  "int"
+                                                        }
+                                         }
+                    },
+    "addFriendTitle":  "Add friend",
+    "addFriendSubtitle":  "Add a player by name to your friends list.",
+    "friendNameLabel":  "Player name",
+    "friendNameHint":  "Enter a player name",
+    "addFriendButton":  "Add Friend",
+    "friendNameTooShort":  "Enter at least 2 characters.",
+    "friendAlreadyAdded":  "This player is already in your friends list.",
+    "friendAdded":  "{name} was added to your friends.",
+    "whatsappChallengeInvite":  "I challenge you to {game} in Morris World! Open or install the game here: {link}",
+    "resultVictoryPraise":  "Congratulations! Great game. Want a rematch?",
+    "resultDefeatPraise":  "Good fight! Ready for a rematch?",
+    "resultDrawPraise":  "Great game â€” it ended in a draw. One more?",
+    "resultLocalPraise":  "Great match! Want to play a rematch?",
+    "rematch":  "Play Rematch",
+    "@friendAdded":  {
+                         "placeholders":  {
+                                              "name":  {
+                                                           "type":  "String"
+                                                       }
+                                          }
+                     },
+    "@whatsappChallengeInvite":  {
+                                     "placeholders":  {
+                                                          "game":  {
+                                                                       "type":  "String"
+                                                                   },
+                                                          "link":  {
+                                                                       "type":  "String"
+                                                                   }
+                                                      }
+                                 },
+    "editProfile":  "Edit profile",
+    "playerName":  "Player name",
+    "countryCode":  "Country code",
+    "saveProfile":  "Save profile",
+    "profileSaved":  "Profile saved.",
+    "profileSaveFailed":  "The profile could not be saved.",
+    "profileNameRequired":  "Player name cannot be empty.",
+    "profileCountryCodeHint":  "e.g. US",
+    "profileCountryCodeInvalid":  "Country code must be two letters.",
+    "profileLocalSaveNote":  "Your profile details are saved safely on this device."
+}

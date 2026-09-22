@@ -1,0 +1,56 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function isSelf(uid) { return signedIn() && request.auth.uid == uid; }
+    function challengeParty(data) {
+      return signedIn() &&
+        (request.auth.uid == data.senderId || request.auth.uid == data.receiverId);
+    }
+
+    match /users/{uid} {
+      allow read: if signedIn();
+      allow create: if isSelf(uid)
+        && request.resource.data.keys().hasOnly([
+          'displayName', 'avatarId', 'photoUrl', 'countryCode', 'updatedAt'
+        ]);
+      allow update: if isSelf(uid)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'displayName', 'avatarId', 'photoUrl', 'countryCode', 'updatedAt'
+        ]);
+      allow delete: if false;
+
+      match /friends/{friendId} {
+        allow read: if isSelf(uid);
+        // Friendship state is written by trusted backend functions only.
+        allow write: if false;
+      }
+    }
+
+    match /challenges/{challengeId} {
+      allow read: if challengeParty(resource.data);
+      // Create/accept/decline/rematch all go through Cloud Functions so the
+      // lifecycle cannot be replayed or forged by clients.
+      allow write: if false;
+    }
+
+    match /matchHistory/{matchId} {
+      allow read: if signedIn() && request.auth.uid in resource.data.playerIds;
+      allow write: if false;
+    }
+
+    match /leaderboards/{document=**} {
+      allow read: if signedIn();
+      allow write: if false;
+    }
+
+    match /quickMessages/{messageId} {
+      allow read: if signedIn() && request.auth.uid in resource.data.playerIds;
+      allow write: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
