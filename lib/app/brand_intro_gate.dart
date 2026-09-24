@@ -3,6 +3,9 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'app_colors.dart';
+import 'app_services_scope.dart';
+
 class BrandIntroGate extends StatefulWidget {
   const BrandIntroGate({super.key, required this.child});
 
@@ -14,7 +17,7 @@ class BrandIntroGate extends StatefulWidget {
 
 class _BrandIntroGateState extends State<BrandIntroGate>
     with SingleTickerProviderStateMixin {
-  static const _introDuration = Duration(milliseconds: 3200);
+  static const _introDuration = Duration(milliseconds: 1650);
 
   late final AnimationController _controller = AnimationController(
     vsync: this,
@@ -42,6 +45,14 @@ class _BrandIntroGateState extends State<BrandIntroGate>
 
   @override
   Widget build(BuildContext context) {
+    final reduceMotion =
+        MediaQuery.maybeOf(context)?.disableAnimations == true ||
+        AppServicesScope.of(context).settings.state.reduceMotion;
+
+    if (!_showIntro || reduceMotion) {
+      return widget.child;
+    }
+
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -50,11 +61,16 @@ class _BrandIntroGateState extends State<BrandIntroGate>
           Positioned.fill(
             child: AnnotatedRegion<SystemUiOverlayStyle>(
               value: SystemUiOverlayStyle.dark,
-              child: AbsorbPointer(
-                child: AnimatedBuilder(
-                  animation: _controller,
-                  builder: (context, _) => _BrandIntroScene(
-                    progress: _controller.value,
+              child: Semantics(
+                label: 'Morris World',
+                child: AbsorbPointer(
+                  child: ExcludeSemantics(
+                    child: AnimatedBuilder(
+                      animation: _controller,
+                      builder:
+                          (context, _) =>
+                              _BrandIntroScene(progress: _controller.value),
+                    ),
                   ),
                 ),
               ),
@@ -72,28 +88,36 @@ class _BrandIntroScene extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fadeOut = progress <= 0.9
-        ? 1.0
-        : (1 - ((progress - 0.9) / 0.1)).clamp(0.0, 1.0);
+    final fadeOut =
+        progress <= 0.84
+            ? 1.0
+            : (1 - ((progress - 0.84) / 0.16)).clamp(0.0, 1.0);
     final boardIn = Curves.easeOutCubic.transform(
-      (progress / 0.18).clamp(0.0, 1.0),
+      (progress / 0.22).clamp(0.0, 1.0),
     );
     final brandIn = Curves.easeOutCubic.transform(
-      ((progress - 0.28) / 0.42).clamp(0.0, 1.0),
+      ((progress - 0.25) / 0.36).clamp(0.0, 1.0),
     );
 
     return Opacity(
       opacity: fadeOut,
-      child: ColoredBox(
-        color: Colors.white,
+      child: DecoratedBox(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFFFDFEFE), AppColors.brandSoft],
+          ),
+        ),
         child: SafeArea(
           child: LayoutBuilder(
             builder: (context, constraints) {
               final width = constraints.maxWidth;
               final height = constraints.maxHeight;
-              final boardSize = math.min(width * 0.76, height * 0.46).toDouble();
+              final boardSize =
+                  math.min(width * 0.70, height * 0.42).toDouble();
               final boardLeft = (width - boardSize) / 2;
-              final boardTop = height * 0.29;
+              final boardTop = height * 0.24;
               final boardRect = Rect.fromLTWH(
                 boardLeft,
                 boardTop,
@@ -104,8 +128,24 @@ class _BrandIntroScene extends StatelessWidget {
               return Stack(
                 fit: StackFit.expand,
                 children: [
+                  Positioned.fill(
+                    child: IgnorePointer(
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          gradient: RadialGradient(
+                            center: const Alignment(0, -0.08),
+                            radius: 0.72,
+                            colors: [
+                              Colors.white.withValues(alpha: 0.78),
+                              Colors.transparent,
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                   Transform.scale(
-                    scale: 0.965 + (0.035 * boardIn),
+                    scale: 0.94 + (0.06 * boardIn),
                     child: Opacity(
                       opacity: boardIn,
                       child: CustomPaint(
@@ -149,7 +189,9 @@ class _BrandIntroScene extends StatelessWidget {
                                       Colors.transparent,
                                       stone.isDark
                                           ? Colors.black.withValues(alpha: 0.18)
-                                          : Colors.black.withValues(alpha: 0.09),
+                                          : Colors.black.withValues(
+                                            alpha: 0.09,
+                                          ),
                                     ],
                                   ),
                                   borderRadius: BorderRadius.circular(radius),
@@ -165,7 +207,7 @@ class _BrandIntroScene extends StatelessWidget {
                   Positioned(
                     left: 24,
                     right: 24,
-                    bottom: height * 0.11,
+                    bottom: height * 0.12,
                     child: Center(
                       child: ClipRect(
                         child: Align(
@@ -199,35 +241,51 @@ class _BrandWordmark extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const orange = Color(0xFFFF7A1A);
     return FittedBox(
       fit: BoxFit.scaleDown,
-      child: Row(
+      child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Column(
-            children: List.generate(
-              3,
-              (index) => Container(
-                width: 42 - (index * 7),
-                height: 3,
-                margin: const EdgeInsets.symmetric(vertical: 2),
-                decoration: BoxDecoration(
-                  color: orange.withValues(alpha: 0.34 + (index * 0.18)),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-              ),
+          Text(
+            'MORRIS',
+            style: TextStyle(
+              color: AppColors.brandTop,
+              fontSize: 36,
+              height: 0.9,
+              fontWeight: FontWeight.w900,
+              letterSpacing: 4.2,
             ),
           ),
-          const SizedBox(width: 8),
-          const Text(
+          const SizedBox(height: 6),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(width: 20, height: 2, color: AppColors.zpOrange),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 9),
+                child: Text(
+                  'WORLD',
+                  style: TextStyle(
+                    color: AppColors.zpOrange,
+                    fontSize: 13,
+                    height: 1,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 3.7,
+                  ),
+                ),
+              ),
+              Container(width: 20, height: 2, color: AppColors.zpOrange),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Text(
             'ZP GAMES',
             style: TextStyle(
-              color: orange,
-              fontSize: 34,
+              color: AppColors.inkMuted,
+              fontSize: 10,
               height: 1,
-              fontWeight: FontWeight.w800,
-              letterSpacing: 1.4,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 2.1,
             ),
           ),
         ],
@@ -279,15 +337,17 @@ class _MorrisBoardPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final line = Paint()
-      ..color = const Color(0xFF292929)
-      ..strokeWidth = math.max(2.2, boardRect.width * 0.007).toDouble()
-      ..strokeCap = StrokeCap.round
-      ..style = PaintingStyle.stroke;
+    final line =
+        Paint()
+          ..color = AppColors.brandTop
+          ..strokeWidth = math.max(2.2, boardRect.width * 0.007).toDouble()
+          ..strokeCap = StrokeCap.round
+          ..style = PaintingStyle.stroke;
 
-    final dot = Paint()
-      ..color = const Color(0xFF353535)
-      ..style = PaintingStyle.fill;
+    final dot =
+        Paint()
+          ..color = AppColors.brandDeep
+          ..style = PaintingStyle.fill;
 
     final inset1 = boardRect.width * 0.18;
     final inset2 = boardRect.width * 0.36;
@@ -339,14 +399,54 @@ class _IntroStone {
 }
 
 const _stones = <_IntroStone>[
-  _IntroStone(pointIndex: 0, isDark: false, startShift: -0.18, startHeight: 0.10),
-  _IntroStone(pointIndex: 1, isDark: true, startShift: -0.04, startHeight: 0.24),
-  _IntroStone(pointIndex: 9, isDark: false, startShift: 0.11, startHeight: 0.14),
-  _IntroStone(pointIndex: 14, isDark: true, startShift: 0.18, startHeight: 0.28),
-  _IntroStone(pointIndex: 3, isDark: true, startShift: -0.12, startHeight: 0.18),
-  _IntroStone(pointIndex: 5, isDark: false, startShift: 0.15, startHeight: 0.08),
-  _IntroStone(pointIndex: 17, isDark: true, startShift: -0.08, startHeight: 0.30),
-  _IntroStone(pointIndex: 20, isDark: false, startShift: 0.08, startHeight: 0.20),
+  _IntroStone(
+    pointIndex: 0,
+    isDark: false,
+    startShift: -0.18,
+    startHeight: 0.10,
+  ),
+  _IntroStone(
+    pointIndex: 1,
+    isDark: true,
+    startShift: -0.04,
+    startHeight: 0.24,
+  ),
+  _IntroStone(
+    pointIndex: 9,
+    isDark: false,
+    startShift: 0.11,
+    startHeight: 0.14,
+  ),
+  _IntroStone(
+    pointIndex: 14,
+    isDark: true,
+    startShift: 0.18,
+    startHeight: 0.28,
+  ),
+  _IntroStone(
+    pointIndex: 3,
+    isDark: true,
+    startShift: -0.12,
+    startHeight: 0.18,
+  ),
+  _IntroStone(
+    pointIndex: 5,
+    isDark: false,
+    startShift: 0.15,
+    startHeight: 0.08,
+  ),
+  _IntroStone(
+    pointIndex: 17,
+    isDark: true,
+    startShift: -0.08,
+    startHeight: 0.30,
+  ),
+  _IntroStone(
+    pointIndex: 20,
+    isDark: false,
+    startShift: 0.08,
+    startHeight: 0.20,
+  ),
 ];
 
 Offset _boardPoint(Rect rect, int index) {
@@ -366,9 +466,30 @@ Offset _boardPoint(Rect rect, int index) {
   final y6 = rect.bottom;
 
   const points = <List<int>>[
-    [0, 0], [3, 0], [6, 0], [0, 3], [6, 3], [0, 6], [3, 6], [6, 6],
-    [1, 1], [3, 1], [5, 1], [1, 3], [5, 3], [1, 5], [3, 5], [5, 5],
-    [2, 2], [3, 2], [4, 2], [2, 3], [4, 3], [2, 4], [3, 4], [4, 4],
+    [0, 0],
+    [3, 0],
+    [6, 0],
+    [0, 3],
+    [6, 3],
+    [0, 6],
+    [3, 6],
+    [6, 6],
+    [1, 1],
+    [3, 1],
+    [5, 1],
+    [1, 3],
+    [5, 3],
+    [1, 5],
+    [3, 5],
+    [5, 5],
+    [2, 2],
+    [3, 2],
+    [4, 2],
+    [2, 3],
+    [4, 3],
+    [2, 4],
+    [3, 4],
+    [4, 4],
   ];
   final xs = [x0, x1, x2, x3, x4, x5, x6];
   final ys = [y0, y1, y2, y3, y4, y5, y6];

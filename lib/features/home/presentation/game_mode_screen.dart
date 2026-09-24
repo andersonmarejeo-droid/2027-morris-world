@@ -39,15 +39,13 @@ class GameModeScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Center(
-            child: SizedBox(
-              width: 180,
-              child: MorrisBoard(
-                definition: definition,
-                board: emptyBoard,
-                onPointTap: (_) {},
-                interactive: false,
-              ),
+          _ModeHero(
+            title: title,
+            child: MorrisBoard(
+              definition: definition,
+              board: emptyBoard,
+              onPointTap: (_) {},
+              interactive: false,
             ),
           ),
           const SizedBox(height: AppSpacing.xl),
@@ -58,32 +56,46 @@ class GameModeScreen extends StatelessWidget {
               context,
             ).textTheme.headlineSmall?.copyWith(color: Colors.white),
           ),
+          const SizedBox(height: AppSpacing.sm),
+          Text(
+            l10n.offlineSubtitle,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Colors.white.withValues(alpha: 0.82),
+            ),
+          ),
           const SizedBox(height: AppSpacing.xl),
           _ModeTile(
             icon: Icons.public_rounded,
             title: l10n.online,
-            subtitle: l10n.onlineSubtitle,
+            subtitle: l10n.featureComingSoon(l10n.online),
             onTap: () => context.push(AppRoutes.online(gameId)),
+            accent: AppColors.brandDeep,
+            upcoming: true,
           ),
           _ModeTile(
             icon: Icons.sports_esports_rounded,
             title: l10n.challenge,
             subtitle: l10n.challengeSubtitle,
             onTap: () => context.push(AppRoutes.friendsForGame(gameId)),
+            accent: AppColors.zpOrange,
           ),
           _ModeTile(
             icon: Icons.smart_toy_rounded,
             title: l10n.computerModeTitle,
             subtitle: l10n.computerModeSubtitle,
             onTap: () => _chooseComputerDifficulty(context, l10n),
+            accent: AppColors.target,
+            featured: true,
           ),
           _ModeTile(
             icon: Icons.people_alt_rounded,
             title: l10n.sameDevice,
             subtitle: l10n.sameDeviceSubtitle,
             onTap: () => _startSameDevice(context),
+            accent: AppColors.selection,
           ),
-          const SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.xs),
           TextButton.icon(
             style: TextButton.styleFrom(foregroundColor: Colors.white),
             onPressed: () => context.push(AppRoutes.tutorial(gameId)),
@@ -201,68 +213,149 @@ class _ModeTile extends StatelessWidget {
     required this.title,
     required this.subtitle,
     required this.onTap,
+    required this.accent,
+    this.featured = false,
+    this.upcoming = false,
   });
 
   final IconData icon;
   final String title;
   final String subtitle;
   final VoidCallback onTap;
+  final Color accent;
+  final bool featured;
+  final bool upcoming;
 
   @override
   Widget build(BuildContext context) => Padding(
     padding: const EdgeInsets.only(bottom: AppSpacing.md),
     child: Material(
       color: Colors.white,
-      elevation: 2,
-      shadowColor: Colors.black26,
+      elevation: featured ? 4 : 0,
+      shadowColor: AppColors.ink.withValues(alpha: 0.25),
       borderRadius: BorderRadius.circular(AppRadii.large),
       child: InkWell(
         borderRadius: BorderRadius.circular(AppRadii.large),
         onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-          child: Row(
-            children: [
-              Container(
-                width: 54,
-                height: 54,
-                decoration: const BoxDecoration(
-                  color: AppColors.surfaceMuted,
-                  shape: BoxShape.circle,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(AppRadii.large),
+            border: Border.all(
+              color: featured ? accent.withValues(alpha: 0.7) : AppColors.line,
+              width: featured ? 2 : 1,
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            child: Row(
+              children: [
+                Container(
+                  width: 54,
+                  height: 54,
+                  decoration: BoxDecoration(
+                    color: accent.withValues(alpha: 0.14),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(icon, color: accent),
                 ),
-                child: Icon(icon, color: AppColors.ink),
-              ),
-              const SizedBox(width: AppSpacing.lg),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(title, style: Theme.of(context).textTheme.titleMedium),
-                    const SizedBox(height: 3),
-                    Text(
-                      subtitle,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                  ],
+                const SizedBox(width: AppSpacing.lg),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              title,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                          ),
+                          if (upcoming) ...[
+                            const SizedBox(width: AppSpacing.xs),
+                            const Icon(
+                              Icons.schedule_rounded,
+                              color: AppColors.inkMuted,
+                              size: 17,
+                            ),
+                          ],
+                        ],
+                      ),
+                      const SizedBox(height: 3),
+                      Text(
+                        subtitle,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(width: AppSpacing.sm),
-              Container(
-                width: 42,
-                height: 42,
-                decoration: const BoxDecoration(
-                  color: AppColors.ink,
-                  shape: BoxShape.circle,
+                const SizedBox(width: AppSpacing.sm),
+                Container(
+                  width: 42,
+                  height: 42,
+                  decoration: BoxDecoration(
+                    color: featured ? accent : AppColors.ink,
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.arrow_forward_rounded,
+                    color: Colors.white,
+                  ),
                 ),
-                child: const Icon(
-                  Icons.play_arrow_rounded,
-                  color: Colors.white,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
+    ),
+  );
+}
+
+class _ModeHero extends StatelessWidget {
+  const _ModeHero({required this.title, required this.child});
+
+  final String title;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) => Container(
+    height: 206,
+    padding: const EdgeInsets.all(AppSpacing.md),
+    decoration: BoxDecoration(
+      color: Colors.white.withValues(alpha: 0.12),
+      borderRadius: BorderRadius.circular(AppRadii.extraLarge),
+      border: Border.all(color: Colors.white.withValues(alpha: 0.26)),
+    ),
+    child: Stack(
+      alignment: Alignment.center,
+      children: [
+        Positioned(
+          top: 0,
+          left: AppSpacing.xs,
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.sm,
+              vertical: AppSpacing.xs,
+            ),
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.16),
+              borderRadius: BorderRadius.circular(AppRadii.pill),
+            ),
+            child: Text(
+              title,
+              style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 174, child: child),
+      ],
     ),
   );
 }

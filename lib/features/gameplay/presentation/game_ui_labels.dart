@@ -5,10 +5,10 @@ import '../../../core/game/game_models.dart';
 import '../../../core/game/morris_engine.dart';
 
 String gameName(AppLocalizations l10n, MorrisGameId id) => switch (id) {
-      MorrisGameId.three => l10n.game3Name,
-      MorrisGameId.nine => l10n.game9Name,
-      MorrisGameId.twelve => l10n.game12Name,
-    };
+  MorrisGameId.three => l10n.game3Name,
+  MorrisGameId.nine => l10n.game9Name,
+  MorrisGameId.twelve => l10n.game12Name,
+};
 
 String sideName(AppLocalizations l10n, PlayerSide side) =>
     side == PlayerSide.light ? l10n.lightPlayer : l10n.darkPlayer;
@@ -16,12 +16,17 @@ String sideName(AppLocalizations l10n, PlayerSide side) =>
 String instructionText(AppLocalizations l10n, MorrisGameState game) {
   if (game.isDraw) return l10n.draw;
   if (game.winner != null) return l10n.playerWon(sideName(l10n, game.winner!));
-  if (game.pendingCaptureBy != null) return l10n.capturePrompt(sideName(l10n, game.turn));
-  if (game.phase == MatchPhase.placement) return l10n.placePrompt(sideName(l10n, game.turn));
+  if (game.pendingCaptureBy != null) {
+    return l10n.capturePrompt(sideName(l10n, game.turn));
+  }
+  if (game.phase == MatchPhase.placement) {
+    return l10n.placePrompt(sideName(l10n, game.turn));
+  }
   return l10n.movePrompt(sideName(l10n, game.turn));
 }
 
-String moveErrorText(AppLocalizations l10n, MoveErrorCode code) => switch (code) {
+String moveErrorText(AppLocalizations l10n, MoveErrorCode code) =>
+    switch (code) {
       MoveErrorCode.matchFinished => l10n.errorMatchFinished,
       MoveErrorCode.captureRequired => l10n.errorCaptureRequired,
       MoveErrorCode.placementFinished => l10n.errorPlacementFinished,

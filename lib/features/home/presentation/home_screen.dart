@@ -110,18 +110,9 @@ class HomeScreen extends StatelessWidget {
                           child: _ContinueCard(session: session, l10n: l10n),
                         ),
           ),
-          Text(
-            l10n.selectGameTitle,
-            style: Theme.of(
-              context,
-            ).textTheme.headlineLarge?.copyWith(color: Colors.white),
-          ),
-          const SizedBox(height: AppSpacing.xs),
-          Text(
-            l10n.selectGameSubtitle,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Colors.white.withValues(alpha: 0.92),
-            ),
+          _HomeSectionHeader(
+            title: l10n.selectGameTitle,
+            subtitle: l10n.selectGameSubtitle,
           ),
           const SizedBox(height: AppSpacing.lg),
           _GameCard(
@@ -154,6 +145,46 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
+class _HomeSectionHeader extends StatelessWidget {
+  const _HomeSectionHeader({required this.title, required this.subtitle});
+
+  final String title;
+  final String subtitle;
+
+  @override
+  Widget build(BuildContext context) => Container(
+    padding: const EdgeInsets.fromLTRB(
+      AppSpacing.lg,
+      AppSpacing.lg,
+      AppSpacing.lg,
+      AppSpacing.md,
+    ),
+    decoration: BoxDecoration(
+      border: Border(
+        left: BorderSide(color: Colors.white.withValues(alpha: 0.9), width: 3),
+      ),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: Theme.of(
+            context,
+          ).textTheme.headlineLarge?.copyWith(color: Colors.white),
+        ),
+        const SizedBox(height: AppSpacing.xs),
+        Text(
+          subtitle,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            color: Colors.white.withValues(alpha: 0.9),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
 class _ProfileStrip extends StatelessWidget {
   const _ProfileStrip({
     required this.l10n,
@@ -166,60 +197,74 @@ class _ProfileStrip extends StatelessWidget {
   final String subtitle;
 
   @override
-  Widget build(BuildContext context) => Row(
-    children: [
-      InkWell(
-        customBorder: const CircleBorder(),
-        onTap: () => context.push(AppRoutes.profile),
-        child: Container(
-          width: 50,
-          height: 50,
-          decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.2),
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: Colors.white.withValues(alpha: 0.8),
-              width: 2,
-            ),
-          ),
-          child: const Icon(
-            Icons.person_rounded,
-            color: Colors.white,
-            size: 28,
-          ),
-        ),
+  Widget build(BuildContext context) => Material(
+    color: Colors.white.withValues(alpha: 0.14),
+    borderRadius: BorderRadius.circular(AppRadii.large),
+    child: Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.md,
+        vertical: AppSpacing.sm,
       ),
-      const SizedBox(width: AppSpacing.md),
-      Expanded(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              name,
-              style: Theme.of(
-                context,
-              ).textTheme.titleMedium?.copyWith(color: Colors.white),
-            ),
-            const SizedBox(height: 2),
-            Text(
-              subtitle,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Colors.white.withValues(alpha: 0.82),
+      child: Row(
+        children: [
+          InkWell(
+            customBorder: const CircleBorder(),
+            onTap: () => context.push(AppRoutes.profile),
+            child: Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.2),
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: Colors.white.withValues(alpha: 0.8),
+                  width: 2,
+                ),
+              ),
+              child: const Icon(
+                Icons.person_rounded,
+                color: Colors.white,
+                size: 28,
               ),
             ),
-          ],
-        ),
+          ),
+          const SizedBox(width: AppSpacing.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleMedium?.copyWith(color: Colors.white),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  subtitle,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Colors.white.withValues(alpha: 0.82),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          IconButton.filledTonal(
+            tooltip: l10n.settings,
+            onPressed: () => context.push(AppRoutes.settings),
+            style: IconButton.styleFrom(
+              backgroundColor: Colors.white.withValues(alpha: 0.92),
+              foregroundColor: AppColors.ink,
+            ),
+            icon: const Icon(Icons.settings_rounded),
+          ),
+        ],
       ),
-      IconButton.filledTonal(
-        tooltip: l10n.settings,
-        onPressed: () => context.push(AppRoutes.settings),
-        style: IconButton.styleFrom(
-          backgroundColor: Colors.white.withValues(alpha: 0.92),
-          foregroundColor: AppColors.ink,
-        ),
-        icon: const Icon(Icons.settings_rounded),
-      ),
-    ],
+    ),
   );
 }
 
@@ -230,7 +275,7 @@ class _ContinueCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Material(
-    color: Colors.white.withValues(alpha: 0.95),
+    color: AppColors.selection.withValues(alpha: 0.94),
     borderRadius: BorderRadius.circular(AppRadii.large),
     child: InkWell(
       borderRadius: BorderRadius.circular(AppRadii.large),
@@ -296,67 +341,126 @@ class _GameCard extends StatelessWidget {
     );
     return Material(
       color: Colors.white,
-      elevation: emphasized ? 4 : 1,
-      shadowColor: Colors.black26,
+      elevation: emphasized ? 4 : 0,
+      shadowColor: AppColors.ink.withValues(alpha: 0.28),
       borderRadius: BorderRadius.circular(AppRadii.large),
       child: InkWell(
         borderRadius: BorderRadius.circular(AppRadii.large),
         onTap: () => context.push(AppRoutes.mode(id)),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-          child: Row(
-            children: [
-              SizedBox(
-                width: emphasized ? 96 : 88,
-                child: MorrisBoard(
-                  definition: definition,
-                  board: emptyBoard,
-                  onPointTap: (_) {},
-                  interactive: false,
-                ),
-              ),
-              const SizedBox(width: AppSpacing.md),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      title,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.titleMedium,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(AppRadii.large),
+            border: Border.all(
+              color:
+                  emphasized
+                      ? AppColors.selection.withValues(alpha: 0.9)
+                      : Colors.white.withValues(alpha: 0.35),
+              width: emphasized ? 2 : 1,
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            child: Row(
+              children: [
+                Container(
+                  width: emphasized ? 96 : 88,
+                  padding: const EdgeInsets.all(AppSpacing.xs),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors:
+                          emphasized
+                              ? const [AppColors.brandDeep, AppColors.brandTop]
+                              : const [
+                                AppColors.surfaceMuted,
+                                AppColors.brandSoft,
+                              ],
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      subtitle,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                  ],
+                    borderRadius: BorderRadius.circular(AppRadii.medium),
+                  ),
+                  child: Stack(
+                    alignment: Alignment.topLeft,
+                    children: [
+                      MorrisBoard(
+                        definition: definition,
+                        board: emptyBoard,
+                        onPointTap: (_) {},
+                        interactive: false,
+                      ),
+                      Container(
+                        width: 26,
+                        height: 26,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color:
+                              emphasized
+                                  ? Colors.white.withValues(alpha: 0.94)
+                                  : AppColors.ink,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Text(
+                          _gameCount(id),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.labelMedium?.copyWith(
+                            color: emphasized ? AppColors.ink : Colors.white,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(width: AppSpacing.sm),
-              Container(
-                width: 36,
-                height: 36,
-                decoration: const BoxDecoration(
-                  color: AppColors.ink,
-                  shape: BoxShape.circle,
+                const SizedBox(width: AppSpacing.md),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        subtitle,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ],
+                  ),
                 ),
-                child: const Icon(
-                  Icons.play_arrow_rounded,
-                  color: Colors.white,
-                  size: 22,
+                const SizedBox(width: AppSpacing.sm),
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: emphasized ? AppColors.brandDeep : AppColors.ink,
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.arrow_forward_rounded,
+                    color: Colors.white,
+                    size: 21,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
     );
   }
+
+  String _gameCount(MorrisGameId game) => switch (game) {
+    MorrisGameId.three => '3',
+    MorrisGameId.nine => '9',
+    MorrisGameId.twelve => '12',
+  };
 }
 
 class _ChallengeCard extends StatelessWidget {
@@ -377,47 +481,65 @@ class _ChallengeCard extends StatelessWidget {
     child: InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(AppRadii.large),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-        child: Row(
-          children: [
-            Container(
-              width: 42,
-              height: 42,
-              decoration: const BoxDecoration(
-                color: AppColors.brandSoft,
-                shape: BoxShape.circle,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(AppRadii.large),
+          border: Border.all(color: AppColors.brandSoft, width: 2),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+          child: Row(
+            children: [
+              Container(
+                width: 42,
+                height: 42,
+                decoration: const BoxDecoration(
+                  color: AppColors.brandSoft,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.group_add_rounded,
+                  color: AppColors.brandDeep,
+                ),
               ),
-              child: const Icon(
-                Icons.group_add_rounded,
-                color: AppColors.brandDeep,
+              const SizedBox(width: AppSpacing.md),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 3),
+                    Text(
+                      subtitle,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(width: AppSpacing.md),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: 3),
-                  Text(
-                    subtitle,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                ],
+              const SizedBox(width: AppSpacing.sm),
+              Container(
+                width: 36,
+                height: 36,
+                decoration: const BoxDecoration(
+                  color: AppColors.ink,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.arrow_forward_rounded,
+                  color: Colors.white,
+                  size: 20,
+                ),
               ),
-            ),
-            const SizedBox(width: AppSpacing.sm),
-            const Icon(Icons.chevron_right_rounded),
-          ],
+            ],
+          ),
         ),
       ),
     ),

@@ -114,7 +114,7 @@ abstract class AppLocalizations {
   /// No description provided for @appTitle.
   ///
   /// In en, this message translates to:
-  /// **'3-9-12 Taş'**
+  /// **'Morris World'**
   String get appTitle;
 
   /// No description provided for @home.
@@ -222,7 +222,7 @@ abstract class AppLocalizations {
   /// No description provided for @computerModeSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'No internet required â€¢ choose a difficulty'**
+  /// **'No internet required • choose a difficulty'**
   String get computerModeSubtitle;
 
   /// No description provided for @sameDeviceSubtitle.
@@ -276,7 +276,7 @@ abstract class AppLocalizations {
   /// No description provided for @languageTurkish.
   ///
   /// In en, this message translates to:
-  /// **'TÃ¼rkÃ§e'**
+  /// **'Türkçe'**
   String get languageTurkish;
 
   /// No description provided for @languageEnglish.
@@ -294,31 +294,31 @@ abstract class AppLocalizations {
   /// No description provided for @languageSpanish.
   ///
   /// In en, this message translates to:
-  /// **'EspaÃ±ol'**
+  /// **'Español'**
   String get languageSpanish;
 
   /// No description provided for @languageFrench.
   ///
   /// In en, this message translates to:
-  /// **'FranÃ§ais'**
+  /// **'Français'**
   String get languageFrench;
 
   /// No description provided for @languagePortugueseBrazil.
   ///
   /// In en, this message translates to:
-  /// **'PortuguÃªs (Brasil)'**
+  /// **'Português (Brasil)'**
   String get languagePortugueseBrazil;
 
   /// No description provided for @languageArabic.
   ///
   /// In en, this message translates to:
-  /// **'Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©'**
+  /// **'العربية'**
   String get languageArabic;
 
   /// No description provided for @languageHindi.
   ///
   /// In en, this message translates to:
-  /// **'à¤¹à¤¿à¤¨à¥à¤¦à¥€'**
+  /// **'हिन्दी'**
   String get languageHindi;
 
   /// No description provided for @restart.
@@ -720,13 +720,13 @@ abstract class AppLocalizations {
   /// No description provided for @piecesToPlaceStatus.
   ///
   /// In en, this message translates to:
-  /// **'Light: {light}  â€¢  Dark: {dark}'**
+  /// **'Light: {light}  •  Dark: {dark}'**
   String piecesToPlaceStatus(int light, int dark);
 
   /// No description provided for @aiThinking.
   ///
   /// In en, this message translates to:
-  /// **'Computer is thinkingâ€¦'**
+  /// **'Computer is thinking…'**
   String get aiThinking;
 
   /// No description provided for @computerPlayer.
@@ -834,7 +834,7 @@ abstract class AppLocalizations {
   /// No description provided for @recordValue.
   ///
   /// In en, this message translates to:
-  /// **'{wins} W â€¢ {losses} L'**
+  /// **'{wins} W • {losses} L'**
   String recordValue(int wins, int losses);
 
   /// No description provided for @onlineArena.
@@ -1164,7 +1164,7 @@ abstract class AppLocalizations {
   /// No description provided for @resultDrawPraise.
   ///
   /// In en, this message translates to:
-  /// **'Great game â€” it ended in a draw. One more?'**
+  /// **'Great game — it ended in a draw. One more?'**
   String get resultDrawPraise;
 
   /// No description provided for @resultLocalPraise.

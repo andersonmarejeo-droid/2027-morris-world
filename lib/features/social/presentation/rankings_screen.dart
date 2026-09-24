@@ -41,6 +41,15 @@ class _RankingsScreenState extends State<RankingsScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          _RankingsHero(
+            title: l10n.rankings,
+            scope: switch (tab) {
+              _RankingTab.world => l10n.world,
+              _RankingTab.country => l10n.country,
+              _RankingTab.friends => l10n.friends,
+            },
+          ),
+          const SizedBox(height: AppSpacing.lg),
           _RankingTabs(
             selected: tab,
             worldLabel: l10n.world,
@@ -125,6 +134,75 @@ class _RankingTabs extends StatelessWidget {
   }
 }
 
+class _RankingsHero extends StatelessWidget {
+  const _RankingsHero({required this.title, required this.scope});
+
+  final String title;
+  final String scope;
+
+  @override
+  Widget build(BuildContext context) => Container(
+    padding: const EdgeInsets.all(AppSpacing.lg),
+    decoration: BoxDecoration(
+      gradient: const LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [AppColors.ink, AppColors.brandDeep],
+      ),
+      borderRadius: BorderRadius.circular(AppRadii.large),
+    ),
+    child: Row(
+      children: [
+        Container(
+          width: 54,
+          height: 54,
+          decoration: const BoxDecoration(
+            color: AppColors.selection,
+            shape: BoxShape.circle,
+          ),
+          child: const Icon(
+            Icons.emoji_events_rounded,
+            color: AppColors.ink,
+            size: 30,
+          ),
+        ),
+        const SizedBox(width: AppSpacing.md),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(color: Colors.white),
+              ),
+              const SizedBox(height: AppSpacing.xs),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.sm,
+                  vertical: AppSpacing.xs,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.13),
+                  borderRadius: BorderRadius.circular(AppRadii.pill),
+                ),
+                child: Text(
+                  scope,
+                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
 class _RankingTabButton extends StatelessWidget {
   const _RankingTabButton({
     required this.label,
@@ -191,52 +269,104 @@ class _RankingRow extends StatelessWidget {
   final AppLocalizations l10n;
 
   @override
-  Widget build(BuildContext context) => Card(
-    child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 38,
-            child: Text(
-              entry.rank.toString(),
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: entry.rank <= 3 ? AppColors.brandDeep : AppColors.ink,
+  Widget build(BuildContext context) {
+    final podiumColor = _podiumColor(entry.rank);
+    final initial =
+        entry.player.name.trim().isEmpty
+            ? '?'
+            : entry.player.name.trim().characters.first.toUpperCase();
+    return Card(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(AppRadii.large),
+          border:
+              entry.rank <= 3
+                  ? Border.all(
+                    color: podiumColor.withValues(alpha: 0.7),
+                    width: 1.5,
+                  )
+                  : null,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+          child: Row(
+            children: [
+              Container(
+                width: 38,
+                height: 38,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color:
+                      entry.rank <= 3
+                          ? podiumColor.withValues(alpha: 0.18)
+                          : AppColors.surfaceMuted,
+                  shape: BoxShape.circle,
+                ),
+                child:
+                    entry.rank <= 3
+                        ? Icon(
+                          Icons.emoji_events_rounded,
+                          color: podiumColor,
+                          size: 21,
+                        )
+                        : Text(
+                          entry.rank.toString(),
+                          style: Theme.of(context).textTheme.labelLarge
+                              ?.copyWith(fontWeight: FontWeight.w900),
+                        ),
               ),
-            ),
-          ),
-          CircleAvatar(
-            radius: 19,
-            child: Text(entry.player.name.characters.first),
-          ),
-          const SizedBox(width: AppSpacing.md),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  entry.player.name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.titleMedium,
+              const SizedBox(width: AppSpacing.sm),
+              CircleAvatar(
+                radius: 20,
+                backgroundColor: AppColors.brandSoft,
+                foregroundColor: AppColors.brandDeep,
+                child: Text(initial),
+              ),
+              const SizedBox(width: AppSpacing.md),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      entry.player.name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      l10n.recordValue(entry.wins, entry.losses),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 2),
-                Text(
-                  l10n.recordValue(entry.wins, entry.losses),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              ],
-            ),
+              ),
+              const SizedBox(width: AppSpacing.sm),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Icon(Icons.bolt_rounded, color: podiumColor, size: 17),
+                  Text(
+                    entry.player.rating.toString(),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-          const SizedBox(width: AppSpacing.sm),
-          Text(
-            entry.player.rating.toString(),
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-        ],
+        ),
       ),
-    ),
-  );
+    );
+  }
+
+  Color _podiumColor(int rank) => switch (rank) {
+    1 => AppColors.selection,
+    2 => AppColors.inkMuted,
+    3 => AppColors.zpOrange,
+    _ => AppColors.brandDeep,
+  };
 }

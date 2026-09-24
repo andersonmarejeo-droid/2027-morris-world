@@ -32,7 +32,7 @@ void main() {
     expect(socialDomain, contains('Future<bool> addFriend(String name)'));
     expect(game, contains('_requestRematch'));
     expect(game, contains('resultVictoryPraise'));
-    expect(game, contains('height: 54'));
+    expect(game, contains('minHeight: 54'));
     expect(
       board,
       isNot(contains('final arc = math.sin(math.pi * motionProgress)')),

@@ -7,6 +7,8 @@ abstract final class AppSpacing {
   static const xl = 24.0;
   static const xxl = 32.0;
   static const xxxl = 40.0;
+  static const pageHorizontal = 20.0;
+  static const pageVertical = 20.0;
 }
 
 abstract final class AppRadii {
@@ -21,5 +23,14 @@ abstract final class AppConstraints {
   static const contentMaxWidth = 760.0;
   static const compactMaxWidth = 560.0;
   static const boardMaxWidth = 620.0;
+  static const navigationMaxWidth = 680.0;
+  static const comfortableScreenWidth = 700.0;
   static const minTapTarget = 48.0;
+}
+
+abstract final class AppElevation {
+  static const cardShadow = 0.035;
+  static const floatingShadow = 0.14;
+  static const blurSmall = 10.0;
+  static const blurLarge = 26.0;
 }

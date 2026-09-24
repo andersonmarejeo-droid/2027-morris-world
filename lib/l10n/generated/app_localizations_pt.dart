@@ -9,47 +9,47 @@ class AppLocalizationsPt extends AppLocalizations {
   AppLocalizationsPt([String locale = 'pt']) : super(locale);
 
   @override
-  String get appTitle => '3-9-12 Taş';
+  String get appTitle => 'Morris World';
 
   @override
-  String get home => 'InÃ­cio';
+  String get home => 'Início';
 
   @override
   String get selectGameTitle => 'Escolha seu jogo';
 
   @override
   String get selectGameSubtitle =>
-      'TrÃªs jogos clÃ¡ssicos de estratÃ©gia em um Ãºnico espaÃ§o social e tranquilo.';
+      'Três jogos clássicos de estratégia em um único espaço social e tranquilo.';
 
   @override
   String get game3Name => 'Moinho de 3';
 
   @override
-  String get game3Description => 'RÃ¡pido, simples e tÃ¡tico.';
+  String get game3Description => 'Rápido, simples e tático.';
 
   @override
   String get game9Name => 'Moinho de 9';
 
   @override
-  String get game9Description => 'O clÃ¡ssico principal.';
+  String get game9Description => 'O clássico principal.';
 
   @override
   String get game12Name => 'Moinho de 12';
 
   @override
   String get game12Description =>
-      'Tabuleiro mais denso e estratÃ©gia mais profunda.';
+      'Tabuleiro mais denso e estratégia mais profunda.';
 
   @override
   String selectModeTitle(String gameName) {
-    return 'Como vocÃª quer jogar $gameName?';
+    return 'Como você quer jogar $gameName?';
   }
 
   @override
   String get online => 'Online';
 
   @override
-  String get onlineSubtitle => 'Encontre um adversÃ¡rio real no mundo';
+  String get onlineSubtitle => 'Encontre um adversário real no mundo';
 
   @override
   String get challenge => 'Desafiar';
@@ -69,7 +69,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get computerModeSubtitle =>
-      'NÃ£o precisa de internet â€¢ escolha a dificuldade';
+      'Não precisa de internet • escolha a dificuldade';
 
   @override
   String get sameDeviceSubtitle => 'Dois jogadores alternam neste dispositivo';
@@ -87,7 +87,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get profile => 'Perfil';
 
   @override
-  String get settings => 'ConfiguraÃ§Ãµes';
+  String get settings => 'Configurações';
 
   @override
   String get language => 'Idioma';
@@ -96,7 +96,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get systemLanguage => 'Usar idioma do aparelho';
 
   @override
-  String get languageTurkish => 'TÃ¼rkÃ§e';
+  String get languageTurkish => 'Türkçe';
 
   @override
   String get languageEnglish => 'English';
@@ -105,19 +105,19 @@ class AppLocalizationsPt extends AppLocalizations {
   String get languageGerman => 'Deutsch';
 
   @override
-  String get languageSpanish => 'EspaÃ±ol';
+  String get languageSpanish => 'Español';
 
   @override
-  String get languageFrench => 'FranÃ§ais';
+  String get languageFrench => 'Français';
 
   @override
-  String get languagePortugueseBrazil => 'PortuguÃªs (Brasil)';
+  String get languagePortugueseBrazil => 'Português (Brasil)';
 
   @override
-  String get languageArabic => 'Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©';
+  String get languageArabic => 'العربية';
 
   @override
-  String get languageHindi => 'à¤¹à¤¿à¤¨à¥à¤¦à¥€';
+  String get languageHindi => 'हिन्दी';
 
   @override
   String get restart => 'Reiniciar';
@@ -138,24 +138,24 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String capturePrompt(String player) {
-    return '$player: remova uma peÃ§a adversÃ¡ria';
+    return '$player: remova uma peça adversária';
   }
 
   @override
   String placePrompt(String player) {
-    return '$player: coloque uma peÃ§a';
+    return '$player: coloque uma peça';
   }
 
   @override
   String movePrompt(String player) {
-    return '$player: faÃ§a sua jogada';
+    return '$player: faça sua jogada';
   }
 
   @override
   String get quickGoodMove => 'Boa jogada!';
 
   @override
-  String get quickCongrats => 'ParabÃ©ns!';
+  String get quickCongrats => 'Parabéns!';
 
   @override
   String get quickGoodGame => 'Bom jogo!';
@@ -171,7 +171,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String challengePrepared(String name) {
-    return 'O desafio para $name estÃ¡ pronto.';
+    return 'O desafio para $name está pronto.';
   }
 
   @override
@@ -190,13 +190,13 @@ class AppLocalizationsPt extends AppLocalizations {
   String get beginner => 'Iniciante';
 
   @override
-  String get easy => 'FÃ¡cil';
+  String get easy => 'Fácil';
 
   @override
-  String get medium => 'MÃ©dio';
+  String get medium => 'Médio';
 
   @override
-  String get hard => 'DifÃ­cil';
+  String get hard => 'Difícil';
 
   @override
   String get master => 'Mestre';
@@ -206,50 +206,50 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String featureComingSoon(String feature) {
-    return '$feature Ã© o prÃ³ximo passo de desenvolvimento.';
+    return '$feature é o próximo passo de desenvolvimento.';
   }
 
   @override
   String get errorMatchFinished => 'Esta partida terminou.';
 
   @override
-  String get errorCaptureRequired => 'Remova primeiro uma peÃ§a adversÃ¡ria.';
+  String get errorCaptureRequired => 'Remova primeiro uma peça adversária.';
 
   @override
-  String get errorPlacementFinished => 'A fase de colocaÃ§Ã£o terminou.';
+  String get errorPlacementFinished => 'A fase de colocação terminou.';
 
   @override
-  String get errorPointOccupied => 'Este ponto estÃ¡ ocupado.';
+  String get errorPointOccupied => 'Este ponto está ocupado.';
 
   @override
-  String get errorNotMovementPhase => 'As peÃ§as ainda nÃ£o podem se mover.';
+  String get errorNotMovementPhase => 'As peças ainda não podem se mover.';
 
   @override
-  String get errorNotYourPiece => 'Essa peÃ§a nÃ£o Ã© sua.';
+  String get errorNotYourPiece => 'Essa peça não é sua.';
 
   @override
-  String get errorTargetOccupied => 'O destino estÃ¡ ocupado.';
+  String get errorTargetOccupied => 'O destino está ocupado.';
 
   @override
   String get errorNotAdjacent =>
-      'Mova por uma linha conectada atÃ© um ponto adjacente.';
+      'Mova por uma linha conectada até um ponto adjacente.';
 
   @override
-  String get errorNoCaptureRight => 'VocÃª nÃ£o pode capturar agora.';
+  String get errorNoCaptureRight => 'Você não pode capturar agora.';
 
   @override
-  String get errorOpponentPieceRequired => 'Escolha uma peÃ§a adversÃ¡ria.';
+  String get errorOpponentPieceRequired => 'Escolha uma peça adversária.';
 
   @override
   String get errorProtectedMillPiece =>
-      'Escolha primeiro uma peÃ§a fora de um moinho.';
+      'Escolha primeiro uma peça fora de um moinho.';
 
   @override
-  String get errorInvalidPoint => 'Ponto de tabuleiro invÃ¡lido.';
+  String get errorInvalidPoint => 'Ponto de tabuleiro inválido.';
 
   @override
   String get errorBoardMismatch =>
-      'Esta partida usa um tabuleiro incompatÃ­vel.';
+      'Esta partida usa um tabuleiro incompatível.';
 
   @override
   String get continueMatch => 'Continuar partida';
@@ -273,28 +273,28 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get matchInProgressBody =>
-      'Sua posiÃ§Ã£o atual Ã© salva automaticamente. O que vocÃª quer fazer?';
+      'Sua posição atual é salva automaticamente. O que você quer fazer?';
 
   @override
-  String get matchLoadError => 'NÃ£o foi possÃ­vel abrir a partida salva.';
+  String get matchLoadError => 'Não foi possível abrir a partida salva.';
 
   @override
   String get errorTitle => 'Algo deu errado';
 
   @override
-  String get routeError => 'NÃ£o foi possÃ­vel abrir esta tela com seguranÃ§a.';
+  String get routeError => 'Não foi possível abrir esta tela com segurança.';
 
   @override
-  String get backHome => 'Voltar ao inÃ­cio';
+  String get backHome => 'Voltar ao início';
 
   @override
-  String get noFriendsYet => 'VocÃª ainda nÃ£o tem amigos.';
+  String get noFriendsYet => 'Você ainda não tem amigos.';
 
   @override
   String get sound => 'Som';
 
   @override
-  String get haptic => 'Feedback tÃ¡til';
+  String get haptic => 'Feedback tátil';
 
   @override
   String get boardView => 'Visual do tabuleiro';
@@ -315,7 +315,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get localProfile => 'Perfil local';
 
   @override
-  String get genericLoadError => 'NÃ£o foi possÃ­vel carregar o conteÃºdo.';
+  String get genericLoadError => 'Não foi possível carregar o conteúdo.';
 
   @override
   String get retry => 'Tentar novamente';
@@ -325,32 +325,32 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get restartMatchBody =>
-      'A posiÃ§Ã£o salva atual serÃ¡ substituÃ­da por uma nova partida.';
+      'A posição salva atual será substituída por uma nova partida.';
 
   @override
   String get cancel => 'Cancelar';
 
   @override
   String get aiFoundationNotice =>
-      'Os nÃ­veis mais altos calculam mais jogadas e cometem menos erros tÃ¡ticos.';
+      'Os níveis mais altos calculam mais jogadas e cometem menos erros táticos.';
 
   @override
   String get saveFailedStayInMatch =>
-      'A partida nÃ£o pÃ´de ser salva com seguranÃ§a. PermaneÃ§a na partida e tente novamente.';
+      'A partida não pôde ser salva com segurança. Permaneça na partida e tente novamente.';
 
   @override
   String piecesToPlaceStatus(int light, int dark) {
-    return 'Claras: $light  â€¢  Escuras: $dark';
+    return 'Claras: $light  •  Escuras: $dark';
   }
 
   @override
-  String get aiThinking => 'O computador estÃ¡ a pensarâ€¦';
+  String get aiThinking => 'O computador está a pensar…';
 
   @override
   String get computerPlayer => 'Computador';
 
   @override
-  String get you => 'VocÃª';
+  String get you => 'Você';
 
   @override
   String moveCountLabel(int count) {
@@ -359,12 +359,12 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String boardPointLight(int number) {
-    return 'Ponto $number, peÃ§a clara';
+    return 'Ponto $number, peça clara';
   }
 
   @override
   String boardPointDark(int number) {
-    return 'Ponto $number, peÃ§a escura';
+    return 'Ponto $number, peça escura';
   }
 
   @override
@@ -378,40 +378,40 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
-  String get inviteLinkReady => 'O link de convite estÃ¡ pronto.';
+  String get inviteLinkReady => 'O link de convite está pronto.';
 
   @override
   String get ratings => 'Ratings';
 
   @override
-  String get statistics => 'EstatÃ­sticas';
+  String get statistics => 'Estatísticas';
 
   @override
-  String get wins => 'VitÃ³rias';
+  String get wins => 'Vitórias';
 
   @override
   String get losses => 'Derrotas';
 
   @override
-  String get bestStreak => 'Melhor sequÃªncia';
+  String get bestStreak => 'Melhor sequência';
 
   @override
-  String get winRate => 'Taxa de vitÃ³ria';
+  String get winRate => 'Taxa de vitória';
 
   @override
   String countryProfile(String code) {
-    return 'PaÃ­s: $code';
+    return 'País: $code';
   }
 
   @override
   String get world => 'Mundo';
 
   @override
-  String get country => 'PaÃ­s';
+  String get country => 'País';
 
   @override
   String recordValue(int wins, int losses) {
-    return '$wins V â€¢ $losses D';
+    return '$wins V • $losses D';
   }
 
   @override
@@ -419,14 +419,14 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get onlineArenaSubtitle =>
-      'Partidas rÃ¡pidas, desafios de amigos e rankings em um sÃ³ lugar.';
+      'Partidas rápidas, desafios de amigos e rankings em um só lugar.';
 
   @override
-  String get quickMatch => 'Partida rÃ¡pida';
+  String get quickMatch => 'Partida rápida';
 
   @override
   String get onlineBackendRequired =>
-      'A base do cliente online estÃ¡ pronta. O matchmaking ranqueado permanece desativado atÃ© a implantaÃ§Ã£o do Firebase Auth, Realtime Database e Cloud Functions.';
+      'A base do cliente online está pronta. O matchmaking ranqueado permanece desativado até a implantação do Firebase Auth, Realtime Database e Cloud Functions.';
 
   @override
   String get challengeFriends => 'Desafiar amigos';
@@ -440,53 +440,53 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
-  String get tutorialPlaceTitle => 'Coloque suas peÃ§as';
+  String get tutorialPlaceTitle => 'Coloque suas peças';
 
   @override
   String get tutorialPlaceBody =>
-      'Na fase de colocaÃ§Ã£o, toque em um ponto vazio. Crie planos e bloqueie o adversÃ¡rio.';
+      'Na fase de colocação, toque em um ponto vazio. Crie planos e bloqueie o adversário.';
 
   @override
   String get tutorialMillTitle => 'Forme um moinho';
 
   @override
   String get tutorialMillBody =>
-      'TrÃªs peÃ§as suas em uma linha vÃ¡lida formam um moinho.';
+      'Três peças suas em uma linha válida formam um moinho.';
 
   @override
-  String get tutorialCaptureTitle => 'Capture uma peÃ§a';
+  String get tutorialCaptureTitle => 'Capture uma peça';
 
   @override
   String get tutorialCaptureBody =>
-      'ApÃ³s formar um moinho, escolha uma peÃ§a adversÃ¡ria destacada. PeÃ§as fora de moinhos devem ser capturadas primeiro.';
+      'Após formar um moinho, escolha uma peça adversária destacada. Peças fora de moinhos devem ser capturadas primeiro.';
 
   @override
   String get tutorialMoveTitle => 'Mova pelas linhas';
 
   @override
   String get tutorialMoveBody =>
-      'Depois de colocar todas as peÃ§as, mova para um ponto vazio adjacente. TambÃ©m Ã© possÃ­vel pressionar e arrastar.';
+      'Depois de colocar todas as peças, mova para um ponto vazio adjacente. Também é possível pressionar e arrastar.';
 
   @override
-  String get tutorialBlockTitle => 'Bloqueie o adversÃ¡rio';
+  String get tutorialBlockTitle => 'Bloqueie o adversário';
 
   @override
   String get tutorialBlockBody =>
-      'Controle cruzamentos e feche rotas. Sem jogada legal, perde-se no 9/12 peÃ§as.';
+      'Controle cruzamentos e feche rotas. Sem jogada legal, perde-se no 9/12 peças.';
 
   @override
-  String get tutorialFlyTitle => 'Voe com trÃªs peÃ§as';
+  String get tutorialFlyTitle => 'Voe com três peças';
 
   @override
   String get tutorialFlyBody =>
-      'Com a regra de voo, ao ficar com trÃªs peÃ§as vocÃª pode ir para qualquer ponto vazio.';
+      'Com a regra de voo, ao ficar com três peças você pode ir para qualquer ponto vazio.';
 
   @override
-  String get tutorialDoubleMillTitle => 'Crie ameaÃ§as repetidas';
+  String get tutorialDoubleMillTitle => 'Crie ameaças repetidas';
 
   @override
   String get tutorialDoubleMillBody =>
-      'O jogo avanÃ§ado conecta moinhos, forÃ§a capturas e mantÃ©m mobilidade.';
+      'O jogo avançado conecta moinhos, força capturas e mantém mobilidade.';
 
   @override
   String get previous => 'Anterior';
@@ -495,34 +495,34 @@ class AppLocalizationsPt extends AppLocalizations {
   String get finish => 'Concluir';
 
   @override
-  String get next => 'PrÃ³ximo';
+  String get next => 'Próximo';
 
   @override
-  String get gameExperience => 'ExperiÃªncia de jogo';
+  String get gameExperience => 'Experiência de jogo';
 
   @override
   String get reduceMotion => 'Reduzir movimento';
 
   @override
   String get reduceMotionSubtitle =>
-      'Desativa pulsos e movimentos nÃ£o essenciais.';
+      'Desativa pulsos e movimentos não essenciais.';
 
   @override
   String get showMoveHints => 'Mostrar dicas de jogada';
 
   @override
   String get showMoveHintsSubtitle =>
-      'Destaca destinos legais e alvos capturÃ¡veis.';
+      'Destaca destinos legais e alvos capturáveis.';
 
   @override
-  String get colorAssist => 'AssistÃªncia de cor';
+  String get colorAssist => 'Assistência de cor';
 
   @override
   String get colorAssistSubtitle =>
-      'Adiciona formas e bordas para nÃ£o depender apenas da cor.';
+      'Adiciona formas e bordas para não depender apenas da cor.';
 
   @override
-  String get boardSurface => 'SuperfÃ­cie do tabuleiro';
+  String get boardSurface => 'Superfície do tabuleiro';
 
   @override
   String get surfaceWood => 'Madeira';
@@ -531,19 +531,19 @@ class AppLocalizationsPt extends AppLocalizations {
   String get surfaceDarkStone => 'Pedra escura';
 
   @override
-  String get surfaceMarble => 'MÃ¡rmore';
+  String get surfaceMarble => 'Mármore';
 
   @override
   String get surfaceMinimal => 'Minimalista';
 
   @override
-  String get pieceTheme => 'Estilo das peÃ§as';
+  String get pieceTheme => 'Estilo das peças';
 
   @override
-  String get pieceClassic => 'ClÃ¡ssico';
+  String get pieceClassic => 'Clássico';
 
   @override
-  String get pieceMarble => 'MÃ¡rmore';
+  String get pieceMarble => 'Mármore';
 
   @override
   String get pieceObsidian => 'Obsidiana';
@@ -553,7 +553,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String levelLabel(int level) {
-    return 'NÃ­vel $level';
+    return 'Nível $level';
   }
 
   @override
@@ -581,7 +581,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get friendAlreadyAdded =>
-      'Este jogador jÃ¡ estÃ¡ na sua lista de amigos.';
+      'Este jogador já está na sua lista de amigos.';
 
   @override
   String friendAdded(String name) {
@@ -590,18 +590,17 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String whatsappChallengeInvite(String game, String link) {
-    return 'Desafio vocÃª para $game no Morris World! Abra ou instale o jogo aqui: $link';
+    return 'Desafio você para $game no Morris World! Abra ou instale o jogo aqui: $link';
   }
 
   @override
-  String get resultVictoryPraise => 'ParabÃ©ns! Ã“tima partida. Quer revanche?';
+  String get resultVictoryPraise => 'Parabéns! Ótima partida. Quer revanche?';
 
   @override
   String get resultDefeatPraise => 'Boa luta! Pronto para a revanche?';
 
   @override
-  String get resultDrawPraise =>
-      'Ã“tima partida â€” terminou empatada. Mais uma?';
+  String get resultDrawPraise => 'Ótima partida — terminou empatada. Mais uma?';
 
   @override
   String get resultLocalPraise => 'Ã“tima partida! Quer revanche?';
@@ -616,7 +615,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get playerName => 'Nome do jogador';
 
   @override
-  String get countryCode => 'CÃ³digo do paÃ­s';
+  String get countryCode => 'Código do país';
 
   @override
   String get saveProfile => 'Guardar perfil';
@@ -625,21 +624,21 @@ class AppLocalizationsPt extends AppLocalizations {
   String get profileSaved => 'Perfil guardado.';
 
   @override
-  String get profileSaveFailed => 'NÃ£o foi possÃ­vel guardar o perfil.';
+  String get profileSaveFailed => 'Não foi possível guardar o perfil.';
 
   @override
-  String get profileNameRequired => 'O nome do jogador nÃ£o pode ficar vazio.';
+  String get profileNameRequired => 'O nome do jogador não pode ficar vazio.';
 
   @override
   String get profileCountryCodeHint => 'ex. PT';
 
   @override
   String get profileCountryCodeInvalid =>
-      'O cÃ³digo do paÃ­s deve ter duas letras.';
+      'O código do país deve ter duas letras.';
 
   @override
   String get profileLocalSaveNote =>
-      'Os dados do teu perfil sÃ£o guardados com seguranÃ§a neste dispositivo.';
+      'Os dados do teu perfil são guardados com segurança neste dispositivo.';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -647,47 +646,47 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   AppLocalizationsPtBr() : super('pt_BR');
 
   @override
-  String get appTitle => '3-9-12 Taş';
+  String get appTitle => 'Morris World';
 
   @override
-  String get home => 'InÃ­cio';
+  String get home => 'Início';
 
   @override
   String get selectGameTitle => 'Escolha seu jogo';
 
   @override
   String get selectGameSubtitle =>
-      'TrÃªs jogos clÃ¡ssicos de estratÃ©gia em um Ãºnico espaÃ§o social e tranquilo.';
+      'Três jogos clássicos de estratégia em um único espaço social e tranquilo.';
 
   @override
   String get game3Name => 'Moinho de 3';
 
   @override
-  String get game3Description => 'RÃ¡pido, simples e tÃ¡tico.';
+  String get game3Description => 'Rápido, simples e tático.';
 
   @override
   String get game9Name => 'Moinho de 9';
 
   @override
-  String get game9Description => 'O clÃ¡ssico principal.';
+  String get game9Description => 'O clássico principal.';
 
   @override
   String get game12Name => 'Moinho de 12';
 
   @override
   String get game12Description =>
-      'Tabuleiro mais denso e estratÃ©gia mais profunda.';
+      'Tabuleiro mais denso e estratégia mais profunda.';
 
   @override
   String selectModeTitle(String gameName) {
-    return 'Como vocÃª quer jogar $gameName?';
+    return 'Como você quer jogar $gameName?';
   }
 
   @override
   String get online => 'Online';
 
   @override
-  String get onlineSubtitle => 'Encontre um adversÃ¡rio real no mundo';
+  String get onlineSubtitle => 'Encontre um adversário real no mundo';
 
   @override
   String get challenge => 'Desafiar';
@@ -707,7 +706,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get computerModeSubtitle =>
-      'NÃ£o precisa de internet â€¢ escolha a dificuldade';
+      'Não precisa de internet • escolha a dificuldade';
 
   @override
   String get sameDeviceSubtitle => 'Dois jogadores se alternam neste aparelho';
@@ -725,7 +724,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get profile => 'Perfil';
 
   @override
-  String get settings => 'ConfiguraÃ§Ãµes';
+  String get settings => 'Configurações';
 
   @override
   String get language => 'Idioma';
@@ -734,7 +733,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get systemLanguage => 'Usar idioma do aparelho';
 
   @override
-  String get languageTurkish => 'TÃ¼rkÃ§e';
+  String get languageTurkish => 'Türkçe';
 
   @override
   String get languageEnglish => 'English';
@@ -743,19 +742,19 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get languageGerman => 'Deutsch';
 
   @override
-  String get languageSpanish => 'EspaÃ±ol';
+  String get languageSpanish => 'Español';
 
   @override
-  String get languageFrench => 'FranÃ§ais';
+  String get languageFrench => 'Français';
 
   @override
-  String get languagePortugueseBrazil => 'PortuguÃªs (Brasil)';
+  String get languagePortugueseBrazil => 'Português (Brasil)';
 
   @override
-  String get languageArabic => 'Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©';
+  String get languageArabic => 'العربية';
 
   @override
-  String get languageHindi => 'à¤¹à¤¿à¤¨à¥à¤¦à¥€';
+  String get languageHindi => 'हिन्दी';
 
   @override
   String get restart => 'Reiniciar';
@@ -776,24 +775,24 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String capturePrompt(String player) {
-    return '$player: remova uma peÃ§a adversÃ¡ria';
+    return '$player: remova uma peça adversária';
   }
 
   @override
   String placePrompt(String player) {
-    return '$player: coloque uma peÃ§a';
+    return '$player: coloque uma peça';
   }
 
   @override
   String movePrompt(String player) {
-    return '$player: faÃ§a sua jogada';
+    return '$player: faça sua jogada';
   }
 
   @override
   String get quickGoodMove => 'Boa jogada!';
 
   @override
-  String get quickCongrats => 'ParabÃ©ns!';
+  String get quickCongrats => 'Parabéns!';
 
   @override
   String get quickGoodGame => 'Bom jogo!';
@@ -809,7 +808,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String challengePrepared(String name) {
-    return 'O desafio para $name estÃ¡ pronto.';
+    return 'O desafio para $name está pronto.';
   }
 
   @override
@@ -828,13 +827,13 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get beginner => 'Iniciante';
 
   @override
-  String get easy => 'FÃ¡cil';
+  String get easy => 'Fácil';
 
   @override
-  String get medium => 'MÃ©dio';
+  String get medium => 'Médio';
 
   @override
-  String get hard => 'DifÃ­cil';
+  String get hard => 'Difícil';
 
   @override
   String get master => 'Mestre';
@@ -844,50 +843,50 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String featureComingSoon(String feature) {
-    return '$feature Ã© o prÃ³ximo passo de desenvolvimento.';
+    return '$feature é o próximo passo de desenvolvimento.';
   }
 
   @override
   String get errorMatchFinished => 'Esta partida terminou.';
 
   @override
-  String get errorCaptureRequired => 'Remova primeiro uma peÃ§a adversÃ¡ria.';
+  String get errorCaptureRequired => 'Remova primeiro uma peça adversária.';
 
   @override
-  String get errorPlacementFinished => 'A fase de colocaÃ§Ã£o terminou.';
+  String get errorPlacementFinished => 'A fase de colocação terminou.';
 
   @override
-  String get errorPointOccupied => 'Este ponto estÃ¡ ocupado.';
+  String get errorPointOccupied => 'Este ponto está ocupado.';
 
   @override
-  String get errorNotMovementPhase => 'As peÃ§as ainda nÃ£o podem se mover.';
+  String get errorNotMovementPhase => 'As peças ainda não podem se mover.';
 
   @override
-  String get errorNotYourPiece => 'Essa peÃ§a nÃ£o Ã© sua.';
+  String get errorNotYourPiece => 'Essa peça não é sua.';
 
   @override
-  String get errorTargetOccupied => 'O destino estÃ¡ ocupado.';
+  String get errorTargetOccupied => 'O destino está ocupado.';
 
   @override
   String get errorNotAdjacent =>
-      'Mova por uma linha conectada atÃ© um ponto adjacente.';
+      'Mova por uma linha conectada até um ponto adjacente.';
 
   @override
-  String get errorNoCaptureRight => 'VocÃª nÃ£o pode capturar agora.';
+  String get errorNoCaptureRight => 'Você não pode capturar agora.';
 
   @override
-  String get errorOpponentPieceRequired => 'Escolha uma peÃ§a adversÃ¡ria.';
+  String get errorOpponentPieceRequired => 'Escolha uma peça adversária.';
 
   @override
   String get errorProtectedMillPiece =>
-      'Escolha primeiro uma peÃ§a fora de um moinho.';
+      'Escolha primeiro uma peça fora de um moinho.';
 
   @override
-  String get errorInvalidPoint => 'Ponto de tabuleiro invÃ¡lido.';
+  String get errorInvalidPoint => 'Ponto de tabuleiro inválido.';
 
   @override
   String get errorBoardMismatch =>
-      'Esta partida usa um tabuleiro incompatÃ­vel.';
+      'Esta partida usa um tabuleiro incompatível.';
 
   @override
   String get continueMatch => 'Continuar partida';
@@ -911,28 +910,28 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get matchInProgressBody =>
-      'Sua posiÃ§Ã£o atual Ã© salva automaticamente. O que vocÃª quer fazer?';
+      'Sua posição atual é salva automaticamente. O que você quer fazer?';
 
   @override
-  String get matchLoadError => 'NÃ£o foi possÃ­vel abrir a partida salva.';
+  String get matchLoadError => 'Não foi possível abrir a partida salva.';
 
   @override
   String get errorTitle => 'Algo deu errado';
 
   @override
-  String get routeError => 'NÃ£o foi possÃ­vel abrir esta tela com seguranÃ§a.';
+  String get routeError => 'Não foi possível abrir esta tela com segurança.';
 
   @override
-  String get backHome => 'Voltar ao inÃ­cio';
+  String get backHome => 'Voltar ao início';
 
   @override
-  String get noFriendsYet => 'VocÃª ainda nÃ£o tem amigos.';
+  String get noFriendsYet => 'Você ainda não tem amigos.';
 
   @override
   String get sound => 'Som';
 
   @override
-  String get haptic => 'Feedback tÃ¡til';
+  String get haptic => 'Feedback tátil';
 
   @override
   String get boardView => 'Visual do tabuleiro';
@@ -953,7 +952,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get localProfile => 'Perfil local';
 
   @override
-  String get genericLoadError => 'NÃ£o foi possÃ­vel carregar o conteÃºdo.';
+  String get genericLoadError => 'Não foi possível carregar o conteúdo.';
 
   @override
   String get retry => 'Tentar novamente';
@@ -963,32 +962,32 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get restartMatchBody =>
-      'A posiÃ§Ã£o salva atual serÃ¡ substituÃ­da por uma nova partida.';
+      'A posição salva atual será substituída por uma nova partida.';
 
   @override
   String get cancel => 'Cancelar';
 
   @override
   String get aiFoundationNotice =>
-      'Os nÃ­veis mais altos calculam mais jogadas e cometem menos erros tÃ¡ticos.';
+      'Os níveis mais altos calculam mais jogadas e cometem menos erros táticos.';
 
   @override
   String get saveFailedStayInMatch =>
-      'A partida nÃ£o pÃ´de ser salva com seguranÃ§a. PermaneÃ§a na partida e tente novamente.';
+      'A partida não pôde ser salva com segurança. Permaneça na partida e tente novamente.';
 
   @override
   String piecesToPlaceStatus(int light, int dark) {
-    return 'Claras: $light  â€¢  Escuras: $dark';
+    return 'Claras: $light  •  Escuras: $dark';
   }
 
   @override
-  String get aiThinking => 'O computador estÃ¡ pensandoâ€¦';
+  String get aiThinking => 'O computador está pensando…';
 
   @override
   String get computerPlayer => 'Computador';
 
   @override
-  String get you => 'VocÃª';
+  String get you => 'Você';
 
   @override
   String moveCountLabel(int count) {
@@ -997,12 +996,12 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String boardPointLight(int number) {
-    return 'Ponto $number, peÃ§a clara';
+    return 'Ponto $number, peça clara';
   }
 
   @override
   String boardPointDark(int number) {
-    return 'Ponto $number, peÃ§a escura';
+    return 'Ponto $number, peça escura';
   }
 
   @override
@@ -1016,40 +1015,40 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   }
 
   @override
-  String get inviteLinkReady => 'O link de convite estÃ¡ pronto.';
+  String get inviteLinkReady => 'O link de convite está pronto.';
 
   @override
   String get ratings => 'Ratings';
 
   @override
-  String get statistics => 'EstatÃ­sticas';
+  String get statistics => 'Estatísticas';
 
   @override
-  String get wins => 'VitÃ³rias';
+  String get wins => 'Vitórias';
 
   @override
   String get losses => 'Derrotas';
 
   @override
-  String get bestStreak => 'Melhor sequÃªncia';
+  String get bestStreak => 'Melhor sequência';
 
   @override
-  String get winRate => 'Taxa de vitÃ³ria';
+  String get winRate => 'Taxa de vitória';
 
   @override
   String countryProfile(String code) {
-    return 'PaÃ­s: $code';
+    return 'País: $code';
   }
 
   @override
   String get world => 'Mundo';
 
   @override
-  String get country => 'PaÃ­s';
+  String get country => 'País';
 
   @override
   String recordValue(int wins, int losses) {
-    return '$wins V â€¢ $losses D';
+    return '$wins V • $losses D';
   }
 
   @override
@@ -1057,14 +1056,14 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get onlineArenaSubtitle =>
-      'Partidas rÃ¡pidas, desafios de amigos e rankings em um sÃ³ lugar.';
+      'Partidas rápidas, desafios de amigos e rankings em um só lugar.';
 
   @override
-  String get quickMatch => 'Partida rÃ¡pida';
+  String get quickMatch => 'Partida rápida';
 
   @override
   String get onlineBackendRequired =>
-      'A base do cliente online estÃ¡ pronta. O matchmaking ranqueado permanece desativado atÃ© a implantaÃ§Ã£o do Firebase Auth, Realtime Database e Cloud Functions.';
+      'A base do cliente online está pronta. O matchmaking ranqueado permanece desativado até a implantação do Firebase Auth, Realtime Database e Cloud Functions.';
 
   @override
   String get challengeFriends => 'Desafiar amigos';
@@ -1078,53 +1077,53 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   }
 
   @override
-  String get tutorialPlaceTitle => 'Coloque suas peÃ§as';
+  String get tutorialPlaceTitle => 'Coloque suas peças';
 
   @override
   String get tutorialPlaceBody =>
-      'Na fase de colocaÃ§Ã£o, toque em um ponto vazio. Crie planos e bloqueie o adversÃ¡rio.';
+      'Na fase de colocação, toque em um ponto vazio. Crie planos e bloqueie o adversário.';
 
   @override
   String get tutorialMillTitle => 'Forme um moinho';
 
   @override
   String get tutorialMillBody =>
-      'TrÃªs peÃ§as suas em uma linha vÃ¡lida formam um moinho.';
+      'Três peças suas em uma linha válida formam um moinho.';
 
   @override
-  String get tutorialCaptureTitle => 'Capture uma peÃ§a';
+  String get tutorialCaptureTitle => 'Capture uma peça';
 
   @override
   String get tutorialCaptureBody =>
-      'ApÃ³s formar um moinho, escolha uma peÃ§a adversÃ¡ria destacada. PeÃ§as fora de moinhos devem ser capturadas primeiro.';
+      'Após formar um moinho, escolha uma peça adversária destacada. Peças fora de moinhos devem ser capturadas primeiro.';
 
   @override
   String get tutorialMoveTitle => 'Mova pelas linhas';
 
   @override
   String get tutorialMoveBody =>
-      'Depois de colocar todas as peÃ§as, mova para um ponto vazio adjacente. TambÃ©m Ã© possÃ­vel pressionar e arrastar.';
+      'Depois de colocar todas as peças, mova para um ponto vazio adjacente. Também é possível pressionar e arrastar.';
 
   @override
-  String get tutorialBlockTitle => 'Bloqueie o adversÃ¡rio';
+  String get tutorialBlockTitle => 'Bloqueie o adversário';
 
   @override
   String get tutorialBlockBody =>
-      'Controle cruzamentos e feche rotas. Sem jogada legal, perde-se no 9/12 peÃ§as.';
+      'Controle cruzamentos e feche rotas. Sem jogada legal, perde-se no 9/12 peças.';
 
   @override
-  String get tutorialFlyTitle => 'Voe com trÃªs peÃ§as';
+  String get tutorialFlyTitle => 'Voe com três peças';
 
   @override
   String get tutorialFlyBody =>
-      'Com a regra de voo, ao ficar com trÃªs peÃ§as vocÃª pode ir para qualquer ponto vazio.';
+      'Com a regra de voo, ao ficar com três peças você pode ir para qualquer ponto vazio.';
 
   @override
-  String get tutorialDoubleMillTitle => 'Crie ameaÃ§as repetidas';
+  String get tutorialDoubleMillTitle => 'Crie ameaças repetidas';
 
   @override
   String get tutorialDoubleMillBody =>
-      'O jogo avanÃ§ado conecta moinhos, forÃ§a capturas e mantÃ©m mobilidade.';
+      'O jogo avançado conecta moinhos, força capturas e mantém mobilidade.';
 
   @override
   String get previous => 'Anterior';
@@ -1133,34 +1132,34 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get finish => 'Concluir';
 
   @override
-  String get next => 'PrÃ³ximo';
+  String get next => 'Próximo';
 
   @override
-  String get gameExperience => 'ExperiÃªncia de jogo';
+  String get gameExperience => 'Experiência de jogo';
 
   @override
   String get reduceMotion => 'Reduzir movimento';
 
   @override
   String get reduceMotionSubtitle =>
-      'Desativa pulsos e movimentos nÃ£o essenciais.';
+      'Desativa pulsos e movimentos não essenciais.';
 
   @override
   String get showMoveHints => 'Mostrar dicas de jogada';
 
   @override
   String get showMoveHintsSubtitle =>
-      'Destaca destinos legais e alvos capturÃ¡veis.';
+      'Destaca destinos legais e alvos capturáveis.';
 
   @override
-  String get colorAssist => 'AssistÃªncia de cor';
+  String get colorAssist => 'Assistência de cor';
 
   @override
   String get colorAssistSubtitle =>
-      'Adiciona formas e bordas para nÃ£o depender apenas da cor.';
+      'Adiciona formas e bordas para não depender apenas da cor.';
 
   @override
-  String get boardSurface => 'SuperfÃ­cie do tabuleiro';
+  String get boardSurface => 'Superfície do tabuleiro';
 
   @override
   String get surfaceWood => 'Madeira';
@@ -1169,19 +1168,19 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get surfaceDarkStone => 'Pedra escura';
 
   @override
-  String get surfaceMarble => 'MÃ¡rmore';
+  String get surfaceMarble => 'Mármore';
 
   @override
   String get surfaceMinimal => 'Minimalista';
 
   @override
-  String get pieceTheme => 'Estilo das peÃ§as';
+  String get pieceTheme => 'Estilo das peças';
 
   @override
-  String get pieceClassic => 'ClÃ¡ssico';
+  String get pieceClassic => 'Clássico';
 
   @override
-  String get pieceMarble => 'MÃ¡rmore';
+  String get pieceMarble => 'Mármore';
 
   @override
   String get pieceObsidian => 'Obsidiana';
@@ -1191,7 +1190,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String levelLabel(int level) {
-    return 'NÃ­vel $level';
+    return 'Nível $level';
   }
 
   @override
@@ -1219,7 +1218,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get friendAlreadyAdded =>
-      'Este jogador jÃ¡ estÃ¡ na sua lista de amigos.';
+      'Este jogador já está na sua lista de amigos.';
 
   @override
   String friendAdded(String name) {
@@ -1228,18 +1227,17 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String whatsappChallengeInvite(String game, String link) {
-    return 'Desafio vocÃª para $game no Morris World! Abra ou instale o jogo aqui: $link';
+    return 'Desafio você para $game no Morris World! Abra ou instale o jogo aqui: $link';
   }
 
   @override
-  String get resultVictoryPraise => 'ParabÃ©ns! Ã“tima partida. Quer revanche?';
+  String get resultVictoryPraise => 'Parabéns! Ótima partida. Quer revanche?';
 
   @override
   String get resultDefeatPraise => 'Boa disputa! Pronto para a revanche?';
 
   @override
-  String get resultDrawPraise =>
-      'Ã“tima partida â€” terminou empatada. Mais uma?';
+  String get resultDrawPraise => 'Ótima partida — terminou empatada. Mais uma?';
 
   @override
   String get resultLocalPraise => 'Ã“tima partida! Quer revanche?';
@@ -1254,7 +1252,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get playerName => 'Nome do jogador';
 
   @override
-  String get countryCode => 'CÃ³digo do paÃ­s';
+  String get countryCode => 'Código do país';
 
   @override
   String get saveProfile => 'Salvar perfil';
@@ -1263,19 +1261,19 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get profileSaved => 'Perfil salvo.';
 
   @override
-  String get profileSaveFailed => 'NÃ£o foi possÃ­vel salvar o perfil.';
+  String get profileSaveFailed => 'Não foi possível salvar o perfil.';
 
   @override
-  String get profileNameRequired => 'O nome do jogador nÃ£o pode ficar vazio.';
+  String get profileNameRequired => 'O nome do jogador não pode ficar vazio.';
 
   @override
   String get profileCountryCodeHint => 'ex. BR';
 
   @override
   String get profileCountryCodeInvalid =>
-      'O cÃ³digo do paÃ­s deve ter duas letras.';
+      'O código do país deve ter duas letras.';
 
   @override
   String get profileLocalSaveNote =>
-      'Os dados do seu perfil sÃ£o salvos com seguranÃ§a neste dispositivo.';
+      'Os dados do seu perfil são salvos com segurança neste dispositivo.';
 }

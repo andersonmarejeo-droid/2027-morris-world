@@ -1,6 +1,6 @@
 ﻿{
     "@@locale":  "en",
-    "appTitle":  "3-9-12 Taş",
+    "appTitle":  "Morris World",
     "home":  "Home",
     "selectGameTitle":  "Choose your game",
     "selectGameSubtitle":  "Three classic strategy games, one calm social world.",
@@ -25,7 +25,7 @@
     "offline":  "Offline",
     "offlineSubtitle":  "Play AI or two players on one device",
     "computerModeTitle":  "Play vs Computer",
-    "computerModeSubtitle":  "No internet required â€¢ choose a difficulty",
+    "computerModeSubtitle":  "No internet required • choose a difficulty",
     "sameDeviceSubtitle":  "Take turns with two players on this device",
     "howToPlay":  "How to play",
     "friends":  "Friends",
@@ -34,14 +34,14 @@
     "settings":  "Settings",
     "language":  "Language",
     "systemLanguage":  "Use device language",
-    "languageTurkish":  "TÃ¼rkÃ§e",
+    "languageTurkish":  "Türkçe",
     "languageEnglish":  "English",
     "languageGerman":  "Deutsch",
-    "languageSpanish":  "EspaÃ±ol",
-    "languageFrench":  "FranÃ§ais",
-    "languagePortugueseBrazil":  "PortuguÃªs (Brasil)",
-    "languageArabic":  "Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©",
-    "languageHindi":  "à¤¹à¤¿à¤¨à¥à¤¦à¥€",
+    "languageSpanish":  "Español",
+    "languageFrench":  "Français",
+    "languagePortugueseBrazil":  "Português (Brasil)",
+    "languageArabic":  "العربية",
+    "languageHindi":  "हिन्दी",
     "restart":  "Restart",
     "lightPlayer":  "Light",
     "darkPlayer":  "Dark",
@@ -157,7 +157,7 @@
     "cancel":  "Cancel",
     "aiFoundationNotice":  "Higher levels look further ahead and make fewer tactical mistakes.",
     "saveFailedStayInMatch":  "The match could not be saved safely. Stay in the match and try again.",
-    "piecesToPlaceStatus":  "Light: {light}  â€¢  Dark: {dark}",
+    "piecesToPlaceStatus":  "Light: {light}  •  Dark: {dark}",
     "@piecesToPlaceStatus":  {
                                  "placeholders":  {
                                                       "light":  {
@@ -168,7 +168,7 @@
                                                                }
                                                   }
                              },
-    "aiThinking":  "Computer is thinkingâ€¦",
+    "aiThinking":  "Computer is thinking…",
     "computerPlayer":  "Computer",
     "you":  "You",
     "moveCountLabel":  "Move {count}",
@@ -228,7 +228,7 @@
                         },
     "world":  "World",
     "country":  "Country",
-    "recordValue":  "{wins} W â€¢ {losses} L",
+    "recordValue":  "{wins} W • {losses} L",
     "@recordValue":  {
                          "placeholders":  {
                                               "wins":  {
@@ -320,7 +320,7 @@
     "whatsappChallengeInvite":  "I challenge you to {game} in Morris World! Open or install the game here: {link}",
     "resultVictoryPraise":  "Congratulations! Great game. Want a rematch?",
     "resultDefeatPraise":  "Good fight! Ready for a rematch?",
-    "resultDrawPraise":  "Great game â€” it ended in a draw. One more?",
+    "resultDrawPraise":  "Great game — it ended in a draw. One more?",
     "resultLocalPraise":  "Great match! Want to play a rematch?",
     "rematch":  "Play Rematch",
     "@friendAdded":  {

@@ -31,31 +31,37 @@ class OnlineLobbyScreen extends StatelessWidget {
           const SizedBox(height: AppSpacing.lg),
           AppAsyncView<OnlineAvailability>(
             future: services.online.availability(),
-            errorBuilder: (context) => AppErrorView(message: l10n.genericLoadError),
-            dataBuilder: (context, availability) => Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                FilledButton.icon(
-                  onPressed: availability.enabled
-                      ? () async {
+            errorBuilder:
+                (context) => AppErrorView(message: l10n.genericLoadError),
+            dataBuilder:
+                (context, availability) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    if (availability.enabled)
+                      FilledButton.icon(
+                        onPressed: () async {
                           try {
                             await services.online.createQuickMatch(gameId);
                           } catch (_) {
                             if (context.mounted) {
-                              showAppNotice(context, l10n.onlineBackendRequired);
+                              showAppNotice(
+                                context,
+                                l10n.onlineBackendRequired,
+                              );
                             }
                           }
-                        }
-                      : null,
-                  icon: const Icon(Icons.flash_on_rounded),
-                  label: Text(l10n.quickMatch),
+                        },
+                        icon: const Icon(Icons.flash_on_rounded),
+                        label: Text(l10n.quickMatch),
+                      )
+                    else
+                      _OnlineUnavailableCard(
+                        title: l10n.featureComingSoon(l10n.online),
+                        body: l10n.onlineBackendRequired,
+                        actionLabel: l10n.quickMatch,
+                      ),
+                  ],
                 ),
-                if (!availability.enabled) ...[
-                  const SizedBox(height: AppSpacing.sm),
-                  _BackendNotice(text: l10n.onlineBackendRequired),
-                ],
-              ],
-            ),
           ),
           const SizedBox(height: AppSpacing.lg),
           OutlinedButton.icon(
@@ -82,55 +88,95 @@ class _ArenaHero extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.all(AppSpacing.xl),
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [AppColors.brandTop, AppColors.brandDeep],
+    padding: const EdgeInsets.all(AppSpacing.xl),
+    decoration: BoxDecoration(
+      gradient: const LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [AppColors.brandTop, AppColors.brandDeep],
+      ),
+      borderRadius: BorderRadius.circular(AppRadii.large),
+    ),
+    child: Column(
+      children: [
+        const Icon(Icons.public_rounded, size: 48, color: Colors.white),
+        const SizedBox(height: AppSpacing.md),
+        Text(
+          gameName,
+          style: Theme.of(
+            context,
+          ).textTheme.headlineSmall?.copyWith(color: Colors.white),
+        ),
+        const SizedBox(height: AppSpacing.xs),
+        Text(
+          l10n.onlineArenaSubtitle,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            color: Colors.white.withValues(alpha: 0.88),
           ),
-          borderRadius: BorderRadius.circular(AppRadii.large),
         ),
-        child: Column(
-          children: [
-            const Icon(Icons.public_rounded, size: 48, color: Colors.white),
-            const SizedBox(height: AppSpacing.md),
-            Text(
-              gameName,
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white),
-            ),
-            const SizedBox(height: AppSpacing.xs),
-            Text(
-              l10n.onlineArenaSubtitle,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Colors.white.withValues(alpha: 0.88),
-                  ),
-            ),
-          ],
-        ),
-      );
+      ],
+    ),
+  );
 }
 
-class _BackendNotice extends StatelessWidget {
-  const _BackendNotice({required this.text});
-  final String text;
+class _OnlineUnavailableCard extends StatelessWidget {
+  const _OnlineUnavailableCard({
+    required this.title,
+    required this.body,
+    required this.actionLabel,
+  });
+
+  final String title;
+  final String body;
+  final String actionLabel;
 
   @override
   Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.all(AppSpacing.md),
-        decoration: BoxDecoration(
-          color: AppColors.surfaceMuted,
-          borderRadius: BorderRadius.circular(AppRadii.medium),
-          border: Border.all(color: AppColors.line),
-        ),
-        child: Row(
+    padding: const EdgeInsets.all(AppSpacing.lg),
+    decoration: BoxDecoration(
+      color: AppColors.surfaceMuted,
+      borderRadius: BorderRadius.circular(AppRadii.large),
+      border: Border.all(color: AppColors.line),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Icon(Icons.shield_outlined, color: AppColors.brandDeep),
-            const SizedBox(width: AppSpacing.sm),
-            Expanded(child: Text(text, style: Theme.of(context).textTheme.bodySmall)),
+            Container(
+              width: 44,
+              height: 44,
+              decoration: const BoxDecoration(
+                color: AppColors.brandSoft,
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.lock_clock_rounded,
+                color: AppColors.brandDeep,
+              ),
+            ),
+            const SizedBox(width: AppSpacing.md),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title, style: Theme.of(context).textTheme.titleMedium),
+                  const SizedBox(height: AppSpacing.xs),
+                  Text(body, style: Theme.of(context).textTheme.bodySmall),
+                ],
+              ),
+            ),
           ],
         ),
-      );
+        const SizedBox(height: AppSpacing.lg),
+        FilledButton.tonalIcon(
+          onPressed: null,
+          icon: const Icon(Icons.flash_on_rounded),
+          label: Text(actionLabel),
+        ),
+      ],
+    ),
+  );
 }

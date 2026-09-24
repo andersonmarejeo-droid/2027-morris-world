@@ -9,39 +9,39 @@ class AppLocalizationsDe extends AppLocalizations {
   AppLocalizationsDe([String locale = 'de']) : super(locale);
 
   @override
-  String get appTitle => '3-9-12 Taş';
+  String get appTitle => 'Morris World';
 
   @override
   String get home => 'Startseite';
 
   @override
-  String get selectGameTitle => 'Spiel auswÃ¤hlen';
+  String get selectGameTitle => 'Spiel auswählen';
 
   @override
   String get selectGameSubtitle =>
       'Drei klassische Strategiespiele in einer ruhigen sozialen Welt.';
 
   @override
-  String get game3Name => 'Drei-MÃ¼hle';
+  String get game3Name => 'Drei-Mühle';
 
   @override
   String get game3Description => 'Schnell, einfach und taktisch.';
 
   @override
-  String get game9Name => 'MÃ¼hle';
+  String get game9Name => 'Mühle';
 
   @override
   String get game9Description => 'Das klassische Hauptspiel.';
 
   @override
-  String get game12Name => 'ZwÃ¶lf-MÃ¼hle';
+  String get game12Name => 'Zwölf-Mühle';
 
   @override
   String get game12Description => 'Dichteres Brett, tiefere Strategie.';
 
   @override
   String selectModeTitle(String gameName) {
-    return 'Wie mÃ¶chtest du $gameName spielen?';
+    return 'Wie möchtest du $gameName spielen?';
   }
 
   @override
@@ -60,18 +60,18 @@ class AppLocalizationsDe extends AppLocalizations {
   String get offline => 'Offline';
 
   @override
-  String get offlineSubtitle => 'Gegen KI oder zu zweit auf einem GerÃ¤t';
+  String get offlineSubtitle => 'Gegen KI oder zu zweit auf einem Gerät';
 
   @override
   String get computerModeTitle => 'Gegen Computer spielen';
 
   @override
   String get computerModeSubtitle =>
-      'Kein Internet nÃ¶tig â€¢ Schwierigkeit wÃ¤hlen';
+      'Kein Internet nötig • Schwierigkeit wählen';
 
   @override
   String get sameDeviceSubtitle =>
-      'Zu zweit abwechselnd auf diesem GerÃ¤t spielen';
+      'Zu zweit abwechselnd auf diesem Gerät spielen';
 
   @override
   String get howToPlay => 'Spielregeln';
@@ -92,10 +92,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get language => 'Sprache';
 
   @override
-  String get systemLanguage => 'GerÃ¤tesprache verwenden';
+  String get systemLanguage => 'Gerätesprache verwenden';
 
   @override
-  String get languageTurkish => 'TÃ¼rkÃ§e';
+  String get languageTurkish => 'Türkçe';
 
   @override
   String get languageEnglish => 'English';
@@ -104,19 +104,19 @@ class AppLocalizationsDe extends AppLocalizations {
   String get languageGerman => 'Deutsch';
 
   @override
-  String get languageSpanish => 'EspaÃ±ol';
+  String get languageSpanish => 'Español';
 
   @override
-  String get languageFrench => 'FranÃ§ais';
+  String get languageFrench => 'Français';
 
   @override
-  String get languagePortugueseBrazil => 'PortuguÃªs (Brasil)';
+  String get languagePortugueseBrazil => 'Português (Brasil)';
 
   @override
-  String get languageArabic => 'Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©';
+  String get languageArabic => 'العربية';
 
   @override
-  String get languageHindi => 'à¤¹à¤¿à¤¨à¥à¤¦à¥€';
+  String get languageHindi => 'हिन्दी';
 
   @override
   String get restart => 'Neu starten';
@@ -154,7 +154,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get quickGoodMove => 'Guter Zug!';
 
   @override
-  String get quickCongrats => 'GlÃ¼ckwunsch!';
+  String get quickCongrats => 'Glückwunsch!';
 
   @override
   String get quickGoodGame => 'Gutes Spiel!';
@@ -163,14 +163,14 @@ class AppLocalizationsDe extends AppLocalizations {
   String get quickMore => 'Mehr';
 
   @override
-  String get shareInvite => 'Ãœber WhatsApp herausfordern';
+  String get shareInvite => 'Über WhatsApp herausfordern';
 
   @override
   String get challengeButton => 'Herausfordern';
 
   @override
   String challengePrepared(String name) {
-    return 'Herausforderung fÃ¼r $name ist bereit.';
+    return 'Herausforderung für $name ist bereit.';
   }
 
   @override
@@ -183,10 +183,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get presenceOffline => 'Offline';
 
   @override
-  String get offlineDifficultyTitle => 'Schwierigkeit wÃ¤hlen';
+  String get offlineDifficultyTitle => 'Schwierigkeit wählen';
 
   @override
-  String get beginner => 'AnfÃ¤nger';
+  String get beginner => 'Anfänger';
 
   @override
   String get easy => 'Leicht';
@@ -201,11 +201,11 @@ class AppLocalizationsDe extends AppLocalizations {
   String get master => 'Meister';
 
   @override
-  String get sameDevice => 'Zwei Spieler auf diesem GerÃ¤t';
+  String get sameDevice => 'Zwei Spieler auf diesem Gerät';
 
   @override
   String featureComingSoon(String feature) {
-    return '$feature ist der nÃ¤chste Entwicklungsschritt.';
+    return '$feature ist der nächste Entwicklungsschritt.';
   }
 
   @override
@@ -222,11 +222,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get errorPointOccupied => 'Dieser Punkt ist belegt.';
 
   @override
-  String get errorNotMovementPhase =>
-      'Steine kÃ¶nnen noch nicht bewegt werden.';
+  String get errorNotMovementPhase => 'Steine können noch nicht bewegt werden.';
 
   @override
-  String get errorNotYourPiece => 'Dieser Stein gehÃ¶rt dir nicht.';
+  String get errorNotYourPiece => 'Dieser Stein gehört dir nicht.';
 
   @override
   String get errorTargetOccupied => 'Der Zielpunkt ist belegt.';
@@ -239,14 +238,14 @@ class AppLocalizationsDe extends AppLocalizations {
   String get errorNoCaptureRight => 'Du darfst jetzt keinen Stein entfernen.';
 
   @override
-  String get errorOpponentPieceRequired => 'WÃ¤hle einen gegnerischen Stein.';
+  String get errorOpponentPieceRequired => 'Wähle einen gegnerischen Stein.';
 
   @override
   String get errorProtectedMillPiece =>
-      'WÃ¤hle zuerst einen Stein auÃŸerhalb einer MÃ¼hle.';
+      'Wähle zuerst einen Stein außerhalb einer Mühle.';
 
   @override
-  String get errorInvalidPoint => 'UngÃ¼ltiger Brettpunkt.';
+  String get errorInvalidPoint => 'Ungültiger Brettpunkt.';
 
   @override
   String get errorBoardMismatch =>
@@ -261,7 +260,7 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get resume => 'Zum Spiel zurÃ¼ck';
+  String get resume => 'Zum Spiel zurück';
 
   @override
   String get saveAndExit => 'Speichern und beenden';
@@ -270,21 +269,21 @@ class AppLocalizationsDe extends AppLocalizations {
   String get abandonMatch => 'Spiel aufgeben';
 
   @override
-  String get matchInProgressTitle => 'Spiel lÃ¤uft';
+  String get matchInProgressTitle => 'Spiel läuft';
 
   @override
   String get matchInProgressBody =>
-      'Deine aktuelle Position wird automatisch gespeichert. Was mÃ¶chtest du tun?';
+      'Deine aktuelle Position wird automatisch gespeichert. Was möchtest du tun?';
 
   @override
   String get matchLoadError =>
-      'Das gespeicherte Spiel konnte nicht geÃ¶ffnet werden.';
+      'Das gespeicherte Spiel konnte nicht geöffnet werden.';
 
   @override
   String get errorTitle => 'Etwas ist schiefgelaufen';
 
   @override
-  String get routeError => 'Diese Seite konnte nicht sicher geÃ¶ffnet werden.';
+  String get routeError => 'Diese Seite konnte nicht sicher geöffnet werden.';
 
   @override
   String get backHome => 'Zur Startseite';
@@ -334,7 +333,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get aiFoundationNotice =>
-      'HÃ¶here Stufen berechnen mehr ZÃ¼ge voraus und machen weniger taktische Fehler.';
+      'Höhere Stufen berechnen mehr Züge voraus und machen weniger taktische Fehler.';
 
   @override
   String get saveFailedStayInMatch =>
@@ -342,11 +341,11 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String piecesToPlaceStatus(int light, int dark) {
-    return 'Hell: $light  â€¢  Dunkel: $dark';
+    return 'Hell: $light  •  Dunkel: $dark';
   }
 
   @override
-  String get aiThinking => 'Computer denkt nachâ€¦';
+  String get aiThinking => 'Computer denkt nach…';
 
   @override
   String get computerPlayer => 'Computer';
@@ -413,7 +412,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String recordValue(int wins, int losses) {
-    return '$wins S â€¢ $losses N';
+    return '$wins S • $losses N';
   }
 
   @override
@@ -446,28 +445,28 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get tutorialPlaceBody =>
-      'Tippe in der Setzphase auf einen freien Punkt. Plane eigene MÃ¼hlen und blockiere den Gegner.';
+      'Tippe in der Setzphase auf einen freien Punkt. Plane eigene Mühlen und blockiere den Gegner.';
 
   @override
-  String get tutorialMillTitle => 'MÃ¼hle bilden';
+  String get tutorialMillTitle => 'Mühle bilden';
 
   @override
   String get tutorialMillBody =>
-      'Drei eigene Steine auf einer gÃ¼ltigen Linie bilden eine MÃ¼hle.';
+      'Drei eigene Steine auf einer gültigen Linie bilden eine Mühle.';
 
   @override
   String get tutorialCaptureTitle => 'Stein schlagen';
 
   @override
   String get tutorialCaptureBody =>
-      'Nach einer MÃ¼hle wÃ¤hlst du einen markierten gegnerischen Stein. Steine auÃŸerhalb von MÃ¼hlen mÃ¼ssen zuerst geschlagen werden.';
+      'Nach einer Mühle wählst du einen markierten gegnerischen Stein. Steine außerhalb von Mühlen müssen zuerst geschlagen werden.';
 
   @override
   String get tutorialMoveTitle => 'Entlang der Linien ziehen';
 
   @override
   String get tutorialMoveBody =>
-      'Nach dem Setzen ziehst du zu einem benachbarten freien Punkt. Langes DrÃ¼cken und Ziehen ist ebenfalls mÃ¶glich.';
+      'Nach dem Setzen ziehst du zu einem benachbarten freien Punkt. Langes Drücken und Ziehen ist ebenfalls möglich.';
 
   @override
   String get tutorialBlockTitle => 'Gegner blockieren';
@@ -488,10 +487,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get tutorialDoubleMillBody =>
-      'Fortgeschrittenes Spiel verbindet MÃ¼hlen, erzwingt SchlÃ¤ge und erhÃ¤lt Beweglichkeit.';
+      'Fortgeschrittenes Spiel verbindet Mühlen, erzwingt Schläge und erhält Beweglichkeit.';
 
   @override
-  String get previous => 'ZurÃ¼ck';
+  String get previous => 'Zurück';
 
   @override
   String get finish => 'Fertig';
@@ -507,24 +506,24 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get reduceMotionSubtitle =>
-      'Deaktiviert Pulsieren und unnÃ¶tige Bewegung.';
+      'Deaktiviert Pulsieren und unnötige Bewegung.';
 
   @override
   String get showMoveHints => 'Zughinweise anzeigen';
 
   @override
   String get showMoveHintsSubtitle =>
-      'Markiert gÃ¼ltige Ziele und Schlagsteine.';
+      'Markiert gültige Ziele und Schlagsteine.';
 
   @override
-  String get colorAssist => 'FarbunterstÃ¼tzung';
+  String get colorAssist => 'Farbunterstützung';
 
   @override
   String get colorAssistSubtitle =>
-      'ZusÃ¤tzliche Formen und RÃ¤nder vermitteln ZustÃ¤nde nicht nur durch Farbe.';
+      'Zusätzliche Formen und Ränder vermitteln Zustände nicht nur durch Farbe.';
 
   @override
-  String get boardSurface => 'BrettoberflÃ¤che';
+  String get boardSurface => 'Brettoberfläche';
 
   @override
   String get surfaceWood => 'Holz';
@@ -564,11 +563,11 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get addFriendTitle => 'Freund hinzufÃ¼gen';
+  String get addFriendTitle => 'Freund hinzufügen';
 
   @override
   String get addFriendSubtitle =>
-      'FÃ¼ge einen Spieler per Name zu deiner Freundesliste hinzu.';
+      'Füge einen Spieler per Name zu deiner Freundesliste hinzu.';
 
   @override
   String get friendNameLabel => 'Spielername';
@@ -577,7 +576,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get friendNameHint => 'Spielername eingeben';
 
   @override
-  String get addFriendButton => 'Freund hinzufÃ¼gen';
+  String get addFriendButton => 'Freund hinzufügen';
 
   @override
   String get friendNameTooShort => 'Gib mindestens 2 Zeichen ein.';
@@ -588,7 +587,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String friendAdded(String name) {
-    return '$name wurde zu deinen Freunden hinzugefÃ¼gt.';
+    return '$name wurde zu deinen Freunden hinzugefügt.';
   }
 
   @override
@@ -598,14 +597,14 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get resultVictoryPraise =>
-      'GlÃ¼ckwunsch! Stark gespielt. Lust auf eine Revanche?';
+      'Glückwunsch! Stark gespielt. Lust auf eine Revanche?';
 
   @override
-  String get resultDefeatPraise => 'Gut gekÃ¤mpft! Bereit fÃ¼r eine Revanche?';
+  String get resultDefeatPraise => 'Gut gekämpft! Bereit für eine Revanche?';
 
   @override
   String get resultDrawPraise =>
-      'Tolles Spiel â€” unentschieden. Noch eine Runde?';
+      'Tolles Spiel — unentschieden. Noch eine Runde?';
 
   @override
   String get resultLocalPraise => 'Tolles Spiel! Lust auf eine Revanche?';
@@ -620,7 +619,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get playerName => 'Spielername';
 
   @override
-  String get countryCode => 'LÃ¤ndercode';
+  String get countryCode => 'Ländercode';
 
   @override
   String get saveProfile => 'Profil speichern';
@@ -639,9 +638,9 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get profileCountryCodeInvalid =>
-      'Der LÃ¤ndercode muss aus zwei Buchstaben bestehen.';
+      'Der Ländercode muss aus zwei Buchstaben bestehen.';
 
   @override
   String get profileLocalSaveNote =>
-      'Deine Profildaten werden sicher auf diesem GerÃ¤t gespeichert.';
+      'Deine Profildaten werden sicher auf diesem Gerät gespeichert.';
 }

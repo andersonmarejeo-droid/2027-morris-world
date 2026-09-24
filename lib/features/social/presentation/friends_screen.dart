@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nine_tas/l10n/generated/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../app/app_colors.dart';
 import '../../../app/app_services_scope.dart';
 import '../../../app/app_tokens.dart';
 import '../../../core/game/game_definition.dart';
@@ -160,27 +161,53 @@ class _FriendsScreenState extends State<FriendsScreen> {
         isEmpty: (items) => items.isEmpty,
         emptyBuilder:
             (context) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: 48),
-              child: Center(child: Text(l10n.noFriendsYet)),
+              padding: const EdgeInsets.symmetric(vertical: AppSpacing.xxxl),
+              child: AppEmptyView(
+                icon: Icons.group_outlined,
+                message: l10n.noFriendsYet,
+                action: FilledButton.icon(
+                  onPressed: _addFriend,
+                  icon: const Icon(Icons.person_add_alt_1_rounded),
+                  label: Text(l10n.addFriendButton),
+                ),
+              ),
             ),
         dataBuilder:
             (context, items) => Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                OutlinedButton.icon(
+                _FriendsDashboard(
+                  count: items.length,
+                  title: l10n.friends,
+                  gameName: gameName(l10n, _selectedGame!),
+                ),
+                const SizedBox(height: AppSpacing.lg),
+                FilledButton.icon(
                   onPressed: _addFriend,
                   icon: const Icon(Icons.person_add_alt_1_rounded),
                   label: Text(l10n.addFriendButton),
                 ),
                 const SizedBox(height: AppSpacing.md),
-                SegmentedButton<MorrisGameId>(
-                  segments: [
-                    for (final id in MorrisGameId.values)
-                      ButtonSegment(value: id, label: Text(gameName(l10n, id))),
-                  ],
-                  selected: {_selectedGame!},
-                  onSelectionChanged:
-                      (value) => setState(() => _selectedGame = value.first),
+                Container(
+                  padding: const EdgeInsets.all(AppSpacing.xs),
+                  decoration: BoxDecoration(
+                    color: AppColors.surfaceMuted,
+                    borderRadius: BorderRadius.circular(AppRadii.medium),
+                    border: Border.all(color: AppColors.line),
+                  ),
+                  child: SegmentedButton<MorrisGameId>(
+                    showSelectedIcon: false,
+                    segments: [
+                      for (final id in MorrisGameId.values)
+                        ButtonSegment(
+                          value: id,
+                          label: Text(gameName(l10n, id)),
+                        ),
+                    ],
+                    selected: {_selectedGame!},
+                    onSelectionChanged:
+                        (value) => setState(() => _selectedGame = value.first),
+                  ),
                 ),
                 const SizedBox(height: AppSpacing.lg),
                 for (final friend in items) ...[
@@ -197,7 +224,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                   const SizedBox(height: AppSpacing.sm),
                 ],
                 const SizedBox(height: AppSpacing.md),
-                FilledButton.icon(
+                OutlinedButton.icon(
                   onPressed: _challengeViaWhatsApp,
                   icon: const Icon(Icons.chat_rounded),
                   label: Text(l10n.shareInvite),
@@ -214,6 +241,76 @@ class _FriendsScreenState extends State<FriendsScreen> {
         Presence.inMatch => l10n.presenceInMatch,
         Presence.offline => l10n.presenceOffline,
       };
+}
+
+class _FriendsDashboard extends StatelessWidget {
+  const _FriendsDashboard({
+    required this.count,
+    required this.title,
+    required this.gameName,
+  });
+
+  final int count;
+  final String title;
+  final String gameName;
+
+  @override
+  Widget build(BuildContext context) => Container(
+    padding: const EdgeInsets.all(AppSpacing.lg),
+    decoration: BoxDecoration(
+      gradient: const LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [AppColors.brandDeep, AppColors.brandTop],
+      ),
+      borderRadius: BorderRadius.circular(AppRadii.large),
+    ),
+    child: Row(
+      children: [
+        Container(
+          width: 56,
+          height: 56,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: Colors.white.withValues(alpha: 0.16),
+            shape: BoxShape.circle,
+            border: Border.all(color: Colors.white.withValues(alpha: 0.28)),
+          ),
+          child: Text(
+            count.toString(),
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+        ),
+        const SizedBox(width: AppSpacing.md),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(color: Colors.white),
+              ),
+              const SizedBox(height: AppSpacing.xs),
+              Text(
+                gameName,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Colors.white.withValues(alpha: 0.82),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const Icon(Icons.groups_rounded, color: Colors.white, size: 28),
+      ],
+    ),
+  );
 }
 
 class _FriendCard extends StatelessWidget {
@@ -237,40 +334,17 @@ class _FriendCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: Padding(
         padding: const EdgeInsets.all(14),
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final scaledBody = MediaQuery.textScalerOf(context).scale(14);
-            final compact = constraints.maxWidth < 430 || scaledBody > 16.5;
-            final identity = _FriendIdentity(
-              friend: friend,
-              presence: presence,
-              rating: rating,
-            );
-            final action = FilledButton.tonalIcon(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _FriendIdentity(friend: friend, presence: presence, rating: rating),
+            const SizedBox(height: AppSpacing.md),
+            FilledButton.icon(
               onPressed: onChallenge,
               icon: const Icon(Icons.sports_esports_rounded, size: 20),
               label: Text(challengeLabel),
-            );
-
-            if (compact) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  identity,
-                  const SizedBox(height: AppSpacing.md),
-                  action,
-                ],
-              );
-            }
-
-            return Row(
-              children: [
-                Expanded(child: identity),
-                const SizedBox(width: AppSpacing.md),
-                action,
-              ],
-            );
-          },
+            ),
+          ],
         ),
       ),
     );
@@ -290,9 +364,50 @@ class _FriendIdentity extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final initial =
+        friend.name.trim().isEmpty
+            ? '?'
+            : friend.name.trim().characters.first.toUpperCase();
+    final presenceColor = switch (friend.presence) {
+      Presence.online => AppColors.success,
+      Presence.inMatch => AppColors.zpOrange,
+      Presence.offline => AppColors.inkMuted,
+    };
     return Row(
       children: [
-        CircleAvatar(child: Text(friend.name.characters.first)),
+        Stack(
+          clipBehavior: Clip.none,
+          children: [
+            CircleAvatar(
+              radius: 23,
+              backgroundColor: AppColors.brandSoft,
+              foregroundColor: AppColors.brandDeep,
+              child: Text(
+                initial,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+            Positioned(
+              right: -1,
+              bottom: -1,
+              child: Semantics(
+                label: presence,
+                child: Container(
+                  width: 14,
+                  height: 14,
+                  decoration: BoxDecoration(
+                    color: presenceColor,
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Theme.of(context).cardColor,
+                      width: 2,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
         const SizedBox(width: AppSpacing.md),
         Expanded(
           child: Column(
@@ -306,7 +421,7 @@ class _FriendIdentity extends StatelessWidget {
               ),
               const SizedBox(height: 2),
               Text(
-                <String>[presence, rating].join(' â€¢ '),
+                <String>[presence, rating].join(' • '),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodySmall,

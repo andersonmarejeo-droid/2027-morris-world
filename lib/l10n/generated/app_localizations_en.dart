@@ -9,7 +9,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appTitle => '3-9-12 Taş';
+  String get appTitle => 'Morris World';
 
   @override
   String get home => 'Home';
@@ -67,7 +67,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get computerModeSubtitle =>
-      'No internet required â€¢ choose a difficulty';
+      'No internet required • choose a difficulty';
 
   @override
   String get sameDeviceSubtitle => 'Take turns with two players on this device';
@@ -94,7 +94,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get systemLanguage => 'Use device language';
 
   @override
-  String get languageTurkish => 'TÃ¼rkÃ§e';
+  String get languageTurkish => 'Türkçe';
 
   @override
   String get languageEnglish => 'English';
@@ -103,19 +103,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get languageGerman => 'Deutsch';
 
   @override
-  String get languageSpanish => 'EspaÃ±ol';
+  String get languageSpanish => 'Español';
 
   @override
-  String get languageFrench => 'FranÃ§ais';
+  String get languageFrench => 'Français';
 
   @override
-  String get languagePortugueseBrazil => 'PortuguÃªs (Brasil)';
+  String get languagePortugueseBrazil => 'Português (Brasil)';
 
   @override
-  String get languageArabic => 'Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©';
+  String get languageArabic => 'العربية';
 
   @override
-  String get languageHindi => 'à¤¹à¤¿à¤¨à¥à¤¦à¥€';
+  String get languageHindi => 'हिन्दी';
 
   @override
   String get restart => 'Restart';
@@ -337,11 +337,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String piecesToPlaceStatus(int light, int dark) {
-    return 'Light: $light  â€¢  Dark: $dark';
+    return 'Light: $light  •  Dark: $dark';
   }
 
   @override
-  String get aiThinking => 'Computer is thinkingâ€¦';
+  String get aiThinking => 'Computer is thinking…';
 
   @override
   String get computerPlayer => 'Computer';
@@ -408,7 +408,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String recordValue(int wins, int losses) {
-    return '$wins W â€¢ $losses L';
+    return '$wins W • $losses L';
   }
 
   @override
@@ -598,7 +598,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get resultDefeatPraise => 'Good fight! Ready for a rematch?';
 
   @override
-  String get resultDrawPraise => 'Great game â€” it ended in a draw. One more?';
+  String get resultDrawPraise => 'Great game — it ended in a draw. One more?';
 
   @override
   String get resultLocalPraise => 'Great match! Want to play a rematch?';

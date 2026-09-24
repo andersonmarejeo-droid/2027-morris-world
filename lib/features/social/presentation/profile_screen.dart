@@ -148,6 +148,7 @@ class _ProfileBodyState extends State<_ProfileBody> {
               child: _StatTile(
                 label: l10n.game3Name,
                 value: _profile.rating3.toString(),
+                icon: Icons.looks_3_rounded,
               ),
             ),
             const SizedBox(width: AppSpacing.sm),
@@ -155,6 +156,7 @@ class _ProfileBodyState extends State<_ProfileBody> {
               child: _StatTile(
                 label: l10n.game9Name,
                 value: _profile.rating9.toString(),
+                icon: Icons.looks_rounded,
               ),
             ),
             const SizedBox(width: AppSpacing.sm),
@@ -162,6 +164,7 @@ class _ProfileBodyState extends State<_ProfileBody> {
               child: _StatTile(
                 label: l10n.game12Name,
                 value: _profile.rating12.toString(),
+                icon: Icons.looks_two_rounded,
               ),
             ),
           ],
@@ -175,6 +178,7 @@ class _ProfileBodyState extends State<_ProfileBody> {
               child: _StatTile(
                 label: l10n.wins,
                 value: _profile.wins.toString(),
+                icon: Icons.workspace_premium_rounded,
               ),
             ),
             const SizedBox(width: AppSpacing.sm),
@@ -182,6 +186,7 @@ class _ProfileBodyState extends State<_ProfileBody> {
               child: _StatTile(
                 label: l10n.losses,
                 value: _profile.losses.toString(),
+                icon: Icons.flag_outlined,
               ),
             ),
             const SizedBox(width: AppSpacing.sm),
@@ -189,6 +194,7 @@ class _ProfileBodyState extends State<_ProfileBody> {
               child: _StatTile(
                 label: l10n.bestStreak,
                 value: _profile.bestStreak.toString(),
+                icon: Icons.local_fire_department_rounded,
               ),
             ),
           ],
@@ -197,6 +203,7 @@ class _ProfileBodyState extends State<_ProfileBody> {
         _StatTile(
           label: l10n.winRate,
           value: _percentLabel((_profile.winRate * 100).round()),
+          icon: Icons.show_chart_rounded,
         ),
       ],
     );
@@ -283,22 +290,41 @@ class _ProfileHero extends StatelessWidget {
   final AppLocalizations l10n;
 
   @override
-  Widget build(BuildContext context) => Card(
-    child: Padding(
+  Widget build(BuildContext context) {
+    final initial =
+        profile.name.trim().isEmpty
+            ? '?'
+            : profile.name.trim().characters.first.toUpperCase();
+    return Container(
       padding: const EdgeInsets.all(AppSpacing.lg),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [AppColors.brandDeep, AppColors.brandTop],
+        ),
+        borderRadius: BorderRadius.circular(AppRadii.large),
+      ),
       child: Row(
         children: [
           Container(
-            width: 72,
-            height: 72,
-            decoration: const BoxDecoration(
-              color: AppColors.brandSoft,
+            width: 74,
+            height: 74,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.16),
               shape: BoxShape.circle,
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.48),
+                width: 2,
+              ),
             ),
-            child: const Icon(
-              Icons.person_rounded,
-              size: 40,
-              color: AppColors.brandDeep,
+            child: Text(
+              initial,
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.w900,
+              ),
             ),
           ),
           const SizedBox(width: AppSpacing.lg),
@@ -308,20 +334,44 @@ class _ProfileHero extends StatelessWidget {
               children: [
                 Text(
                   profile.name,
-                  style: Theme.of(context).textTheme.headlineSmall,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.headlineSmall?.copyWith(color: Colors.white),
                 ),
                 const SizedBox(height: AppSpacing.xs),
                 Text(
                   l10n.countryProfile(profile.countryCode),
-                  style: Theme.of(context).textTheme.bodySmall,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Colors.white.withValues(alpha: 0.84),
+                  ),
+                ),
+                const SizedBox(height: AppSpacing.sm),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.sm,
+                    vertical: AppSpacing.xs,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.16),
+                    borderRadius: BorderRadius.circular(AppRadii.pill),
+                  ),
+                  child: Text(
+                    l10n.levelLabel(profile.level),
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
         ],
       ),
-    ),
-  );
+    );
+  }
 }
 
 class _ProgressCard extends StatelessWidget {
@@ -339,6 +389,16 @@ class _ProgressCard extends StatelessWidget {
         children: [
           Row(
             children: [
+              Container(
+                width: 38,
+                height: 38,
+                decoration: const BoxDecoration(
+                  color: AppColors.selection,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.star_rounded, color: AppColors.ink),
+              ),
+              const SizedBox(width: AppSpacing.sm),
               Expanded(
                 child: Text(
                   l10n.levelLabel(profile.level),
@@ -352,10 +412,14 @@ class _ProgressCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: AppSpacing.sm),
-          LinearProgressIndicator(
-            value: profile.levelProgress,
-            minHeight: 8,
+          ClipRRect(
             borderRadius: BorderRadius.circular(AppRadii.pill),
+            child: LinearProgressIndicator(
+              value: profile.levelProgress,
+              minHeight: 10,
+              color: AppColors.brandDeep,
+              backgroundColor: AppColors.surfaceMuted,
+            ),
           ),
         ],
       ),
@@ -366,22 +430,34 @@ class _ProgressCard extends StatelessWidget {
 String _percentLabel(int value) => '$value%';
 
 class _StatTile extends StatelessWidget {
-  const _StatTile({required this.label, required this.value});
+  const _StatTile({
+    required this.label,
+    required this.value,
+    required this.icon,
+  });
   final String label;
   final String value;
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) => Container(
     padding: const EdgeInsets.all(AppSpacing.md),
     decoration: BoxDecoration(
-      color: Colors.white,
+      color: Theme.of(context).cardColor,
       borderRadius: BorderRadius.circular(AppRadii.medium),
       border: Border.all(color: AppColors.line),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(value, style: Theme.of(context).textTheme.titleLarge),
+        Icon(icon, color: AppColors.brandDeep, size: 19),
+        const SizedBox(height: AppSpacing.sm),
+        Text(
+          value,
+          style: Theme.of(
+            context,
+          ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
+        ),
         const SizedBox(height: AppSpacing.xs),
         Text(label, style: Theme.of(context).textTheme.bodySmall),
       ],

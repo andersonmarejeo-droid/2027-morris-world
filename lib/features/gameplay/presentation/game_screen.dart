@@ -212,7 +212,7 @@ class _GameScreenState extends State<GameScreen> {
         if (controller.loading) {
           return AppScreenShell(
             title: gameName(l10n, widget.config.gameId),
-            body: const Center(child: CircularProgressIndicator()),
+            body: const Center(child: _MatchLoadingState()),
           );
         }
         if (controller.loadError != null || controller.game == null) {
@@ -284,7 +284,7 @@ class _GameScreenState extends State<GameScreen> {
       title: gameName(l10n, widget.config.gameId),
       scrollable: true,
       maxWidth: AppConstraints.boardMaxWidth,
-      padding: const EdgeInsets.fromLTRB(16, 8, 16, 28),
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 32),
       actions: [
         IconButton(
           tooltip: l10n.restart,
@@ -321,39 +321,41 @@ class _GameScreenState extends State<GameScreen> {
               captureRequired: game.pendingCaptureBy != null,
             ),
             const SizedBox(height: AppSpacing.md),
-            MorrisBoard(
-              definition: controller.definition,
-              board: game.board,
-              selectedPoint: controller.selectedPoint,
-              legalTargets: controller.legalTargets,
-              capturablePoints: controller.capturablePoints,
-              activeMillPoints: controller.activeMillPoints,
-              lastMoveFrom: controller.lastMoveFrom,
-              lastMoveTo: controller.lastMoveTo,
-              lastMoveActor: controller.lastMoveActor,
-              lastCapturedPoint: controller.lastCapturedPoint,
-              capturedLight: lightCaptured,
-              capturedDark: darkCaptured,
-              moveSequence: session.moveCount,
-              moveDuration: controller.visualMoveDuration,
-              onPointTap: controller.tapPoint,
-              // Tap -> tap is the stable canonical interaction. Drag can be
-              // re-enabled later after device profiling; it is not required
-              // for any Morris rule or accessibility flow.
-              onMoveDrop: null,
-              interactive: controller.humanCanAct,
-              reduceMotion: settings.reduceMotion,
-              showHints: settings.showMoveHints,
-              colorAssist: settings.colorAssist,
-              surface: settings.boardSurface,
-              viewStyle: settings.boardView,
-              pieceTheme: settings.pieceTheme,
-              semanticLabelBuilder:
-                  (point, piece) => switch (piece) {
-                    PlayerSide.light => l10n.boardPointLight(point + 1),
-                    PlayerSide.dark => l10n.boardPointDark(point + 1),
-                    null => l10n.boardPointEmpty(point + 1),
-                  },
+            _BoardStage(
+              child: MorrisBoard(
+                definition: controller.definition,
+                board: game.board,
+                selectedPoint: controller.selectedPoint,
+                legalTargets: controller.legalTargets,
+                capturablePoints: controller.capturablePoints,
+                activeMillPoints: controller.activeMillPoints,
+                lastMoveFrom: controller.lastMoveFrom,
+                lastMoveTo: controller.lastMoveTo,
+                lastMoveActor: controller.lastMoveActor,
+                lastCapturedPoint: controller.lastCapturedPoint,
+                capturedLight: lightCaptured,
+                capturedDark: darkCaptured,
+                moveSequence: session.moveCount,
+                moveDuration: controller.visualMoveDuration,
+                onPointTap: controller.tapPoint,
+                // Tap -> tap is the stable canonical interaction. Drag can be
+                // re-enabled later after device profiling; it is not required
+                // for any Morris rule or accessibility flow.
+                onMoveDrop: null,
+                interactive: controller.humanCanAct,
+                reduceMotion: settings.reduceMotion,
+                showHints: settings.showMoveHints,
+                colorAssist: settings.colorAssist,
+                surface: settings.boardSurface,
+                viewStyle: settings.boardView,
+                pieceTheme: settings.pieceTheme,
+                semanticLabelBuilder:
+                    (point, piece) => switch (piece) {
+                      PlayerSide.light => l10n.boardPointLight(point + 1),
+                      PlayerSide.dark => l10n.boardPointDark(point + 1),
+                      null => l10n.boardPointEmpty(point + 1),
+                    },
+              ),
             ),
             const SizedBox(height: AppSpacing.md),
             MatchPlayerBar(
@@ -447,45 +449,123 @@ class _TurnBanner extends StatelessWidget {
   final bool captureRequired;
 
   @override
-  Widget build(BuildContext context) => SizedBox(
-    height: 54,
-    child: AnimatedContainer(
-      duration: MotionTokens.fast,
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-      decoration: BoxDecoration(
-        color:
-            captureRequired
-                ? AppColors.danger.withValues(alpha: 0.08)
-                : AppColors.surfaceMuted,
-        borderRadius: BorderRadius.circular(AppRadii.medium),
-        border: Border.all(
-          color:
-              captureRequired
-                  ? AppColors.danger.withValues(alpha: 0.34)
-                  : AppColors.line,
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final accent = captureRequired ? scheme.error : scheme.primary;
+    final background =
+        captureRequired ? scheme.errorContainer : scheme.primaryContainer;
+    final onBackground =
+        captureRequired ? scheme.onErrorContainer : scheme.onPrimaryContainer;
+    return Semantics(
+      liveRegion: true,
+      child: AnimatedContainer(
+        duration: MotionTokens.fast,
+        constraints: const BoxConstraints(minHeight: 54),
+        padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
+        decoration: BoxDecoration(
+          color: background,
+          borderRadius: BorderRadius.circular(AppRadii.medium),
+          border: Border.all(color: accent.withValues(alpha: 0.24)),
+          boxShadow: [
+            BoxShadow(
+              color: accent.withValues(alpha: 0.08),
+              blurRadius: 14,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 38,
+              height: 38,
+              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+              child: Icon(
+                captureRequired
+                    ? Icons.gps_fixed_rounded
+                    : Icons.touch_app_rounded,
+                color: Colors.white,
+                size: 20,
+              ),
+            ),
+            const SizedBox(width: AppSpacing.sm),
+            Expanded(
+              child: Text(
+                status,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(color: onBackground),
+              ),
+            ),
+            const SizedBox(width: AppSpacing.sm),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 5),
+              decoration: BoxDecoration(
+                color: scheme.surface.withValues(alpha: 0.62),
+                borderRadius: BorderRadius.circular(AppRadii.pill),
+              ),
+              child: Text(
+                moveCountLabel,
+                style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                  color: onBackground,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
-      child: Row(
-        children: [
-          Icon(
-            captureRequired ? Icons.adjust_rounded : Icons.touch_app_rounded,
-            color: captureRequired ? AppColors.danger : AppColors.brandDeep,
-          ),
-          const SizedBox(width: AppSpacing.sm),
-          Expanded(
-            child: Text(
-              status,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          ),
-          const SizedBox(width: AppSpacing.sm),
-          Text(moveCountLabel, style: Theme.of(context).textTheme.bodySmall),
-        ],
+    );
+  }
+}
+
+class _BoardStage extends StatelessWidget {
+  const _BoardStage({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Container(
+      padding: const EdgeInsets.all(7),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [scheme.surfaceContainerHighest, scheme.surfaceContainerLow],
+        ),
+        borderRadius: BorderRadius.circular(AppRadii.extraLarge),
+        border: Border.all(color: scheme.outlineVariant.withValues(alpha: 0.7)),
       ),
-    ),
-  );
+      child: child,
+    );
+  }
+}
+
+class _MatchLoadingState extends StatelessWidget {
+  const _MatchLoadingState();
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Container(
+      width: 76,
+      height: 76,
+      decoration: BoxDecoration(
+        color: scheme.primaryContainer,
+        borderRadius: BorderRadius.circular(AppRadii.large),
+      ),
+      alignment: Alignment.center,
+      child: SizedBox(
+        width: 28,
+        height: 28,
+        child: CircularProgressIndicator(strokeWidth: 3, color: scheme.primary),
+      ),
+    );
+  }
 }
 
 class _InlineNotice extends StatelessWidget {
@@ -499,25 +579,35 @@ class _InlineNotice extends StatelessWidget {
   final bool danger;
 
   @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color:
-          danger
-              ? AppColors.danger.withValues(alpha: 0.08)
-              : AppColors.brandSoft,
-      borderRadius: BorderRadius.circular(AppRadii.medium),
-    ),
-    child: Row(
-      children: [
-        Icon(icon, color: danger ? AppColors.danger : AppColors.brandDeep),
-        const SizedBox(width: AppSpacing.sm),
-        Expanded(
-          child: Text(text, style: Theme.of(context).textTheme.bodySmall),
-        ),
-      ],
-    ),
-  );
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final color = danger ? scheme.error : scheme.primary;
+    final background = danger ? scheme.errorContainer : scheme.primaryContainer;
+    final foreground =
+        danger ? scheme.onErrorContainer : scheme.onPrimaryContainer;
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: background,
+        borderRadius: BorderRadius.circular(AppRadii.medium),
+        border: Border.all(color: color.withValues(alpha: 0.24)),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, color: color),
+          const SizedBox(width: AppSpacing.sm),
+          Expanded(
+            child: Text(
+              text,
+              style: Theme.of(
+                context,
+              ).textTheme.bodySmall?.copyWith(color: foreground),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class _ResultCard extends StatelessWidget {
@@ -538,52 +628,76 @@ class _ResultCard extends StatelessWidget {
   final VoidCallback onHome;
 
   @override
-  Widget build(BuildContext context) => Card(
-    child: Padding(
-      padding: const EdgeInsets.all(AppSpacing.lg),
-      child: Column(
-        children: [
-          const Icon(
-            Icons.emoji_events_rounded,
-            size: 42,
-            color: AppColors.selection,
-          ),
-          const SizedBox(height: AppSpacing.sm),
-          Text(
-            title,
-            style: Theme.of(context).textTheme.titleLarge,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: AppSpacing.xs),
-          Text(
-            message,
-            style: Theme.of(context).textTheme.bodyMedium,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: AppSpacing.md),
-          Row(
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Container(
+      padding: const EdgeInsets.all(1),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            scheme.primary.withValues(alpha: 0.62),
+            AppColors.selection.withValues(alpha: 0.72),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(AppRadii.large),
+      ),
+      child: Card(
+        color: scheme.surface,
+        child: Padding(
+          padding: const EdgeInsets.all(AppSpacing.lg),
+          child: Column(
             children: [
-              Expanded(
-                child: OutlinedButton.icon(
-                  onPressed: onHome,
-                  icon: const Icon(Icons.home_rounded),
-                  label: Text(homeLabel),
+              Container(
+                width: 64,
+                height: 64,
+                decoration: BoxDecoration(
+                  color: scheme.primaryContainer,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.emoji_events_rounded,
+                  size: 34,
+                  color: scheme.primary,
                 ),
               ),
-              const SizedBox(width: AppSpacing.sm),
-              Expanded(
-                child: FilledButton.icon(
-                  onPressed: onRematch,
-                  icon: const Icon(Icons.replay_rounded),
-                  label: Text(rematchLabel),
-                ),
+              const SizedBox(height: AppSpacing.sm),
+              Text(
+                title,
+                style: Theme.of(context).textTheme.titleLarge,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: AppSpacing.xs),
+              Text(
+                message,
+                style: Theme.of(context).textTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: AppSpacing.md),
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton.icon(
+                      onPressed: onHome,
+                      icon: const Icon(Icons.home_rounded),
+                      label: Text(homeLabel),
+                    ),
+                  ),
+                  const SizedBox(width: AppSpacing.sm),
+                  Expanded(
+                    child: FilledButton.icon(
+                      onPressed: onRematch,
+                      icon: const Icon(Icons.replay_rounded),
+                      label: Text(rematchLabel),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-        ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }
 
 class _QuickMessages extends StatelessWidget {

@@ -9,80 +9,78 @@ class AppLocalizationsTr extends AppLocalizations {
   AppLocalizationsTr([String locale = 'tr']) : super(locale);
 
   @override
-  String get appTitle => '3-9-12 Taş';
+  String get appTitle => 'Morris World';
 
   @override
   String get home => 'Ana Sayfa';
 
   @override
-  String get selectGameTitle => 'Oyununu seÃ§';
+  String get selectGameTitle => 'Oyununu seç';
 
   @override
   String get selectGameSubtitle =>
-      'ÃœÃ§ klasik strateji oyunu, tek sade ve sosyal dÃ¼nya.';
+      'Üç klasik strateji oyunu, tek sade ve sosyal dünya.';
 
   @override
-  String get game3Name => '3 TaÅŸ';
+  String get game3Name => '3 Taş';
 
   @override
-  String get game3Description => 'HÄ±zlÄ±, sade ve taktiksel.';
+  String get game3Description => 'Hızlı, sade ve taktiksel.';
 
   @override
-  String get game9Name => '9 TaÅŸ';
+  String get game9Name => '9 Taş';
 
   @override
   String get game9Description => 'Ana klasik oyun.';
 
   @override
-  String get game12Name => '12 TaÅŸ';
+  String get game12Name => '12 Taş';
 
   @override
-  String get game12Description => 'Daha yoÄŸun tahta, daha derin strateji.';
+  String get game12Description => 'Daha yoğun tahta, daha derin strateji.';
 
   @override
   String selectModeTitle(String gameName) {
-    return '$gameName nasÄ±l oynansÄ±n?';
+    return '$gameName nasıl oynansın?';
   }
 
   @override
-  String get online => 'Ã‡evrimiÃ§i';
+  String get online => 'Çevrimiçi';
 
   @override
-  String get onlineSubtitle => 'DÃ¼nyadan gerÃ§ek bir rakip bul';
+  String get onlineSubtitle => 'Dünyadan gerçek bir rakip bul';
 
   @override
   String get challenge => 'Meydan Oku';
 
   @override
   String get challengeSubtitle =>
-      'ArkadaÅŸÄ±nÄ± oyun iÃ§inden veya baÄŸlantÄ±yla davet et';
+      'Arkadaşını oyun içinden veya bağlantıyla davet et';
 
   @override
-  String get offline => 'Ã‡evrimdÄ±ÅŸÄ±';
+  String get offline => 'Çevrimdışı';
 
   @override
-  String get offlineSubtitle =>
-      'Yapay zekÃ¢ya veya aynÄ± cihazda iki kiÅŸi oyna';
+  String get offlineSubtitle => 'Yapay zekâya veya aynı cihazda iki kişi oyna';
 
   @override
-  String get computerModeTitle => 'Bilgisayara KarÅŸÄ± Oyna';
+  String get computerModeTitle => 'Bilgisayara Karşı Oyna';
 
   @override
   String get computerModeSubtitle =>
-      'Ä°nternet gerekmez â€¢ zorluk seviyesini seÃ§';
+      'İnternet gerekmez • zorluk seviyesini seç';
 
   @override
-  String get sameDeviceSubtitle =>
-      'AynÄ± telefonda sÄ±rayla iki kiÅŸi oynayÄ±n';
+  String get sameDeviceSubtitle => 'Aynı telefonda sırayla iki kişi oynayın';
 
   @override
-  String get howToPlay => 'NasÄ±l oynanÄ±r';
+  String get howToPlay => 'Nasıl oynanır';
 
   @override
-  String get friends => 'ArkadaÅŸlar';
+  String get friends => 'Arkadaşlar';
 
   @override
-  String get rankings => 'SÄ±ralama';
+  String get rankings => 'Sıralama';
 
   @override
   String get profile => 'Profil';
@@ -97,7 +95,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get systemLanguage => 'Telefon dilini kullan';
 
   @override
-  String get languageTurkish => 'TÃ¼rkÃ§e';
+  String get languageTurkish => 'Türkçe';
 
   @override
   String get languageEnglish => 'English';
@@ -106,32 +104,32 @@ class AppLocalizationsTr extends AppLocalizations {
   String get languageGerman => 'Deutsch';
 
   @override
-  String get languageSpanish => 'EspaÃ±ol';
+  String get languageSpanish => 'Español';
 
   @override
-  String get languageFrench => 'FranÃ§ais';
+  String get languageFrench => 'Français';
 
   @override
-  String get languagePortugueseBrazil => 'PortuguÃªs (Brasil)';
+  String get languagePortugueseBrazil => 'Português (Brasil)';
 
   @override
-  String get languageArabic => 'Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©';
+  String get languageArabic => 'العربية';
 
   @override
-  String get languageHindi => 'à¤¹à¤¿à¤¨à¥à¤¦à¥€';
+  String get languageHindi => 'हिन्दी';
 
   @override
-  String get restart => 'Yeniden baÅŸlat';
+  String get restart => 'Yeniden başlat';
 
   @override
-  String get lightPlayer => 'AÃ§Ä±k';
+  String get lightPlayer => 'Açık';
 
   @override
   String get darkPlayer => 'Koyu';
 
   @override
   String playerWon(String player) {
-    return '$player kazandÄ±';
+    return '$player kazandı';
   }
 
   @override
@@ -139,12 +137,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String capturePrompt(String player) {
-    return '$player: rakibin bir taÅŸÄ±nÄ± al';
+    return '$player: rakibin bir taşını al';
   }
 
   @override
   String placePrompt(String player) {
-    return '$player: taÅŸÄ±nÄ± yerleÅŸtir';
+    return '$player: taşını yerleştir';
   }
 
   @override
@@ -153,16 +151,16 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get quickGoodMove => 'Ä°yi hamle!';
+  String get quickGoodMove => 'İyi hamle!';
 
   @override
   String get quickCongrats => 'Tebrikler!';
 
   @override
-  String get quickGoodGame => 'GÃ¼zel oyun!';
+  String get quickGoodGame => 'Güzel oyun!';
 
   @override
-  String get quickMore => 'DiÄŸer';
+  String get quickMore => 'Diğer';
 
   @override
   String get shareInvite => 'WhatsApp ile Meydan Oku';
@@ -172,23 +170,23 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String challengePrepared(String name) {
-    return '$name iÃ§in meydan okuma hazÄ±rlandÄ±.';
+    return '$name için meydan okuma hazırlandı.';
   }
 
   @override
-  String get presenceOnline => 'Ã‡evrimiÃ§i';
+  String get presenceOnline => 'Çevrimiçi';
 
   @override
-  String get presenceInMatch => 'MaÃ§ta';
+  String get presenceInMatch => 'Maçta';
 
   @override
-  String get presenceOffline => 'Ã‡evrimdÄ±ÅŸÄ±';
+  String get presenceOffline => 'Çevrimdışı';
 
   @override
-  String get offlineDifficultyTitle => 'Zorluk seviyesini seÃ§';
+  String get offlineDifficultyTitle => 'Zorluk seviyesini seç';
 
   @override
-  String get beginner => 'BaÅŸlangÄ±Ã§';
+  String get beginner => 'Başlangıç';
 
   @override
   String get easy => 'Kolay';
@@ -203,94 +201,93 @@ class AppLocalizationsTr extends AppLocalizations {
   String get master => 'Usta';
 
   @override
-  String get sameDevice => 'AynÄ± cihazda iki oyuncu';
+  String get sameDevice => 'Aynı cihazda iki oyuncu';
 
   @override
   String featureComingSoon(String feature) {
-    return '$feature altyapÄ±sÄ± sÄ±radaki geliÅŸtirme adÄ±mÄ±nda.';
+    return '$feature altyapısı sıradaki geliştirme adımında.';
   }
 
   @override
-  String get errorMatchFinished => 'Bu maÃ§ tamamlandÄ±.';
+  String get errorMatchFinished => 'Bu maç tamamlandı.';
 
   @override
-  String get errorCaptureRequired => 'Ã–nce rakibin bir taÅŸÄ±nÄ± almalÄ±sÄ±n.';
+  String get errorCaptureRequired => 'Önce rakibin bir taşını almalısın.';
 
   @override
-  String get errorPlacementFinished =>
-      'TaÅŸ yerleÅŸtirme aÅŸamasÄ± tamamlandÄ±.';
+  String get errorPlacementFinished => 'Taş yerleştirme aşaması tamamlandı.';
 
   @override
   String get errorPointOccupied => 'Bu nokta dolu.';
 
   @override
   String get errorNotMovementPhase =>
-      'HenÃ¼z taÅŸ hareket ettirme aÅŸamasÄ±nda deÄŸilsin.';
+      'Henüz taş hareket ettirme aşamasında değilsin.';
 
   @override
-  String get errorNotYourPiece => 'SeÃ§tiÄŸin taÅŸ sana ait deÄŸil.';
+  String get errorNotYourPiece => 'Seçtiğin taş sana ait değil.';
 
   @override
   String get errorTargetOccupied => 'Hedef nokta dolu.';
 
   @override
-  String get errorNotAdjacent => 'TaÅŸ baÄŸlÄ± komÅŸu noktaya gitmeli.';
+  String get errorNotAdjacent => 'Taş bağlı komşu noktaya gitmeli.';
 
   @override
-  String get errorNoCaptureRight => 'Åu anda taÅŸ alma hakkÄ±n yok.';
+  String get errorNoCaptureRight => 'Şu anda taş alma hakkın yok.';
 
   @override
-  String get errorOpponentPieceRequired => 'Rakibin bir taÅŸÄ±nÄ± seÃ§melisin.';
+  String get errorOpponentPieceRequired => 'Rakibin bir taşını seçmelisin.';
 
   @override
   String get errorProtectedMillPiece =>
-      'Ã–nce Ã¼Ã§lÃ¼ dÄ±ÅŸÄ±nda kalan bir rakip taÅŸÄ±nÄ± seÃ§.';
+      'Önce üçlü dışında kalan bir rakip taşını seç.';
 
   @override
-  String get errorInvalidPoint => 'GeÃ§ersiz tahta noktasÄ±.';
+  String get errorInvalidPoint => 'Geçersiz tahta noktası.';
 
   @override
   String get errorBoardMismatch =>
-      'Bu maÃ§ uyumsuz bir tahta tanÄ±mÄ± kullanÄ±yor.';
+      'Bu maç uyumsuz bir tahta tanımı kullanıyor.';
 
   @override
-  String get continueMatch => 'MaÃ§a devam et';
+  String get continueMatch => 'Maça devam et';
 
   @override
   String continueMatchSubtitle(String gameName) {
-    return '$gameName maÃ§Ä±na kaldÄ±ÄŸÄ±n yerden dÃ¶n';
+    return '$gameName maçına kaldığın yerden dön';
   }
 
   @override
-  String get resume => 'Oyuna dÃ¶n';
+  String get resume => 'Oyuna dön';
 
   @override
-  String get saveAndExit => 'Kaydet ve Ã§Ä±k';
+  String get saveAndExit => 'Kaydet ve çık';
 
   @override
-  String get abandonMatch => 'MaÃ§Ä± bitir';
+  String get abandonMatch => 'Maçı bitir';
 
   @override
-  String get matchInProgressTitle => 'MaÃ§ devam ediyor';
+  String get matchInProgressTitle => 'Maç devam ediyor';
 
   @override
   String get matchInProgressBody =>
       'Mevcut konumun otomatik olarak kaydediliyor. Ne yapmak istersin?';
 
   @override
-  String get matchLoadError => 'KaydedilmiÅŸ maÃ§ aÃ§Ä±lamadÄ±.';
+  String get matchLoadError => 'Kaydedilmiş maç açılamadı.';
 
   @override
-  String get errorTitle => 'Bir sorun oluÅŸtu';
+  String get errorTitle => 'Bir sorun oluştu';
 
   @override
-  String get routeError => 'Bu ekran gÃ¼venli ÅŸekilde aÃ§Ä±lamadÄ±.';
+  String get routeError => 'Bu ekran güvenli şekilde açılamadı.';
 
   @override
-  String get backHome => 'Ana sayfaya dÃ¶n';
+  String get backHome => 'Ana sayfaya dön';
 
   @override
-  String get noFriendsYet => 'HenÃ¼z arkadaÅŸÄ±n yok.';
+  String get noFriendsYet => 'Henüz arkadaşın yok.';
 
   @override
   String get sound => 'Ses';
@@ -299,13 +296,13 @@ class AppLocalizationsTr extends AppLocalizations {
   String get haptic => 'Dokunsal geri bildirim';
 
   @override
-  String get boardView => 'Tahta gÃ¶rÃ¼nÃ¼mÃ¼';
+  String get boardView => 'Tahta görünümü';
 
   @override
   String get viewFlat => '2D';
 
   @override
-  String get viewRealistic => 'GerÃ§ekÃ§i';
+  String get viewRealistic => 'Gerçekçi';
 
   @override
   String get viewPerspective => '3D';
@@ -317,36 +314,36 @@ class AppLocalizationsTr extends AppLocalizations {
   String get localProfile => 'Yerel profil';
 
   @override
-  String get genericLoadError => 'Ä°Ã§erik yÃ¼klenemedi.';
+  String get genericLoadError => 'İçerik yüklenemedi.';
 
   @override
   String get retry => 'Tekrar dene';
 
   @override
-  String get restartMatchTitle => 'MaÃ§ yeniden baÅŸlatÄ±lsÄ±n mÄ±?';
+  String get restartMatchTitle => 'Maç yeniden başlatılsın mı?';
 
   @override
   String get restartMatchBody =>
-      'Mevcut kaydedilmiÅŸ konum yeni bir maÃ§la deÄŸiÅŸtirilecek.';
+      'Mevcut kaydedilmiş konum yeni bir maçla değiştirilecek.';
 
   @override
-  String get cancel => 'VazgeÃ§';
+  String get cancel => 'Vazgeç';
 
   @override
   String get aiFoundationNotice =>
-      'Seviye yÃ¼kseldikÃ§e yapay zekÃ¢ daha fazla hamleyi hesaplar ve daha az taktik hata yapar.';
+      'Seviye yükseldikçe yapay zekâ daha fazla hamleyi hesaplar ve daha az taktik hata yapar.';
 
   @override
   String get saveFailedStayInMatch =>
-      'MaÃ§ gÃ¼venli ÅŸekilde kaydedilemedi. Oyunda kal ve tekrar dene.';
+      'Maç güvenli şekilde kaydedilemedi. Oyunda kal ve tekrar dene.';
 
   @override
   String piecesToPlaceStatus(int light, int dark) {
-    return 'AÃ§Ä±k: $light  â€¢  Koyu: $dark';
+    return 'Açık: $light  •  Koyu: $dark';
   }
 
   @override
-  String get aiThinking => 'Bilgisayar dÃ¼ÅŸÃ¼nÃ¼yorâ€¦';
+  String get aiThinking => 'Bilgisayar düşünüyor…';
 
   @override
   String get computerPlayer => 'Bilgisayar';
@@ -361,17 +358,17 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String boardPointLight(int number) {
-    return 'Nokta $number, aÃ§Ä±k taÅŸ';
+    return 'Nokta $number, açık taş';
   }
 
   @override
   String boardPointDark(int number) {
-    return 'Nokta $number, koyu taÅŸ';
+    return 'Nokta $number, koyu taş';
   }
 
   @override
   String boardPointEmpty(int number) {
-    return 'Nokta $number, boÅŸ';
+    return 'Nokta $number, boş';
   }
 
   @override
@@ -380,115 +377,115 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get inviteLinkReady => 'Davet baÄŸlantÄ±sÄ± paylaÅŸmaya hazÄ±r.';
+  String get inviteLinkReady => 'Davet bağlantısı paylaşmaya hazır.';
 
   @override
   String get ratings => 'Puanlar';
 
   @override
-  String get statistics => 'Ä°statistikler';
+  String get statistics => 'İstatistikler';
 
   @override
   String get wins => 'Galibiyet';
 
   @override
-  String get losses => 'MaÄŸlubiyet';
+  String get losses => 'Mağlubiyet';
 
   @override
   String get bestStreak => 'En iyi seri';
 
   @override
-  String get winRate => 'Kazanma oranÄ±';
+  String get winRate => 'Kazanma oranı';
 
   @override
   String countryProfile(String code) {
-    return 'Ãœlke: $code';
+    return 'Ülke: $code';
   }
 
   @override
-  String get world => 'DÃ¼nya';
+  String get world => 'Dünya';
 
   @override
-  String get country => 'Ãœlke';
+  String get country => 'Ülke';
 
   @override
   String recordValue(int wins, int losses) {
-    return '$wins G â€¢ $losses M';
+    return '$wins G • $losses M';
   }
 
   @override
-  String get onlineArena => 'Ã‡evrimiÃ§i Arena';
+  String get onlineArena => 'Çevrimiçi Arena';
 
   @override
   String get onlineArenaSubtitle =>
-      'HÄ±zlÄ± maÃ§, arkadaÅŸ meydan okumasÄ± ve sÄ±ralamalar tek yerde.';
+      'Hızlı maç, arkadaş meydan okuması ve sıralamalar tek yerde.';
 
   @override
-  String get quickMatch => 'HÄ±zlÄ± MaÃ§';
+  String get quickMatch => 'Hızlı Maç';
 
   @override
   String get onlineBackendRequired =>
-      'Ã‡evrimiÃ§i istemci altyapÄ±sÄ± hazÄ±r. Firebase Auth, Realtime Database ve Cloud Functions daÄŸÄ±tÄ±lana kadar dereceli eÅŸleÅŸtirme gÃ¼venli biÃ§imde kapalÄ± kalÄ±r.';
+      'Çevrimiçi istemci altyapısı hazır. Firebase Auth, Realtime Database ve Cloud Functions dağıtılana kadar dereceli eşleştirme güvenli biçimde kapalı kalır.';
 
   @override
-  String get challengeFriends => 'ArkadaÅŸlarÄ±na Meydan Oku';
+  String get challengeFriends => 'Arkadaşlarına Meydan Oku';
 
   @override
-  String get viewRankings => 'SÄ±ralamayÄ± GÃ¶r';
+  String get viewRankings => 'Sıralamayı Gör';
 
   @override
   String tutorialProgress(int current, int total) {
-    return 'AdÄ±m $current / $total';
+    return 'Adım $current / $total';
   }
 
   @override
-  String get tutorialPlaceTitle => 'TaÅŸlarÄ±nÄ± yerleÅŸtir';
+  String get tutorialPlaceTitle => 'Taşlarını yerleştir';
 
   @override
   String get tutorialPlaceBody =>
-      'YerleÅŸtirme aÅŸamasÄ±nda boÅŸ bir noktaya dokun. Kendi planÄ±nÄ± kurarken rakibinin yolunu da kapat.';
+      'Yerleştirme aşamasında boş bir noktaya dokun. Kendi planını kurarken rakibinin yolunu da kapat.';
 
   @override
-  String get tutorialMillTitle => 'ÃœÃ§lÃ¼ kur';
+  String get tutorialMillTitle => 'Üçlü kur';
 
   @override
   String get tutorialMillBody =>
-      'GeÃ§erli bir Ã§izgide Ã¼Ã§ taÅŸÄ±nÄ± birleÅŸtirince Ã¼Ã§lÃ¼ oluÅŸur. Vurgulanan Ã§izgi Ã¶rneÄŸi gÃ¶sterir.';
+      'Geçerli bir çizgide üç taşını birleştirince üçlü oluşur. Vurgulanan çizgi örneği gösterir.';
 
   @override
-  String get tutorialCaptureTitle => 'Rakip taÅŸÄ± al';
+  String get tutorialCaptureTitle => 'Rakip taşı al';
 
   @override
   String get tutorialCaptureBody =>
-      'ÃœÃ§lÃ¼ kurduktan sonra vurgulanan rakip taÅŸlardan birini seÃ§. ÃœÃ§lÃ¼ dÄ±ÅŸÄ±nda taÅŸ varsa Ã¶nce onlar alÄ±nÄ±r.';
+      'Üçlü kurduktan sonra vurgulanan rakip taşlardan birini seç. Üçlü dışında taş varsa önce onlar alınır.';
 
   @override
   String get tutorialMoveTitle => 'Ã‡izgiler boyunca hareket et';
 
   @override
   String get tutorialMoveBody =>
-      'TÃ¼m taÅŸlar yerleÅŸince bir taÅŸÄ±nÄ± komÅŸu boÅŸ noktaya taÅŸÄ±. Ä°stersen uzun basÄ±p sÃ¼rÃ¼kleyebilirsin.';
+      'Tüm taşlar yerleşince bir taşını komşu boş noktaya taşı. İstersen uzun basıp sürükleyebilirsin.';
 
   @override
   String get tutorialBlockTitle => 'Rakibi bloke et';
 
   @override
   String get tutorialBlockBody =>
-      'KesiÅŸimleri kontrol et ve rakibin yollarÄ±nÄ± kapat. Standart 9 ve 12 TaÅŸta hamlesi kalmayan oyuncu kaybeder.';
+      'Kesişimleri kontrol et ve rakibin yollarını kapat. Standart 9 ve 12 Taşta hamlesi kalmayan oyuncu kaybeder.';
 
   @override
-  String get tutorialFlyTitle => 'ÃœÃ§ taÅŸta uÃ§';
+  String get tutorialFlyTitle => 'Üç taşta uç';
 
   @override
   String get tutorialFlyBody =>
-      'UÃ§ma kuralÄ± aÃ§Ä±kken Ã¼Ã§ taÅŸa dÃ¼ÅŸtÃ¼ÄŸÃ¼nde bir taÅŸÄ±nÄ± herhangi bir boÅŸ noktaya taÅŸÄ±yabilirsin.';
+      'Uçma kuralı açıkken üç taşa düştüğünde bir taşını herhangi bir boş noktaya taşıyabilirsin.';
 
   @override
   String get tutorialDoubleMillTitle => 'Tekrarlayan tehdit kur';
 
   @override
   String get tutorialDoubleMillBody =>
-      'Ä°leri dÃ¼zey oyunda baÄŸlÄ± Ã¼Ã§lÃ¼ler arasÄ±nda geÃ§iÅŸ yaparak rakibi sÃ¼rekli savunmaya zorla ve hareket alanÄ±nÄ± koru.';
+      'İleri düzey oyunda bağlı üçlüler arasında geçiş yaparak rakibi sürekli savunmaya zorla ve hareket alanını koru.';
 
   @override
   String get previous => 'Ã–nceki';
@@ -507,30 +504,30 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get reduceMotionSubtitle =>
-      'NabÄ±z ve gerekli olmayan hareketleri kapatÄ±r.';
+      'Nabız ve gerekli olmayan hareketleri kapatır.';
 
   @override
-  String get showMoveHints => 'Hamle ipuÃ§larÄ±nÄ± gÃ¶ster';
+  String get showMoveHints => 'Hamle ipuçlarını göster';
 
   @override
   String get showMoveHintsSubtitle =>
-      'GeÃ§erli hedefleri ve alÄ±nabilir taÅŸlarÄ± vurgular.';
+      'Geçerli hedefleri ve alınabilir taşları vurgular.';
 
   @override
-  String get colorAssist => 'Renk desteÄŸi';
+  String get colorAssist => 'Renk desteği';
 
   @override
   String get colorAssistSubtitle =>
-      'DurumlarÄ±n yalnÄ±z renkle anlatÄ±lmamasÄ± iÃ§in ÅŸekil ve kenarlÄ±k ekler.';
+      'Durumların yalnız renkle anlatılmaması için şekil ve kenarlık ekler.';
 
   @override
-  String get boardSurface => 'Tahta yÃ¼zeyi';
+  String get boardSurface => 'Tahta yüzeyi';
 
   @override
-  String get surfaceWood => 'AhÅŸap';
+  String get surfaceWood => 'Ahşap';
 
   @override
-  String get surfaceDarkStone => 'Koyu taÅŸ';
+  String get surfaceDarkStone => 'Koyu taş';
 
   @override
   String get surfaceMarble => 'Mermer';
@@ -539,7 +536,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get surfaceMinimal => 'Minimal';
 
   @override
-  String get pieceTheme => 'TaÅŸ stili';
+  String get pieceTheme => 'Taş stili';
 
   @override
   String get pieceClassic => 'Klasik';
@@ -551,7 +548,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get pieceObsidian => 'Obsidyen';
 
   @override
-  String get progression => 'Ä°lerleme';
+  String get progression => 'İlerleme';
 
   @override
   String levelLabel(int level) {
@@ -564,64 +561,61 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get addFriendTitle => 'ArkadaÅŸ Ekle';
+  String get addFriendTitle => 'Arkadaş Ekle';
 
   @override
-  String get addFriendSubtitle =>
-      'Oyuncu adÄ±nÄ± yazarak arkadaÅŸ listene ekle.';
+  String get addFriendSubtitle => 'Oyuncu adını yazarak arkadaş listene ekle.';
 
   @override
-  String get friendNameLabel => 'Oyuncu adÄ±';
+  String get friendNameLabel => 'Oyuncu adı';
 
   @override
-  String get friendNameHint => 'Oyuncu adÄ±nÄ± yaz';
+  String get friendNameHint => 'Oyuncu adını yaz';
 
   @override
-  String get addFriendButton => 'ArkadaÅŸ Ekle';
+  String get addFriendButton => 'Arkadaş Ekle';
 
   @override
   String get friendNameTooShort => 'En az 2 karakter gir.';
 
   @override
-  String get friendAlreadyAdded => 'Bu oyuncu zaten arkadaÅŸ listende.';
+  String get friendAlreadyAdded => 'Bu oyuncu zaten arkadaş listende.';
 
   @override
   String friendAdded(String name) {
-    return '$name arkadaÅŸlarÄ±na eklendi.';
+    return '$name arkadaşlarına eklendi.';
   }
 
   @override
   String whatsappChallengeInvite(String game, String link) {
-    return 'Morris World\'de $game oynamaya meydan okuyorum! Oyunu aÃ§ veya indir: $link';
+    return 'Morris World\'de $game oynamaya meydan okuyorum! Oyunu aç veya indir: $link';
   }
 
   @override
   String get resultVictoryPraise =>
-      'Tebrikler! Ã‡ok gÃ¼zel oynadÄ±n. RÃ¶vanÅŸa var mÄ±sÄ±n?';
+      'Tebrikler! Çok güzel oynadın. Rövanşa var mısın?';
 
   @override
   String get resultDefeatPraise =>
-      'Ä°yi mÃ¼cadele! RÃ¶vanÅŸta tekrar deneyelim mi?';
+      'İyi mücadele! Rövanşta tekrar deneyelim mi?';
 
   @override
-  String get resultDrawPraise =>
-      'GÃ¼zel maÃ§tÄ±, berabere bitti. Bir tane daha?';
+  String get resultDrawPraise => 'Güzel maçtı, berabere bitti. Bir tane daha?';
 
   @override
-  String get resultLocalPraise =>
-      'GÃ¼zel maÃ§! RÃ¶vanÅŸ oynamak ister misiniz?';
+  String get resultLocalPraise => 'Güzel maç! Rövanş oynamak ister misiniz?';
 
   @override
-  String get rematch => 'RÃ¶vanÅŸ Oyna';
+  String get rematch => 'Rövanş Oyna';
 
   @override
-  String get editProfile => 'Profili dÃ¼zenle';
+  String get editProfile => 'Profili düzenle';
 
   @override
-  String get playerName => 'Oyuncu adÄ±';
+  String get playerName => 'Oyuncu adı';
 
   @override
-  String get countryCode => 'Ãœlke kodu';
+  String get countryCode => 'Ülke kodu';
 
   @override
   String get saveProfile => 'Profili kaydet';
@@ -633,15 +627,15 @@ class AppLocalizationsTr extends AppLocalizations {
   String get profileSaveFailed => 'Profil kaydedilemedi.';
 
   @override
-  String get profileNameRequired => 'Oyuncu adÄ± boÅŸ bÄ±rakÄ±lamaz.';
+  String get profileNameRequired => 'Oyuncu adı boş bırakılamaz.';
 
   @override
   String get profileCountryCodeHint => 'Ã–rn. TR';
 
   @override
-  String get profileCountryCodeInvalid => 'Ãœlke kodu iki harf olmalÄ±dÄ±r.';
+  String get profileCountryCodeInvalid => 'Ülke kodu iki harf olmalıdır.';
 
   @override
   String get profileLocalSaveNote =>
-      'Profil bilgilerin bu cihazda gÃ¼venle saklanÄ±r.';
+      'Profil bilgilerin bu cihazda güvenle saklanır.';
 }

@@ -9,101 +9,91 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
-  String get appTitle => '3-9-12 Taş';
+  String get appTitle => 'Morris World';
 
   @override
-  String get home => 'à¤®à¥à¤–à¤ªà¥ƒà¤·à¥à¤ ';
+  String get home => 'मुखपृष्ठ';
 
   @override
-  String get selectGameTitle => 'à¤…à¤ªà¤¨à¤¾ à¤–à¥‡à¤² à¤šà¥à¤¨à¥‡à¤‚';
+  String get selectGameTitle => 'अपना खेल चुनें';
 
   @override
   String get selectGameSubtitle =>
-      'à¤¤à¥€à¤¨ à¤ªà¤¾à¤°à¤‚à¤ªà¤°à¤¿à¤• à¤°à¤£à¤¨à¥€à¤¤à¤¿ à¤–à¥‡à¤², à¤à¤• à¤¸à¤°à¤² à¤¸à¤¾à¤®à¤¾à¤œà¤¿à¤• à¤¦à¥à¤¨à¤¿à¤¯à¤¾ à¤®à¥‡à¤‚à¥¤';
+      'तीन पारंपरिक रणनीति खेल, एक सरल सामाजिक दुनिया में।';
 
   @override
-  String get game3Name => '3 à¤—à¥‹à¤Ÿà¥€';
+  String get game3Name => '3 गोटी';
 
   @override
-  String get game3Description =>
-      'à¤¤à¥‡à¤œà¤¼, à¤¸à¤°à¤² à¤”à¤° à¤°à¤£à¤¨à¥€à¤¤à¤¿à¤•à¥¤';
+  String get game3Description => 'तेज़, सरल और रणनीतिक।';
 
   @override
-  String get game9Name => '9 à¤—à¥‹à¤Ÿà¥€';
+  String get game9Name => '9 गोटी';
 
   @override
-  String get game9Description =>
-      'à¤®à¥à¤–à¥à¤¯ à¤ªà¤¾à¤°à¤‚à¤ªà¤°à¤¿à¤• à¤–à¥‡à¤²à¥¤';
+  String get game9Description => 'मुख्य पारंपरिक खेल।';
 
   @override
-  String get game12Name => '12 à¤—à¥‹à¤Ÿà¥€';
+  String get game12Name => '12 गोटी';
 
   @override
-  String get game12Description =>
-      'à¤˜à¤¨à¤¾ à¤¬à¥‹à¤°à¥à¤¡ à¤”à¤° à¤—à¤¹à¤°à¥€ à¤°à¤£à¤¨à¥€à¤¤à¤¿à¥¤';
+  String get game12Description => 'घना बोर्ड और गहरी रणनीति।';
 
   @override
   String selectModeTitle(String gameName) {
-    return '$gameName à¤•à¥ˆà¤¸à¥‡ à¤–à¥‡à¤²à¤¨à¤¾ à¤šà¤¾à¤¹à¤¤à¥‡ à¤¹à¥ˆà¤‚?';
+    return '$gameName कैसे खेलना चाहते हैं?';
   }
 
   @override
-  String get online => 'à¤‘à¤¨à¤²à¤¾à¤‡à¤¨';
+  String get online => 'ऑनलाइन';
 
   @override
-  String get onlineSubtitle =>
-      'à¤¦à¥à¤¨à¤¿à¤¯à¤¾ à¤­à¤° à¤¸à¥‡ à¤…à¤¸à¤²à¥€ à¤ªà¥à¤°à¤¤à¤¿à¤¦à¥à¤µà¤‚à¤¦à¥à¤µà¥€ à¤–à¥‹à¤œà¥‡à¤‚';
+  String get onlineSubtitle => 'दुनिया भर से असली प्रतिद्वंद्वी खोजें';
 
   @override
-  String get challenge => 'à¤šà¥à¤¨à¥Œà¤¤à¥€ à¤¦à¥‡à¤‚';
+  String get challenge => 'चुनौती दें';
 
   @override
-  String get challengeSubtitle =>
-      'à¤¦à¥‹à¤¸à¥à¤¤ à¤•à¥‹ à¤—à¥‡à¤® à¤®à¥‡à¤‚ à¤¯à¤¾ à¤²à¤¿à¤‚à¤• à¤¸à¥‡ à¤¬à¥à¤²à¤¾à¤à¤';
+  String get challengeSubtitle => 'दोस्त को गेम में या लिंक से बुलाएँ';
 
   @override
-  String get offline => 'à¤‘à¤«à¤¼à¤²à¤¾à¤‡à¤¨';
+  String get offline => 'ऑफ़लाइन';
 
   @override
-  String get offlineSubtitle =>
-      'AI à¤•à¥‡ à¤–à¤¿à¤²à¤¾à¤« à¤¯à¤¾ à¤à¤• à¤¡à¤¿à¤µà¤¾à¤‡à¤¸ à¤ªà¤° à¤¦à¥‹ à¤–à¤¿à¤²à¤¾à¤¡à¤¼à¥€';
+  String get offlineSubtitle => 'AI के खिलाफ या एक डिवाइस पर दो खिलाड़ी';
 
   @override
-  String get computerModeTitle =>
-      'à¤•à¤‚à¤ªà¥à¤¯à¥‚à¤Ÿà¤° à¤•à¥‡ à¤–à¤¿à¤²à¤¾à¤« à¤–à¥‡à¤²à¥‡à¤‚';
+  String get computerModeTitle => 'कंप्यूटर के खिलाफ खेलें';
 
   @override
-  String get computerModeSubtitle =>
-      'à¤‡à¤‚à¤Ÿà¤°à¤¨à¥‡à¤Ÿ à¤•à¥€ à¤œà¤°à¥‚à¤°à¤¤ à¤¨à¤¹à¥€à¤‚ â€¢ à¤•à¤ à¤¿à¤¨à¤¾à¤ˆ à¤šà¥à¤¨à¥‡à¤‚';
+  String get computerModeSubtitle => 'इंटरनेट की जरूरत नहीं • कठिनाई चुनें';
 
   @override
-  String get sameDeviceSubtitle =>
-      'à¤‡à¤¸ à¤¡à¤¿à¤µà¤¾à¤‡à¤¸ à¤ªà¤° à¤¦à¥‹ à¤–à¤¿à¤²à¤¾à¤¡à¤¼à¥€ à¤¬à¤¾à¤°à¥€-à¤¬à¤¾à¤°à¥€ à¤¸à¥‡ à¤–à¥‡à¤²à¥‡à¤‚';
+  String get sameDeviceSubtitle => 'इस डिवाइस पर दो खिलाड़ी बारी-बारी से खेलें';
 
   @override
-  String get howToPlay => 'à¤•à¥ˆà¤¸à¥‡ à¤–à¥‡à¤²à¥‡à¤‚';
+  String get howToPlay => 'कैसे खेलें';
 
   @override
-  String get friends => 'à¤¦à¥‹à¤¸à¥à¤¤';
+  String get friends => 'दोस्त';
 
   @override
-  String get rankings => 'à¤°à¥ˆà¤‚à¤•à¤¿à¤‚à¤—';
+  String get rankings => 'रैंकिंग';
 
   @override
-  String get profile => 'à¤ªà¥à¤°à¥‹à¤«à¤¼à¤¾à¤‡à¤²';
+  String get profile => 'प्रोफ़ाइल';
 
   @override
-  String get settings => 'à¤¸à¥‡à¤Ÿà¤¿à¤‚à¤—à¥à¤¸';
+  String get settings => 'सेटिंग्स';
 
   @override
-  String get language => 'à¤­à¤¾à¤·à¤¾';
+  String get language => 'भाषा';
 
   @override
-  String get systemLanguage =>
-      'à¤¡à¤¿à¤µà¤¾à¤‡à¤¸ à¤•à¥€ à¤­à¤¾à¤·à¤¾ à¤‰à¤ªà¤¯à¥‹à¤— à¤•à¤°à¥‡à¤‚';
+  String get systemLanguage => 'डिवाइस की भाषा उपयोग करें';
 
   @override
-  String get languageTurkish => 'TÃ¼rkÃ§e';
+  String get languageTurkish => 'Türkçe';
 
   @override
   String get languageEnglish => 'English';
@@ -112,478 +102,451 @@ class AppLocalizationsHi extends AppLocalizations {
   String get languageGerman => 'Deutsch';
 
   @override
-  String get languageSpanish => 'EspaÃ±ol';
+  String get languageSpanish => 'Español';
 
   @override
-  String get languageFrench => 'FranÃ§ais';
+  String get languageFrench => 'Français';
 
   @override
-  String get languagePortugueseBrazil => 'PortuguÃªs (Brasil)';
+  String get languagePortugueseBrazil => 'Português (Brasil)';
 
   @override
-  String get languageArabic => 'Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©';
+  String get languageArabic => 'العربية';
 
   @override
-  String get languageHindi => 'à¤¹à¤¿à¤¨à¥à¤¦à¥€';
+  String get languageHindi => 'हिन्दी';
 
   @override
-  String get restart => 'à¤«à¤¿à¤° à¤¶à¥à¤°à¥‚ à¤•à¤°à¥‡à¤‚';
+  String get restart => 'फिर शुरू करें';
 
   @override
-  String get lightPlayer => 'à¤¹à¤²à¥à¤•à¤¾';
+  String get lightPlayer => 'हल्का';
 
   @override
-  String get darkPlayer => 'à¤—à¤¹à¤°à¤¾';
+  String get darkPlayer => 'गहरा';
 
   @override
   String playerWon(String player) {
-    return '$player à¤œà¥€à¤¤à¤¾';
+    return '$player जीता';
   }
 
   @override
-  String get draw => 'à¤¡à¥à¤°à¥‰';
+  String get draw => 'ड्रॉ';
 
   @override
   String capturePrompt(String player) {
-    return '$player: à¤µà¤¿à¤°à¥‹à¤§à¥€ à¤•à¥€ à¤à¤• à¤—à¥‹à¤Ÿà¥€ à¤¹à¤Ÿà¤¾à¤à¤';
+    return '$player: विरोधी की एक गोटी हटाएँ';
   }
 
   @override
   String placePrompt(String player) {
-    return '$player: à¤—à¥‹à¤Ÿà¥€ à¤°à¤–à¥‡à¤‚';
+    return '$player: गोटी रखें';
   }
 
   @override
   String movePrompt(String player) {
-    return '$player: à¤…à¤ªà¤¨à¥€ à¤šà¤¾à¤² à¤šà¤²à¥‡à¤‚';
+    return '$player: अपनी चाल चलें';
   }
 
   @override
-  String get quickGoodMove => 'à¤…à¤šà¥à¤›à¥€ à¤šà¤¾à¤²!';
+  String get quickGoodMove => 'अच्छी चाल!';
 
   @override
-  String get quickCongrats => 'à¤¬à¤§à¤¾à¤ˆ!';
+  String get quickCongrats => 'बधाई!';
 
   @override
-  String get quickGoodGame => 'à¤…à¤šà¥à¤›à¤¾ à¤–à¥‡à¤²!';
+  String get quickGoodGame => 'अच्छा खेल!';
 
   @override
-  String get quickMore => 'à¤”à¤°';
+  String get quickMore => 'और';
 
   @override
-  String get shareInvite => 'WhatsApp à¤ªà¤° à¤šà¥à¤¨à¥Œà¤¤à¥€ à¤¦à¥‡à¤‚';
+  String get shareInvite => 'WhatsApp पर चुनौती दें';
 
   @override
-  String get challengeButton => 'à¤šà¥à¤¨à¥Œà¤¤à¥€ à¤¦à¥‡à¤‚';
+  String get challengeButton => 'चुनौती दें';
 
   @override
   String challengePrepared(String name) {
-    return '$name à¤•à¥‡ à¤²à¤¿à¤ à¤šà¥à¤¨à¥Œà¤¤à¥€ à¤¤à¥ˆà¤¯à¤¾à¤° à¤¹à¥ˆà¥¤';
+    return '$name के लिए चुनौती तैयार है।';
   }
 
   @override
-  String get presenceOnline => 'à¤‘à¤¨à¤²à¤¾à¤‡à¤¨';
+  String get presenceOnline => 'ऑनलाइन';
 
   @override
-  String get presenceInMatch => 'à¤®à¥ˆà¤š à¤®à¥‡à¤‚';
+  String get presenceInMatch => 'मैच में';
 
   @override
-  String get presenceOffline => 'à¤‘à¤«à¤¼à¤²à¤¾à¤‡à¤¨';
+  String get presenceOffline => 'ऑफ़लाइन';
 
   @override
-  String get offlineDifficultyTitle => 'à¤•à¤ à¤¿à¤¨à¤¾à¤ˆ à¤šà¥à¤¨à¥‡à¤‚';
+  String get offlineDifficultyTitle => 'कठिनाई चुनें';
 
   @override
-  String get beginner => 'à¤¶à¥à¤°à¥à¤†à¤¤à¥€';
+  String get beginner => 'शुरुआती';
 
   @override
-  String get easy => 'à¤†à¤¸à¤¾à¤¨';
+  String get easy => 'आसान';
 
   @override
-  String get medium => 'à¤®à¤§à¥à¤¯à¤®';
+  String get medium => 'मध्यम';
 
   @override
-  String get hard => 'à¤•à¤ à¤¿à¤¨';
+  String get hard => 'कठिन';
 
   @override
-  String get master => 'à¤®à¤¾à¤¸à¥à¤Ÿà¤°';
+  String get master => 'मास्टर';
 
   @override
-  String get sameDevice =>
-      'à¤‡à¤¸ à¤¡à¤¿à¤µà¤¾à¤‡à¤¸ à¤ªà¤° à¤¦à¥‹ à¤–à¤¿à¤²à¤¾à¤¡à¤¼à¥€';
+  String get sameDevice => 'इस डिवाइस पर दो खिलाड़ी';
 
   @override
   String featureComingSoon(String feature) {
-    return '$feature à¤…à¤—à¤²à¤¾ à¤µà¤¿à¤•à¤¾à¤¸ à¤šà¤°à¤£ à¤¹à¥ˆà¥¤';
+    return '$feature अगला विकास चरण है।';
   }
 
   @override
-  String get errorMatchFinished =>
-      'à¤¯à¤¹ à¤®à¥ˆà¤š à¤¸à¤®à¤¾à¤ªà¥à¤¤ à¤¹à¥‹ à¤šà¥à¤•à¤¾ à¤¹à¥ˆà¥¤';
+  String get errorMatchFinished => 'यह मैच समाप्त हो चुका है।';
 
   @override
-  String get errorCaptureRequired =>
-      'à¤ªà¤¹à¤²à¥‡ à¤µà¤¿à¤°à¥‹à¤§à¥€ à¤•à¥€ à¤à¤• à¤—à¥‹à¤Ÿà¥€ à¤¹à¤Ÿà¤¾à¤à¤à¥¤';
+  String get errorCaptureRequired => 'पहले विरोधी की एक गोटी हटाएँ।';
 
   @override
-  String get errorPlacementFinished =>
-      'à¤—à¥‹à¤Ÿà¥€ à¤°à¤–à¤¨à¥‡ à¤•à¤¾ à¤šà¤°à¤£ à¤¸à¤®à¤¾à¤ªà¥à¤¤ à¤¹à¥ˆà¥¤';
+  String get errorPlacementFinished => 'गोटी रखने का चरण समाप्त है।';
 
   @override
-  String get errorPointOccupied => 'à¤¯à¤¹ à¤¸à¥à¤¥à¤¾à¤¨ à¤­à¤°à¤¾ à¤¹à¥ˆà¥¤';
+  String get errorPointOccupied => 'यह स्थान भरा है।';
 
   @override
-  String get errorNotMovementPhase =>
-      'à¤…à¤­à¥€ à¤—à¥‹à¤Ÿà¤¿à¤¯à¤¾à¤ à¤¨à¤¹à¥€à¤‚ à¤šà¤² à¤¸à¤•à¤¤à¥€à¤‚à¥¤';
+  String get errorNotMovementPhase => 'अभी गोटियाँ नहीं चल सकतीं।';
 
   @override
-  String get errorNotYourPiece =>
-      'à¤¯à¤¹ à¤—à¥‹à¤Ÿà¥€ à¤†à¤ªà¤•à¥€ à¤¨à¤¹à¥€à¤‚ à¤¹à¥ˆà¥¤';
+  String get errorNotYourPiece => 'यह गोटी आपकी नहीं है।';
 
   @override
-  String get errorTargetOccupied =>
-      'à¤²à¤•à¥à¤·à¥à¤¯ à¤¸à¥à¤¥à¤¾à¤¨ à¤­à¤°à¤¾ à¤¹à¥ˆà¥¤';
+  String get errorTargetOccupied => 'लक्ष्य स्थान भरा है।';
 
   @override
-  String get errorNotAdjacent =>
-      'à¤œà¥à¤¡à¤¼à¥€ à¤°à¥‡à¤–à¤¾ à¤ªà¤° à¤ªà¤¾à¤¸ à¤•à¥‡ à¤¸à¥à¤¥à¤¾à¤¨ à¤¤à¤• à¤šà¤²à¥‡à¤‚à¥¤';
+  String get errorNotAdjacent => 'जुड़ी रेखा पर पास के स्थान तक चलें।';
 
   @override
-  String get errorNoCaptureRight =>
-      'à¤…à¤­à¥€ à¤—à¥‹à¤Ÿà¥€ à¤¨à¤¹à¥€à¤‚ à¤¹à¤Ÿà¤¾ à¤¸à¤•à¤¤à¥‡à¥¤';
+  String get errorNoCaptureRight => 'अभी गोटी नहीं हटा सकते।';
 
   @override
-  String get errorOpponentPieceRequired =>
-      'à¤µà¤¿à¤°à¥‹à¤§à¥€ à¤•à¥€ à¤—à¥‹à¤Ÿà¥€ à¤šà¥à¤¨à¥‡à¤‚à¥¤';
+  String get errorOpponentPieceRequired => 'विरोधी की गोटी चुनें।';
 
   @override
   String get errorProtectedMillPiece =>
-      'à¤ªà¤¹à¤²à¥‡ à¤¤à¥€à¤¨ à¤•à¥€ à¤ªà¤‚à¤•à¥à¤¤à¤¿ à¤•à¥‡ à¤¬à¤¾à¤¹à¤° à¤•à¥€ à¤—à¥‹à¤Ÿà¥€ à¤šà¥à¤¨à¥‡à¤‚à¥¤';
+      'पहले तीन की पंक्ति के बाहर की गोटी चुनें।';
 
   @override
-  String get errorInvalidPoint =>
-      'à¤¬à¥‹à¤°à¥à¤¡ à¤•à¤¾ à¤¸à¥à¤¥à¤¾à¤¨ à¤…à¤®à¤¾à¤¨à¥à¤¯ à¤¹à¥ˆà¥¤';
+  String get errorInvalidPoint => 'बोर्ड का स्थान अमान्य है।';
 
   @override
-  String get errorBoardMismatch =>
-      'à¤¯à¤¹ à¤®à¥ˆà¤š à¤…à¤¸à¤‚à¤—à¤¤ à¤¬à¥‹à¤°à¥à¤¡ à¤•à¤¾ à¤‰à¤ªà¤¯à¥‹à¤— à¤•à¤° à¤°à¤¹à¤¾ à¤¹à¥ˆà¥¤';
+  String get errorBoardMismatch => 'यह मैच असंगत बोर्ड का उपयोग कर रहा है।';
 
   @override
-  String get continueMatch => 'à¤®à¥ˆà¤š à¤œà¤¾à¤°à¥€ à¤°à¤–à¥‡à¤‚';
+  String get continueMatch => 'मैच जारी रखें';
 
   @override
   String continueMatchSubtitle(String gameName) {
-    return 'à¤…à¤ªà¤¨à¤¾ $gameName à¤®à¥ˆà¤š à¤µà¤¹à¥€à¤‚ à¤¸à¥‡ à¤œà¤¾à¤°à¥€ à¤°à¤–à¥‡à¤‚';
+    return 'अपना $gameName मैच वहीं से जारी रखें';
   }
 
   @override
-  String get resume => 'à¤®à¥ˆà¤š à¤ªà¤° à¤²à¥Œà¤Ÿà¥‡à¤‚';
+  String get resume => 'मैच पर लौटें';
 
   @override
-  String get saveAndExit => 'à¤¸à¥‡à¤µ à¤•à¤°à¤•à¥‡ à¤¬à¤¾à¤¹à¤° à¤œà¤¾à¤à¤';
+  String get saveAndExit => 'सेव करके बाहर जाएँ';
 
   @override
-  String get abandonMatch => 'à¤®à¥ˆà¤š à¤›à¥‹à¤¡à¤¼à¥‡à¤‚';
+  String get abandonMatch => 'मैच छोड़ें';
 
   @override
-  String get matchInProgressTitle => 'à¤®à¥ˆà¤š à¤œà¤¾à¤°à¥€ à¤¹à¥ˆ';
+  String get matchInProgressTitle => 'मैच जारी है';
 
   @override
   String get matchInProgressBody =>
-      'à¤†à¤ªà¤•à¥€ à¤µà¤°à¥à¤¤à¤®à¤¾à¤¨ à¤¸à¥à¤¥à¤¿à¤¤à¤¿ à¤…à¤ªà¤¨à¥‡ à¤†à¤ª à¤¸à¥‡à¤µ à¤¹à¥‹ à¤°à¤¹à¥€ à¤¹à¥ˆà¥¤ à¤†à¤ª à¤•à¥à¤¯à¤¾ à¤•à¤°à¤¨à¤¾ à¤šà¤¾à¤¹à¤¤à¥‡ à¤¹à¥ˆà¤‚?';
+      'आपकी वर्तमान स्थिति अपने आप सेव हो रही है। आप क्या करना चाहते हैं?';
 
   @override
-  String get matchLoadError =>
-      'à¤¸à¥‡à¤µ à¤•à¤¿à¤¯à¤¾ à¤—à¤¯à¤¾ à¤®à¥ˆà¤š à¤¨à¤¹à¥€à¤‚ à¤–à¥‹à¤²à¤¾ à¤œà¤¾ à¤¸à¤•à¤¾à¥¤';
+  String get matchLoadError => 'सेव किया गया मैच नहीं खोला जा सका।';
 
   @override
-  String get errorTitle => 'à¤•à¥à¤› à¤—à¤²à¤¤ à¤¹à¥à¤†';
+  String get errorTitle => 'कुछ गलत हुआ';
 
   @override
-  String get routeError =>
-      'à¤¯à¤¹ à¤¸à¥à¤•à¥à¤°à¥€à¤¨ à¤¸à¥à¤°à¤•à¥à¤·à¤¿à¤¤ à¤°à¥‚à¤ª à¤¸à¥‡ à¤¨à¤¹à¥€à¤‚ à¤–à¥‹à¤²à¥€ à¤œà¤¾ à¤¸à¤•à¥€à¥¤';
+  String get routeError => 'यह स्क्रीन सुरक्षित रूप से नहीं खोली जा सकी।';
 
   @override
-  String get backHome => 'à¤¹à¥‹à¤® à¤ªà¤° à¤µà¤¾à¤ªà¤¸ à¤œà¤¾à¤à¤';
+  String get backHome => 'होम पर वापस जाएँ';
 
   @override
-  String get noFriendsYet =>
-      'à¤…à¤­à¥€ à¤•à¥‹à¤ˆ à¤®à¤¿à¤¤à¥à¤° à¤¨à¤¹à¥€à¤‚ à¤¹à¥ˆà¥¤';
+  String get noFriendsYet => 'अभी कोई मित्र नहीं है।';
 
   @override
-  String get sound => 'à¤§à¥à¤µà¤¨à¤¿';
+  String get sound => 'ध्वनि';
 
   @override
-  String get haptic => 'à¤¹à¥ˆà¤ªà¥à¤Ÿà¤¿à¤• à¤«à¥€à¤¡à¤¬à¥ˆà¤•';
+  String get haptic => 'हैप्टिक फीडबैक';
 
   @override
-  String get boardView => 'à¤¬à¥‹à¤°à¥à¤¡ à¤¦à¥ƒà¤¶à¥à¤¯';
+  String get boardView => 'बोर्ड दृश्य';
 
   @override
   String get viewFlat => '2D';
 
   @override
-  String get viewRealistic => 'à¤¯à¤¥à¤¾à¤°à¥à¤¥à¤µà¤¾à¤¦à¥€';
+  String get viewRealistic => 'यथार्थवादी';
 
   @override
   String get viewPerspective => '3D';
 
   @override
-  String get guestPlayer => 'à¤…à¤¤à¤¿à¤¥à¤¿';
+  String get guestPlayer => 'अतिथि';
 
   @override
-  String get localProfile =>
-      'à¤¸à¥à¤¥à¤¾à¤¨à¥€à¤¯ à¤ªà¥à¤°à¥‹à¤«à¤¼à¤¾à¤‡à¤²';
+  String get localProfile => 'स्थानीय प्रोफ़ाइल';
 
   @override
-  String get genericLoadError =>
-      'à¤¸à¤¾à¤®à¤—à¥à¤°à¥€ à¤²à¥‹à¤¡ à¤¨à¤¹à¥€à¤‚ à¤¹à¥‹ à¤¸à¤•à¥€à¥¤';
+  String get genericLoadError => 'सामग्री लोड नहीं हो सकी।';
 
   @override
-  String get retry => 'à¤«à¤¿à¤° à¤•à¥‹à¤¶à¤¿à¤¶ à¤•à¤°à¥‡à¤‚';
+  String get retry => 'फिर कोशिश करें';
 
   @override
-  String get restartMatchTitle =>
-      'à¤®à¥ˆà¤š à¤«à¤¿à¤° à¤¸à¥‡ à¤¶à¥à¤°à¥‚ à¤•à¤°à¥‡à¤‚?';
+  String get restartMatchTitle => 'मैच फिर से शुरू करें?';
 
   @override
   String get restartMatchBody =>
-      'à¤µà¤°à¥à¤¤à¤®à¤¾à¤¨ à¤¸à¥‡à¤µ à¤•à¥€ à¤—à¤ˆ à¤¸à¥à¤¥à¤¿à¤¤à¤¿ à¤•à¥‹ à¤¨à¤ à¤®à¥ˆà¤š à¤¸à¥‡ à¤¬à¤¦à¤² à¤¦à¤¿à¤¯à¤¾ à¤œà¤¾à¤à¤—à¤¾à¥¤';
+      'वर्तमान सेव की गई स्थिति को नए मैच से बदल दिया जाएगा।';
 
   @override
-  String get cancel => 'à¤°à¤¦à¥à¤¦ à¤•à¤°à¥‡à¤‚';
+  String get cancel => 'रद्द करें';
 
   @override
   String get aiFoundationNotice =>
-      'à¤Šà¤à¤šà¥‡ à¤¸à¥à¤¤à¤° à¤ªà¤° à¤à¤†à¤ˆ à¤…à¤§à¤¿à¤• à¤šà¤¾à¤²à¥‹à¤‚ à¤•à¥€ à¤—à¤£à¤¨à¤¾ à¤•à¤°à¤¤à¤¾ à¤¹à¥ˆ à¤”à¤° à¤•à¤® à¤°à¤£à¤¨à¥€à¤¤à¤¿à¤• à¤—à¤²à¤¤à¤¿à¤¯à¤¾à¤ à¤•à¤°à¤¤à¤¾ à¤¹à¥ˆà¥¤';
+      'ऊँचे स्तर पर एआई अधिक चालों की गणना करता है और कम रणनीतिक गलतियाँ करता है।';
 
   @override
   String get saveFailedStayInMatch =>
-      'à¤®à¥ˆà¤š à¤¸à¥à¤°à¤•à¥à¤·à¤¿à¤¤ à¤°à¥‚à¤ª à¤¸à¥‡ à¤¸à¤¹à¥‡à¤œà¤¾ à¤¨à¤¹à¥€à¤‚ à¤œà¤¾ à¤¸à¤•à¤¾à¥¤ à¤®à¥ˆà¤š à¤®à¥‡à¤‚ à¤°à¤¹à¥‡à¤‚ à¤”à¤° à¤«à¤¿à¤° à¤¸à¥‡ à¤ªà¥à¤°à¤¯à¤¾à¤¸ à¤•à¤°à¥‡à¤‚à¥¤';
+      'मैच सुरक्षित रूप से सहेजा नहीं जा सका। मैच में रहें और फिर से प्रयास करें।';
 
   @override
   String piecesToPlaceStatus(int light, int dark) {
-    return 'à¤¹à¤²à¥à¤•à¥‡: $light  â€¢  à¤—à¤¹à¤°à¥‡: $dark';
+    return 'हल्के: $light  •  गहरे: $dark';
   }
 
   @override
-  String get aiThinking =>
-      'à¤•à¤‚à¤ªà¥à¤¯à¥‚à¤Ÿà¤° à¤¸à¥‹à¤š à¤°à¤¹à¤¾ à¤¹à¥ˆâ€¦';
+  String get aiThinking => 'कंप्यूटर सोच रहा है…';
 
   @override
-  String get computerPlayer => 'à¤•à¤‚à¤ªà¥à¤¯à¥‚à¤Ÿà¤°';
+  String get computerPlayer => 'कंप्यूटर';
 
   @override
-  String get you => 'à¤†à¤ª';
+  String get you => 'आप';
 
   @override
   String moveCountLabel(int count) {
-    return 'à¤šà¤¾à¤² $count';
+    return 'चाल $count';
   }
 
   @override
   String boardPointLight(int number) {
-    return 'à¤¬à¤¿à¤‚à¤¦à¥ $number, à¤¹à¤²à¥à¤•à¤¾ à¤®à¥‹à¤¹à¤°à¤¾';
+    return 'बिंदु $number, हल्का मोहरा';
   }
 
   @override
   String boardPointDark(int number) {
-    return 'à¤¬à¤¿à¤‚à¤¦à¥ $number, à¤—à¤¹à¤°à¤¾ à¤®à¥‹à¤¹à¤°à¤¾';
+    return 'बिंदु $number, गहरा मोहरा';
   }
 
   @override
   String boardPointEmpty(int number) {
-    return 'à¤¬à¤¿à¤‚à¤¦à¥ $number, à¤–à¤¾à¤²à¥€';
+    return 'बिंदु $number, खाली';
   }
 
   @override
   String ratingValue(int rating) {
-    return 'à¤°à¥‡à¤Ÿà¤¿à¤‚à¤— $rating';
+    return 'रेटिंग $rating';
   }
 
   @override
-  String get inviteLinkReady =>
-      'à¤†à¤®à¤‚à¤¤à¥à¤°à¤£ à¤²à¤¿à¤‚à¤• à¤¸à¤¾à¤à¤¾ à¤•à¤°à¤¨à¥‡ à¤•à¥‡ à¤²à¤¿à¤ à¤¤à¥ˆà¤¯à¤¾à¤° à¤¹à¥ˆà¥¤';
+  String get inviteLinkReady => 'आमंत्रण लिंक साझा करने के लिए तैयार है।';
 
   @override
-  String get ratings => 'à¤°à¥‡à¤Ÿà¤¿à¤‚à¤—';
+  String get ratings => 'रेटिंग';
 
   @override
-  String get statistics => 'à¤†à¤à¤•à¤¡à¤¼à¥‡';
+  String get statistics => 'आँकड़े';
 
   @override
-  String get wins => 'à¤œà¥€à¤¤';
+  String get wins => 'जीत';
 
   @override
-  String get losses => 'à¤¹à¤¾à¤°';
+  String get losses => 'हार';
 
   @override
-  String get bestStreak =>
-      'à¤¸à¤°à¥à¤µà¤¶à¥à¤°à¥‡à¤·à¥à¤  à¤¸à¤¿à¤²à¤¸à¤¿à¤²à¤¾';
+  String get bestStreak => 'सर्वश्रेष्ठ सिलसिला';
 
   @override
-  String get winRate => 'à¤œà¥€à¤¤ à¤ªà¥à¤°à¤¤à¤¿à¤¶à¤¤';
+  String get winRate => 'जीत प्रतिशत';
 
   @override
   String countryProfile(String code) {
-    return 'à¤¦à¥‡à¤¶: $code';
+    return 'देश: $code';
   }
 
   @override
-  String get world => 'à¤µà¤¿à¤¶à¥à¤µ';
+  String get world => 'विश्व';
 
   @override
-  String get country => 'à¤¦à¥‡à¤¶';
+  String get country => 'देश';
 
   @override
   String recordValue(int wins, int losses) {
-    return '$wins à¤œà¥€à¤¤ â€¢ $losses à¤¹à¤¾à¤°';
+    return '$wins जीत • $losses हार';
   }
 
   @override
-  String get onlineArena => 'à¤‘à¤¨à¤²à¤¾à¤‡à¤¨ à¤à¤°à¥€à¤¨à¤¾';
+  String get onlineArena => 'ऑनलाइन एरीना';
 
   @override
   String get onlineArenaSubtitle =>
-      'à¤•à¥à¤µà¤¿à¤• à¤®à¥ˆà¤š, à¤®à¤¿à¤¤à¥à¤° à¤šà¥à¤¨à¥Œà¤¤à¥€ à¤”à¤° à¤°à¥ˆà¤‚à¤•à¤¿à¤‚à¤— à¤à¤• à¤¹à¥€ à¤œà¤—à¤¹à¥¤';
+      'क्विक मैच, मित्र चुनौती और रैंकिंग एक ही जगह।';
 
   @override
-  String get quickMatch => 'à¤•à¥à¤µà¤¿à¤• à¤®à¥ˆà¤š';
+  String get quickMatch => 'क्विक मैच';
 
   @override
   String get onlineBackendRequired =>
-      'à¤‘à¤¨à¤²à¤¾à¤‡à¤¨ à¤•à¥à¤²à¤¾à¤‡à¤‚à¤Ÿ à¤†à¤§à¤¾à¤° à¤¤à¥ˆà¤¯à¤¾à¤° à¤¹à¥ˆà¥¤ Firebase Auth, Realtime Database à¤”à¤° Cloud Functions à¤¤à¥ˆà¤¨à¤¾à¤¤ à¤¹à¥‹à¤¨à¥‡ à¤¤à¤• à¤°à¥ˆà¤‚à¤•à¥à¤¡ à¤®à¥ˆà¤šà¤®à¥‡à¤•à¤¿à¤‚à¤— à¤¸à¥à¤°à¤•à¥à¤·à¤¿à¤¤ à¤°à¥‚à¤ª à¤¸à¥‡ à¤¬à¤‚à¤¦ à¤°à¤¹à¥‡à¤—à¥€à¥¤';
+      'ऑनलाइन क्लाइंट आधार तैयार है। Firebase Auth, Realtime Database और Cloud Functions तैनात होने तक रैंक्ड मैचमेकिंग सुरक्षित रूप से बंद रहेगी।';
 
   @override
-  String get challengeFriends =>
-      'à¤®à¤¿à¤¤à¥à¤°à¥‹à¤‚ à¤•à¥‹ à¤šà¥à¤¨à¥Œà¤¤à¥€ à¤¦à¥‡à¤‚';
+  String get challengeFriends => 'मित्रों को चुनौती दें';
 
   @override
-  String get viewRankings => 'à¤°à¥ˆà¤‚à¤•à¤¿à¤‚à¤— à¤¦à¥‡à¤–à¥‡à¤‚';
+  String get viewRankings => 'रैंकिंग देखें';
 
   @override
   String tutorialProgress(int current, int total) {
-    return 'à¤šà¤°à¤£ $current / $total';
+    return 'चरण $current / $total';
   }
 
   @override
-  String get tutorialPlaceTitle => 'à¤…à¤ªà¤¨à¥‡ à¤®à¥‹à¤¹à¤°à¥‡ à¤°à¤–à¥‡à¤‚';
+  String get tutorialPlaceTitle => 'अपने मोहरे रखें';
 
   @override
   String get tutorialPlaceBody =>
-      'à¤°à¤–à¤¨à¥‡ à¤•à¥‡ à¤šà¤°à¤£ à¤®à¥‡à¤‚ à¤–à¤¾à¤²à¥€ à¤¬à¤¿à¤‚à¤¦à¥ à¤ªà¤° à¤Ÿà¥ˆà¤ª à¤•à¤°à¥‡à¤‚à¥¤ à¤…à¤ªà¤¨à¥€ à¤¯à¥‹à¤œà¤¨à¤¾ à¤¬à¤¨à¤¾à¤¤à¥‡ à¤¹à¥à¤ à¤ªà¥à¤°à¤¤à¤¿à¤¦à¥à¤µà¤‚à¤¦à¥à¤µà¥€ à¤•à¥‹ à¤°à¥‹à¤•à¥‡à¤‚à¥¤';
+      'रखने के चरण में खाली बिंदु पर टैप करें। अपनी योजना बनाते हुए प्रतिद्वंद्वी को रोकें।';
 
   @override
-  String get tutorialMillTitle => 'à¤®à¤¿à¤² à¤¬à¤¨à¤¾à¤à¤';
+  String get tutorialMillTitle => 'मिल बनाएँ';
 
   @override
-  String get tutorialMillBody =>
-      'à¤à¤• à¤µà¥ˆà¤§ à¤°à¥‡à¤–à¤¾ à¤ªà¤° à¤†à¤ªà¤•à¥‡ à¤¤à¥€à¤¨ à¤®à¥‹à¤¹à¤°à¥‡ à¤®à¤¿à¤² à¤¬à¤¨à¤¾à¤¤à¥‡ à¤¹à¥ˆà¤‚à¥¤';
+  String get tutorialMillBody => 'एक वैध रेखा पर आपके तीन मोहरे मिल बनाते हैं।';
 
   @override
-  String get tutorialCaptureTitle => 'à¤®à¥‹à¤¹à¤°à¤¾ à¤¹à¤Ÿà¤¾à¤à¤';
+  String get tutorialCaptureTitle => 'मोहरा हटाएँ';
 
   @override
   String get tutorialCaptureBody =>
-      'à¤®à¤¿à¤² à¤¬à¤¨à¤¨à¥‡ à¤•à¥‡ à¤¬à¤¾à¤¦ à¤¹à¤¾à¤‡à¤²à¤¾à¤‡à¤Ÿ à¤•à¤¿à¤ à¤—à¤ à¤µà¤¿à¤°à¥‹à¤§à¥€ à¤®à¥‹à¤¹à¤°à¥‡ à¤•à¥‹ à¤šà¥à¤¨à¥‡à¤‚à¥¤ à¤‰à¤ªà¤²à¤¬à¥à¤§ à¤¹à¥‹à¤¨à¥‡ à¤ªà¤° à¤®à¤¿à¤² à¤•à¥‡ à¤¬à¤¾à¤¹à¤° à¤•à¤¾ à¤®à¥‹à¤¹à¤°à¤¾ à¤ªà¤¹à¤²à¥‡ à¤¹à¤Ÿà¤¤à¤¾ à¤¹à¥ˆà¥¤';
+      'मिल बनने के बाद हाइलाइट किए गए विरोधी मोहरे को चुनें। उपलब्ध होने पर मिल के बाहर का मोहरा पहले हटता है।';
 
   @override
-  String get tutorialMoveTitle => 'à¤°à¥‡à¤–à¤¾à¤“à¤‚ à¤ªà¤° à¤šà¤²à¥‡à¤‚';
+  String get tutorialMoveTitle => 'रेखाओं पर चलें';
 
   @override
   String get tutorialMoveBody =>
-      'à¤¸à¤­à¥€ à¤®à¥‹à¤¹à¤°à¥‡ à¤°à¤–à¤¨à¥‡ à¤•à¥‡ à¤¬à¤¾à¤¦ à¤à¤• à¤®à¥‹à¤¹à¤°à¥‡ à¤•à¥‹ à¤ªà¤¾à¤¸ à¤•à¥‡ à¤–à¤¾à¤²à¥€ à¤¬à¤¿à¤‚à¤¦à¥ à¤ªà¤° à¤šà¤²à¤¾à¤à¤à¥¤ à¤²à¤‚à¤¬à¥‡ à¤¦à¤¬à¤¾à¤µ à¤¸à¥‡ à¤–à¥€à¤‚à¤š à¤­à¥€ à¤¸à¤•à¤¤à¥‡ à¤¹à¥ˆà¤‚à¥¤';
+      'सभी मोहरे रखने के बाद एक मोहरे को पास के खाली बिंदु पर चलाएँ। लंबे दबाव से खींच भी सकते हैं।';
 
   @override
-  String get tutorialBlockTitle =>
-      'à¤ªà¥à¤°à¤¤à¤¿à¤¦à¥à¤µà¤‚à¤¦à¥à¤µà¥€ à¤•à¥‹ à¤°à¥‹à¤•à¥‡à¤‚';
+  String get tutorialBlockTitle => 'प्रतिद्वंद्वी को रोकें';
 
   @override
   String get tutorialBlockBody =>
-      'à¤œà¤‚à¤•à¥à¤¶à¤¨ à¤¨à¤¿à¤¯à¤‚à¤¤à¥à¤°à¤¿à¤¤ à¤•à¤°à¥‡à¤‚ à¤”à¤° à¤°à¤¾à¤¸à¥à¤¤à¥‡ à¤¬à¤‚à¤¦ à¤•à¤°à¥‡à¤‚à¥¤ 9/12 à¤®à¥‹à¤¹à¤°à¥‹à¤‚ à¤®à¥‡à¤‚ à¤µà¥ˆà¤§ à¤šà¤¾à¤² à¤¨ à¤¹à¥‹à¤¨à¥‡ à¤ªà¤° à¤¹à¤¾à¤° à¤¹à¥‹à¤¤à¥€ à¤¹à¥ˆà¥¤';
+      'जंक्शन नियंत्रित करें और रास्ते बंद करें। 9/12 मोहरों में वैध चाल न होने पर हार होती है।';
 
   @override
-  String get tutorialFlyTitle =>
-      'à¤¤à¥€à¤¨ à¤®à¥‹à¤¹à¤°à¥‹à¤‚ à¤ªà¤° à¤‰à¤¡à¤¼à¥‡à¤‚';
+  String get tutorialFlyTitle => 'तीन मोहरों पर उड़ें';
 
   @override
   String get tutorialFlyBody =>
-      'à¤«à¥à¤²à¤¾à¤‡à¤‚à¤— à¤¨à¤¿à¤¯à¤® à¤šà¤¾à¤²à¥‚ à¤¹à¥‹ à¤”à¤° à¤†à¤ªà¤•à¥‡ à¤¤à¥€à¤¨ à¤®à¥‹à¤¹à¤°à¥‡ à¤¬à¤šà¥‡à¤‚ à¤¤à¥‹ à¤•à¤¿à¤¸à¥€ à¤­à¥€ à¤–à¤¾à¤²à¥€ à¤¬à¤¿à¤‚à¤¦à¥ à¤ªà¤° à¤œà¤¾ à¤¸à¤•à¤¤à¥‡ à¤¹à¥ˆà¤‚à¥¤';
+      'फ्लाइंग नियम चालू हो और आपके तीन मोहरे बचें तो किसी भी खाली बिंदु पर जा सकते हैं।';
 
   @override
-  String get tutorialDoubleMillTitle =>
-      'à¤¦à¥‹à¤¹à¤°à¤¾à¤¤à¥‡ à¤–à¤¤à¤°à¥‡ à¤¬à¤¨à¤¾à¤à¤';
+  String get tutorialDoubleMillTitle => 'दोहराते खतरे बनाएँ';
 
   @override
   String get tutorialDoubleMillBody =>
-      'à¤‰à¤¨à¥à¤¨à¤¤ à¤–à¥‡à¤² à¤®à¥‡à¤‚ à¤œà¥à¤¡à¤¼à¥‡ à¤®à¤¿à¤²à¥‹à¤‚ à¤•à¥‡ à¤¬à¥€à¤š à¤šà¤²à¤•à¤° à¤•à¥ˆà¤ªà¥à¤šà¤° à¤®à¤œà¤¬à¥‚à¤° à¤•à¤°à¥‡à¤‚ à¤”à¤° à¤—à¤¤à¤¿à¤¶à¥€à¤²à¤¤à¤¾ à¤¬à¤¨à¤¾à¤ à¤°à¤–à¥‡à¤‚à¥¤';
+      'उन्नत खेल में जुड़े मिलों के बीच चलकर कैप्चर मजबूर करें और गतिशीलता बनाए रखें।';
 
   @override
-  String get previous => 'à¤ªà¤¿à¤›à¤²à¤¾';
+  String get previous => 'पिछला';
 
   @override
-  String get finish => 'à¤¸à¤®à¤¾à¤ªà¥à¤¤';
+  String get finish => 'समाप्त';
 
   @override
-  String get next => 'à¤…à¤—à¤²à¤¾';
+  String get next => 'अगला';
 
   @override
-  String get gameExperience => 'à¤—à¥‡à¤® à¤…à¤¨à¥à¤­à¤µ';
+  String get gameExperience => 'गेम अनुभव';
 
   @override
-  String get reduceMotion => 'à¤®à¥‹à¤¶à¤¨ à¤•à¤® à¤•à¤°à¥‡à¤‚';
+  String get reduceMotion => 'मोशन कम करें';
 
   @override
-  String get reduceMotionSubtitle =>
-      'à¤ªà¤²à¥à¤¸ à¤”à¤° à¤—à¥ˆà¤°-à¤œà¤°à¥‚à¤°à¥€ à¤—à¤¤à¤¿ à¤¬à¤‚à¤¦ à¤•à¤°à¤¤à¤¾ à¤¹à¥ˆà¥¤';
+  String get reduceMotionSubtitle => 'पल्स और गैर-जरूरी गति बंद करता है।';
 
   @override
-  String get showMoveHints => 'à¤šà¤¾à¤² à¤¸à¤‚à¤•à¥‡à¤¤ à¤¦à¤¿à¤–à¤¾à¤à¤';
+  String get showMoveHints => 'चाल संकेत दिखाएँ';
 
   @override
   String get showMoveHintsSubtitle =>
-      'à¤µà¥ˆà¤§ à¤—à¤‚à¤¤à¤µà¥à¤¯ à¤”à¤° à¤¹à¤Ÿà¤¾à¤ à¤œà¤¾ à¤¸à¤•à¤¨à¥‡ à¤µà¤¾à¤²à¥‡ à¤®à¥‹à¤¹à¤°à¥‡ à¤¦à¤¿à¤–à¤¾à¤¤à¤¾ à¤¹à¥ˆà¥¤';
+      'वैध गंतव्य और हटाए जा सकने वाले मोहरे दिखाता है।';
 
   @override
-  String get colorAssist => 'à¤°à¤‚à¤— à¤¸à¤¹à¤¾à¤¯à¤¤à¤¾';
+  String get colorAssist => 'रंग सहायता';
 
   @override
   String get colorAssistSubtitle =>
-      'à¤¸à¥à¤¥à¤¿à¤¤à¤¿ à¤•à¥‡à¤µà¤² à¤°à¤‚à¤— à¤¸à¥‡ à¤¨ à¤¬à¤¤à¤¾à¤¨à¥‡ à¤•à¥‡ à¤²à¤¿à¤ à¤†à¤•à¤¾à¤° à¤”à¤° à¤¬à¥‰à¤°à¥à¤¡à¤° à¤œà¥‹à¤¡à¤¼à¤¤à¤¾ à¤¹à¥ˆà¥¤';
+      'स्थिति केवल रंग से न बताने के लिए आकार और बॉर्डर जोड़ता है।';
 
   @override
-  String get boardSurface => 'à¤¬à¥‹à¤°à¥à¤¡ à¤¸à¤¤à¤¹';
+  String get boardSurface => 'बोर्ड सतह';
 
   @override
-  String get surfaceWood => 'à¤²à¤•à¤¡à¤¼à¥€';
+  String get surfaceWood => 'लकड़ी';
 
   @override
-  String get surfaceDarkStone => 'à¤—à¤¹à¤°à¤¾ à¤ªà¤¤à¥à¤¥à¤°';
+  String get surfaceDarkStone => 'गहरा पत्थर';
 
   @override
-  String get surfaceMarble => 'à¤¸à¤‚à¤—à¤®à¤°à¤®à¤°';
+  String get surfaceMarble => 'संगमरमर';
 
   @override
-  String get surfaceMinimal => 'à¤®à¤¿à¤¨à¤¿à¤®à¤²';
+  String get surfaceMinimal => 'मिनिमल';
 
   @override
-  String get pieceTheme => 'à¤®à¥‹à¤¹à¤°à¤¾ à¤¶à¥ˆà¤²à¥€';
+  String get pieceTheme => 'मोहरा शैली';
 
   @override
-  String get pieceClassic => 'à¤•à¥à¤²à¤¾à¤¸à¤¿à¤•';
+  String get pieceClassic => 'क्लासिक';
 
   @override
-  String get pieceMarble => 'à¤¸à¤‚à¤—à¤®à¤°à¤®à¤°';
+  String get pieceMarble => 'संगमरमर';
 
   @override
-  String get pieceObsidian => 'à¤‘à¤¬à¥à¤¸à¤¿à¤¡à¤¿à¤¯à¤¨';
+  String get pieceObsidian => 'ऑब्सिडियन';
 
   @override
-  String get progression => 'à¤ªà¥à¤°à¤—à¤¤à¤¿';
+  String get progression => 'प्रगति';
 
   @override
   String levelLabel(int level) {
-    return 'à¤¸à¥à¤¤à¤° $level';
+    return 'स्तर $level';
   }
 
   @override
@@ -592,92 +555,80 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get addFriendTitle => 'à¤®à¤¿à¤¤à¥à¤° à¤œà¥‹à¤¡à¤¼à¥‡à¤‚';
+  String get addFriendTitle => 'मित्र जोड़ें';
 
   @override
   String get addFriendSubtitle =>
-      'à¤–à¤¿à¤²à¤¾à¤¡à¤¼à¥€ à¤•à¤¾ à¤¨à¤¾à¤® à¤²à¤¿à¤–à¤•à¤° à¤‰à¤¸à¥‡ à¤®à¤¿à¤¤à¥à¤° à¤¸à¥‚à¤šà¥€ à¤®à¥‡à¤‚ à¤œà¥‹à¤¡à¤¼à¥‡à¤‚à¥¤';
+      'खिलाड़ी का नाम लिखकर उसे मित्र सूची में जोड़ें।';
 
   @override
-  String get friendNameLabel => 'à¤–à¤¿à¤²à¤¾à¤¡à¤¼à¥€ à¤•à¤¾ à¤¨à¤¾à¤®';
+  String get friendNameLabel => 'खिलाड़ी का नाम';
 
   @override
-  String get friendNameHint =>
-      'à¤–à¤¿à¤²à¤¾à¤¡à¤¼à¥€ à¤•à¤¾ à¤¨à¤¾à¤® à¤²à¤¿à¤–à¥‡à¤‚';
+  String get friendNameHint => 'खिलाड़ी का नाम लिखें';
 
   @override
-  String get addFriendButton => 'à¤®à¤¿à¤¤à¥à¤° à¤œà¥‹à¤¡à¤¼à¥‡à¤‚';
+  String get addFriendButton => 'मित्र जोड़ें';
 
   @override
-  String get friendNameTooShort =>
-      'à¤•à¤® à¤¸à¥‡ à¤•à¤® 2 à¤…à¤•à¥à¤·à¤° à¤¦à¤°à¥à¤œ à¤•à¤°à¥‡à¤‚à¥¤';
+  String get friendNameTooShort => 'कम से कम 2 अक्षर दर्ज करें।';
 
   @override
-  String get friendAlreadyAdded =>
-      'à¤¯à¤¹ à¤–à¤¿à¤²à¤¾à¤¡à¤¼à¥€ à¤ªà¤¹à¤²à¥‡ à¤¸à¥‡ à¤†à¤ªà¤•à¥€ à¤®à¤¿à¤¤à¥à¤° à¤¸à¥‚à¤šà¥€ à¤®à¥‡à¤‚ à¤¹à¥ˆà¥¤';
+  String get friendAlreadyAdded => 'यह खिलाड़ी पहले से आपकी मित्र सूची में है।';
 
   @override
   String friendAdded(String name) {
-    return '$name à¤•à¥‹ à¤®à¤¿à¤¤à¥à¤° à¤¸à¥‚à¤šà¥€ à¤®à¥‡à¤‚ à¤œà¥‹à¤¡à¤¼ à¤¦à¤¿à¤¯à¤¾ à¤—à¤¯à¤¾à¥¤';
+    return '$name को मित्र सूची में जोड़ दिया गया।';
   }
 
   @override
   String whatsappChallengeInvite(String game, String link) {
-    return 'à¤®à¥ˆà¤‚ à¤†à¤ªà¤•à¥‹ Morris World à¤®à¥‡à¤‚ $game à¤•à¥€ à¤šà¥à¤¨à¥Œà¤¤à¥€ à¤¦à¥‡à¤¤à¤¾ à¤¹à¥‚à¤! à¤—à¥‡à¤® à¤–à¥‹à¤²à¥‡à¤‚ à¤¯à¤¾ à¤¯à¤¹à¤¾à¤ à¤¸à¥‡ à¤‡à¤‚à¤¸à¥à¤Ÿà¥‰à¤² à¤•à¤°à¥‡à¤‚: $link';
+    return 'मैं आपको Morris World में $game की चुनौती देता हूँ! गेम खोलें या यहाँ से इंस्टॉल करें: $link';
   }
 
   @override
-  String get resultVictoryPraise =>
-      'à¤¬à¤§à¤¾à¤ˆ! à¤¶à¤¾à¤¨à¤¦à¤¾à¤° à¤–à¥‡à¤²à¥¤ à¤°à¥€à¤®à¥ˆà¤š à¤–à¥‡à¤²à¥‡à¤‚?';
+  String get resultVictoryPraise => 'बधाई! शानदार खेल। रीमैच खेलें?';
 
   @override
-  String get resultDefeatPraise =>
-      'à¤…à¤šà¥à¤›à¤¾ à¤®à¥à¤•à¤¾à¤¬à¤²à¤¾! à¤°à¥€à¤®à¥ˆà¤š à¤•à¥‡ à¤²à¤¿à¤ à¤¤à¥ˆà¤¯à¤¾à¤°?';
+  String get resultDefeatPraise => 'अच्छा मुकाबला! रीमैच के लिए तैयार?';
 
   @override
-  String get resultDrawPraise =>
-      'à¤¶à¤¾à¤¨à¤¦à¤¾à¤° à¤–à¥‡à¤² â€” à¤®à¥à¤•à¤¾à¤¬à¤²à¤¾ à¤¬à¤°à¤¾à¤¬à¤°à¥€ à¤ªà¤° à¤°à¤¹à¤¾à¥¤ à¤à¤• à¤”à¤°?';
+  String get resultDrawPraise => 'शानदार खेल — मुकाबला बराबरी पर रहा। एक और?';
 
   @override
-  String get resultLocalPraise =>
-      'à¤¶à¤¾à¤¨à¤¦à¤¾à¤° à¤®à¥à¤•à¤¾à¤¬à¤²à¤¾! à¤°à¥€à¤®à¥ˆà¤š à¤–à¥‡à¤²à¥‡à¤‚?';
+  String get resultLocalPraise => 'शानदार मुकाबला! रीमैच खेलें?';
 
   @override
-  String get rematch => 'à¤°à¥€à¤®à¥ˆà¤š à¤–à¥‡à¤²à¥‡à¤‚';
+  String get rematch => 'रीमैच खेलें';
 
   @override
-  String get editProfile =>
-      'à¤ªà¥à¤°à¥‹à¤«à¤¼à¤¾à¤‡à¤² à¤¸à¤‚à¤ªà¤¾à¤¦à¤¿à¤¤ à¤•à¤°à¥‡à¤‚';
+  String get editProfile => 'प्रोफ़ाइल संपादित करें';
 
   @override
-  String get playerName => 'à¤–à¤¿à¤²à¤¾à¤¡à¤¼à¥€ à¤•à¤¾ à¤¨à¤¾à¤®';
+  String get playerName => 'खिलाड़ी का नाम';
 
   @override
-  String get countryCode => 'à¤¦à¥‡à¤¶ à¤•à¥‹à¤¡';
+  String get countryCode => 'देश कोड';
 
   @override
-  String get saveProfile => 'à¤ªà¥à¤°à¥‹à¤«à¤¼à¤¾à¤‡à¤² à¤¸à¤¹à¥‡à¤œà¥‡à¤‚';
+  String get saveProfile => 'प्रोफ़ाइल सहेजें';
 
   @override
-  String get profileSaved =>
-      'à¤ªà¥à¤°à¥‹à¤«à¤¼à¤¾à¤‡à¤² à¤¸à¤¹à¥‡à¤œà¥€ à¤—à¤ˆà¥¤';
+  String get profileSaved => 'प्रोफ़ाइल सहेजी गई।';
 
   @override
-  String get profileSaveFailed =>
-      'à¤ªà¥à¤°à¥‹à¤«à¤¼à¤¾à¤‡à¤² à¤¸à¤¹à¥‡à¤œà¥€ à¤¨à¤¹à¥€à¤‚ à¤œà¤¾ à¤¸à¤•à¥€à¥¤';
+  String get profileSaveFailed => 'प्रोफ़ाइल सहेजी नहीं जा सकी।';
 
   @override
-  String get profileNameRequired =>
-      'à¤–à¤¿à¤²à¤¾à¤¡à¤¼à¥€ à¤•à¤¾ à¤¨à¤¾à¤® à¤–à¤¾à¤²à¥€ à¤¨à¤¹à¥€à¤‚ à¤¹à¥‹ à¤¸à¤•à¤¤à¤¾à¥¤';
+  String get profileNameRequired => 'खिलाड़ी का नाम खाली नहीं हो सकता।';
 
   @override
-  String get profileCountryCodeHint => 'à¤œà¥ˆà¤¸à¥‡ IN';
+  String get profileCountryCodeHint => 'जैसे IN';
 
   @override
-  String get profileCountryCodeInvalid =>
-      'à¤¦à¥‡à¤¶ à¤•à¥‹à¤¡ à¤¦à¥‹ à¤…à¤•à¥à¤·à¤°à¥‹à¤‚ à¤•à¤¾ à¤¹à¥‹à¤¨à¤¾ à¤šà¤¾à¤¹à¤¿à¤à¥¤';
+  String get profileCountryCodeInvalid => 'देश कोड दो अक्षरों का होना चाहिए।';
 
   @override
   String get profileLocalSaveNote =>
-      'à¤†à¤ªà¤•à¥€ à¤ªà¥à¤°à¥‹à¤«à¤¼à¤¾à¤‡à¤² à¤œà¤¾à¤¨à¤•à¤¾à¤°à¥€ à¤‡à¤¸ à¤¡à¤¿à¤µà¤¾à¤‡à¤¸ à¤ªà¤° à¤¸à¥à¤°à¤•à¥à¤·à¤¿à¤¤ à¤°à¥‚à¤ª à¤¸à¥‡ à¤¸à¤¹à¥‡à¤œà¥€ à¤œà¤¾à¤¤à¥€ à¤¹à¥ˆà¥¤';
+      'आपकी प्रोफ़ाइल जानकारी इस डिवाइस पर सुरक्षित रूप से सहेजी जाती है।';
 }
