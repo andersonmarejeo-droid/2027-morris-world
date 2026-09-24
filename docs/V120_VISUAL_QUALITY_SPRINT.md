@@ -125,7 +125,7 @@ project, credentials, store assets, or a human product decision.
     BlueStacks device after visual changes are integrated.
 49. **Done** — Run formatter, analyzer, localization generation, unit
     and widget tests as the acceptance gate.
-50. **In progress** — Commit the verified sprint increment and push it to the
+50. **Done** — Commit the verified sprint increment and push it to the
     existing GitHub repository with a concise implementation record.
 
 ## Acceptance criteria
