@@ -130,6 +130,13 @@ abstract final class AppRouter {
               (difficultyName != null && difficulty == null)) {
             return _page(state, const _RouteErrorScreen());
           }
+          // A URL is not proof that a caller owns an online match. Until a
+          // dedicated, Firebase-backed match screen validates a server-issued
+          // match id and participant identity, never let deep links turn the
+          // local two-player controller into a counterfeit online session.
+          if (mode == MatchMode.onlineRanked || mode == MatchMode.challenge) {
+            return _page(state, const _RouteErrorScreen());
+          }
           final config = MatchConfig(
             sessionId: sessionId,
             gameId: game,

@@ -75,8 +75,8 @@ if ($fsRules -notmatch 'allow write: if false') {
 if ($functionIndex -notmatch 'applyMorrisCommand' -or $functionIndex -notmatch 'expectedRevision') {
   throw 'Server-authoritative move validator is not wired into submitMove.'
 }
-if ($functionIndex -notmatch 'enforceAppCheck:\s*true') {
-  throw 'Cloud Functions App Check enforcement contract is missing.'
+if ($functionIndex -notmatch 'enforceAppCheck:\s*!isFunctionsEmulator') {
+  throw 'Cloud Functions production App Check enforcement contract is missing.'
 }
 if ($serverMorris -notmatch 'export function applyMorrisCommand') {
   throw 'Deterministic server Morris validator is missing.'

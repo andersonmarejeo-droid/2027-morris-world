@@ -5,7 +5,8 @@ import 'app/app_settings_controller.dart';
 import 'app/nine_tas_app.dart';
 import 'core/feedback/app_feedback_service.dart';
 import 'core/firebase/firebase_bootstrap.dart';
-import 'core/online/online_match_gateway.dart';
+import 'core/firebase/firebase_observability.dart';
+import 'core/online/online_service_factory.dart';
 import 'core/settings/app_settings_repository.dart';
 import 'core/storage/sqflite_match_session_repository.dart';
 import 'features/social/data/in_memory_friends_repository.dart';
@@ -18,7 +19,9 @@ Future<void> main() async {
     SharedPreferencesAppSettingsRepository(),
   );
   await settings.initialize();
-  await FirebaseBootstrap.initialize();
+  final firebase = await FirebaseBootstrap.initialize();
+  await FirebaseObservability.initialize(firebase);
+  final online = await OnlineServiceFactory.create(firebase);
 
   final services = AppServices(
     settings: settings,
@@ -27,7 +30,7 @@ Future<void> main() async {
     social: InMemoryFriendsRepository(
       profileStore: SharedPreferencesPlayerProfileStore(),
     ),
-    online: const DisabledOnlineMatchGateway(),
+    online: online,
   );
 
   runApp(NineTasApp(services: services));

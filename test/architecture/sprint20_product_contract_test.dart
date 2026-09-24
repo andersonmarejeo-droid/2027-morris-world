@@ -4,11 +4,19 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('professional gameplay and release foundations are present', () {
-    final board = File('lib/features/gameplay/presentation/widgets/morris_board.dart').readAsStringSync();
-    final controller = File('lib/features/gameplay/application/match_session_controller.dart').readAsStringSync();
-    final settings = File('lib/core/settings/app_settings_models.dart').readAsStringSync();
+    final board =
+        File(
+          'lib/features/gameplay/presentation/widgets/morris_board.dart',
+        ).readAsStringSync();
+    final controller =
+        File(
+          'lib/features/gameplay/application/match_session_controller.dart',
+        ).readAsStringSync();
+    final settings =
+        File('lib/core/settings/app_settings_models.dart').readAsStringSync();
     final router = File('lib/app/app_router.dart').readAsStringSync();
-    final feedback = File('lib/core/feedback/app_feedback_service.dart').readAsStringSync();
+    final feedback =
+        File('lib/core/feedback/app_feedback_service.dart').readAsStringSync();
 
     expect(board, contains('legalTargets'));
     expect(board, contains('capturablePoints'));
@@ -42,23 +50,26 @@ void main() {
     }
   });
 
-  test('firebase security foundation never grants client live-match writes', () {
-    final databaseRules = File('database.rules.json').readAsStringSync();
-    final firestoreRules = File('firestore.rules').readAsStringSync();
-    expect(databaseRules, contains('"liveMatches"'));
-    expect(databaseRules, contains('".write": false'));
-    expect(firestoreRules, contains('allow write: if false'));
-  });
+  test(
+    'firebase security foundation never grants client live-match writes',
+    () {
+      final databaseRules = File('database.rules.json').readAsStringSync();
+      final firestoreRules = File('firestore.rules').readAsStringSync();
+      expect(databaseRules, contains('"liveMatches"'));
+      expect(databaseRules, contains('".write": false'));
+      expect(firestoreRules, contains('allow write: if false'));
+    },
+  );
 
   test('server authoritative online validator is wired', () {
     final index = File('functions/src/index.ts').readAsStringSync();
     final validator = File('functions/src/morris.ts').readAsStringSync();
     expect(index, contains('applyMorrisCommand'));
     expect(index, contains('expectedRevision'));
-    expect(index, contains('enforceAppCheck: true'));
+    expect(index, contains('enforceAppCheck: !isFunctionsEmulator'));
+    expect(index, contains("FUNCTIONS_EMULATOR === 'true'"));
     expect(index, contains("status: completed ? 'completed' : 'inProgress'"));
     expect(validator, contains('export function applyMorrisCommand'));
     expect(validator, contains('protected-mill-piece'));
   });
-
 }

@@ -5,14 +5,24 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc",
-    "lint": "eslint .",
-    "deploy": "firebase deploy --only functions,firestore:rules,database"
+    "typecheck": "tsc --noEmit",
+    "lint": "npm run typecheck",
+    "test": "npm run build && node --test test/unit/*.test.cjs",
+    "test:emulator": "npm run build && cross-env FIREBASE_AUTH_EMULATOR_HOST=127.0.0.1:9099 firebase --config ../firebase.json emulators:exec --project demo-morris-world --only auth,functions,firestore,database \"node --test --test-concurrency=1 test/emulator/*.test.mjs\"",
+    "verify": "npm run lint && npm test",
+    "emulators": "npm run build && firebase --config ../firebase.json emulators:start --project demo-morris-world --only auth,functions,firestore,database",
+    "emulators:exec": "npm run test:emulator",
+    "deploy": "firebase --config ../firebase.json deploy --only functions,firestore:rules,firestore:indexes,database,storage"
   },
   "dependencies": {
     "firebase-admin": "^13.5.0",
     "firebase-functions": "^6.4.0"
   },
   "devDependencies": {
+    "@firebase/rules-unit-testing": "^3.0.0",
+    "cross-env": "^7.0.3",
+    "firebase": "^10.0.0",
+    "firebase-tools": "^14.0.0",
     "typescript": "^5.9.0"
   }
 }

@@ -4,9 +4,9 @@
     ".write": false,
     "presence": {
       "$uid": {
-        ".read": "auth != null",
+        ".read": "auth != null && auth.uid === $uid",
         ".write": "auth != null && auth.uid === $uid",
-        ".validate": "newData.hasChildren(['state','updatedAt']) && newData.child('state').isString() && newData.child('updatedAt').isNumber()"
+        ".validate": "newData.val() === null || (newData.hasChildren(['state','updatedAt']) && newData.getPriority() === null && (newData.child('state').val() === 'online' || newData.child('state').val() === 'away' || newData.child('state').val() === 'offline') && newData.child('updatedAt').isNumber() && newData.child('updatedAt').val() >= now - 60000 && newData.child('updatedAt').val() <= now + 30000)"
       }
     },
     "matchmaking": {

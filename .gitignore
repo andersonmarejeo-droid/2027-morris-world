@@ -27,3 +27,32 @@ README_FIRST.txt
 android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
 lib/firebase_options.dart
+
+# Firebase project selection is local to each developer or CI environment.
+# Keep the checked-in example as the setup template, never a real project map.
+.firebaserc
+
+# Firebase local state, emulator exports, and function credentials.
+.firebase/
+.firebase-emulator/
+firebase-debug.log
+firestore-debug.log
+database-debug.log
+functions-debug.log
+ui-debug.log
+firebase-export/
+functions/.env
+functions/.env.*
+!functions/.env.example
+functions/.runtimeconfig.json
+functions/service-account*.json
+functions/*service-account*.json
+functions/*.pem
+functions/*.p12
+functions/node_modules/
+functions/lib/
+
+# Android signing material must stay outside source control.
+android/key.properties
+android/*.jks
+android/*.keystore

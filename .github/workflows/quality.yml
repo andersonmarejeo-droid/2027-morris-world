@@ -1,0 +1,151 @@
+name: Quality
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "**"
+  workflow_dispatch:
+
+# This workflow is intentionally read-only: it does not receive deployment
+# credentials and never invokes Firebase deploy commands.
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  flutter:
+    name: Flutter quality
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2.23.0
+        with:
+          channel: stable
+          flutter-version: 3.47.0
+          cache: true
+          pub-cache: true
+
+      - name: Install Flutter dependencies
+        run: flutter pub get
+
+      - name: Generate localization sources
+        run: flutter gen-l10n
+
+      - name: Verify generated localization sources are committed
+        run: git diff --exit-code -- lib/l10n/generated
+
+      - name: Analyze Flutter source
+        run: flutter analyze
+
+      - name: Run Flutter tests
+        run: flutter test
+
+  functions:
+    name: Functions quality (guarded)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Check Functions toolchain readiness
+        id: functions
+        run: |
+          set -euo pipefail
+
+          if [[ ! -f functions/package.json ]]; then
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "Functions checks skipped: functions/package.json is not present."
+            exit 0
+          fi
+
+          for candidate in functions/package-lock.json functions/npm-shrinkwrap.json; do
+            if [[ -f "$candidate" ]]; then
+              echo "ready=true" >> "$GITHUB_OUTPUT"
+              echo "lockfile=$candidate" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          done
+
+          echo "ready=false" >> "$GITHUB_OUTPUT"
+          echo "Functions checks skipped: add a committed npm lockfile before enabling npm ci."
+          echo "Functions checks are intentionally guarded until the backend toolchain is reproducible." >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Set up Node.js
+        if: steps.functions.outputs.ready == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: ${{ steps.functions.outputs.lockfile }}
+
+      - name: Set up Java for Firebase emulators
+        if: steps.functions.outputs.ready == 'true'
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Install Functions dependencies
+        if: steps.functions.outputs.ready == 'true'
+        working-directory: functions
+        run: npm ci
+
+      - name: Detect available Functions quality scripts
+        id: functions-scripts
+        if: steps.functions.outputs.ready == 'true'
+        working-directory: functions
+        run: |
+          set -euo pipefail
+          for script in lint test build test:emulator; do
+            output_name="has_${script//:/_}"
+            if node -e 'const scripts = require("./package.json").scripts || {}; process.exit(Object.hasOwn(scripts, process.argv[1]) ? 0 : 1);' "$script"; then
+              echo "$output_name=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "$output_name=false" >> "$GITHUB_OUTPUT"
+            fi
+          done
+
+      - name: Lint Functions
+        if: steps.functions-scripts.outputs.has_lint == 'true'
+        working-directory: functions
+        run: npm run lint
+
+      - name: Test Functions
+        if: steps.functions-scripts.outputs.has_test == 'true'
+        working-directory: functions
+        run: npm test
+
+      - name: Build Functions
+        if: steps.functions-scripts.outputs.has_build == 'true'
+        working-directory: functions
+        run: npm run build
+
+      # Emulator coverage uses only the demo project and local service ports;
+      # it never receives Firebase deployment credentials.
+      - name: Run Firebase emulator tests
+        if: steps.functions-scripts.outputs.has_test_emulator == 'true' && hashFiles('firebase.json') != ''
+        working-directory: functions
+        env:
+          CI: 'true'
+          GCLOUD_PROJECT: demo-morris-world
+          FIREBASE_AUTH_EMULATOR_HOST: 127.0.0.1:9099
+          FIRESTORE_EMULATOR_HOST: 127.0.0.1:8080
+          FIREBASE_DATABASE_EMULATOR_HOST: 127.0.0.1:9000
+          FUNCTIONS_EMULATOR: 'true'
+        run: npm run test:emulator

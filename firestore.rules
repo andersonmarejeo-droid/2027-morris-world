@@ -3,27 +3,55 @@ service cloud.firestore {
   match /databases/{database}/documents {
     function signedIn() { return request.auth != null; }
     function isSelf(uid) { return signedIn() && request.auth.uid == uid; }
+    function validText(value, minimum, maximum) {
+      return value is string && value.size() >= minimum && value.size() <= maximum;
+    }
+    function validCountryCode(value) {
+      return value is string && value.matches('^[A-Z]{2}$');
+    }
+    function validProfile(data) {
+      return data.keys().hasAll([
+          'displayName', 'avatarId', 'photoUrl', 'countryCode', 'updatedAt'
+        ]) &&
+        data.keys().hasOnly([
+          'displayName', 'avatarId', 'photoUrl', 'countryCode', 'updatedAt'
+        ]) &&
+        validText(data.displayName, 1, 40) &&
+        validText(data.avatarId, 1, 64) &&
+        data.photoUrl is string && data.photoUrl.size() <= 2048 &&
+        validCountryCode(data.countryCode) &&
+        data.updatedAt is timestamp;
+    }
     function challengeParty(data) {
       return signedIn() &&
+        data.senderId is string && data.receiverId is string &&
         (request.auth.uid == data.senderId || request.auth.uid == data.receiverId);
     }
 
     match /users/{uid} {
       allow read: if signedIn();
-      allow create: if isSelf(uid)
-        && request.resource.data.keys().hasOnly([
-          'displayName', 'avatarId', 'photoUrl', 'countryCode', 'updatedAt'
-        ]);
+      allow create: if isSelf(uid) && validProfile(request.resource.data);
       allow update: if isSelf(uid)
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
           'displayName', 'avatarId', 'photoUrl', 'countryCode', 'updatedAt'
-        ]);
+        ])
+        && validProfile(request.resource.data);
       allow delete: if false;
 
       match /friends/{friendId} {
         allow read: if isSelf(uid);
         // Friendship state is written by trusted backend functions only.
         allow write: if false;
+      }
+
+      match /blocks/{blockedUid} {
+        allow read: if isSelf(uid);
+        allow create: if isSelf(uid)
+          && blockedUid != uid
+          && request.resource.data.keys().hasOnly(['createdAt'])
+          && request.resource.data.createdAt is timestamp;
+        allow update: if false;
+        allow delete: if isSelf(uid);
       }
     }
 
@@ -35,7 +63,9 @@ service cloud.firestore {
     }
 
     match /matchHistory/{matchId} {
-      allow read: if signedIn() && request.auth.uid in resource.data.playerIds;
+      allow read: if signedIn()
+        && resource.data.playerIds is list
+        && request.auth.uid in resource.data.playerIds;
       allow write: if false;
     }
 
