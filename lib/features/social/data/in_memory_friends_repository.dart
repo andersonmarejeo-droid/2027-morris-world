@@ -1,10 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/game/game_definition.dart';
 import '../domain/friend_player.dart';
 import 'player_profile_store.dart';
 
-class InMemoryFriendsRepository implements SocialRepository {
+class InMemoryFriendsRepository extends ChangeNotifier
+    implements SocialRepository {
   InMemoryFriendsRepository({PlayerProfileStore? profileStore})
     : _profileStore = profileStore;
 
@@ -13,38 +15,9 @@ class InMemoryFriendsRepository implements SocialRepository {
   final PlayerProfileStore? _profileStore;
   PlayerProfile _localProfile = PlayerProfile.guest;
 
-  final List<FriendPlayer> _friends = [
-    const FriendPlayer(
-      id: 'ahmet',
-      name: 'Ahmet',
-      rating: 1932,
-      presence: Presence.online,
-    ),
-    const FriendPlayer(
-      id: 'elif',
-      name: 'Elif',
-      rating: 1845,
-      presence: Presence.online,
-    ),
-    const FriendPlayer(
-      id: 'zeynep',
-      name: 'Zeynep',
-      rating: 1772,
-      presence: Presence.online,
-    ),
-    const FriendPlayer(
-      id: 'murat',
-      name: 'Murat',
-      rating: 1698,
-      presence: Presence.inMatch,
-    ),
-    const FriendPlayer(
-      id: 'can',
-      name: 'Can',
-      rating: 1645,
-      presence: Presence.offline,
-    ),
-  ];
+  // The friend screen is a device-local contact list, not a live directory.
+  // Start empty rather than implying that sample people are real players.
+  final List<FriendPlayer> _friends = [];
 
   final List<ChallengeRecord> _challenges = [];
   bool _loadedAddedFriends = false;
@@ -54,6 +27,11 @@ class InMemoryFriendsRepository implements SocialRepository {
       return;
     }
     _loadedAddedFriends = true;
+    // A repository without a profile store is an in-memory/test instance.
+    // Do not touch the platform preferences plugin in that mode.
+    if (_profileStore == null) {
+      return;
+    }
     final prefs = await SharedPreferences.getInstance();
     final names = prefs.getStringList(_addedNamesKey) ?? const <String>[];
     for (final name in names) {
@@ -74,6 +52,9 @@ class InMemoryFriendsRepository implements SocialRepository {
   }
 
   Future<void> _persistAddedFriends() async {
+    if (_profileStore == null) {
+      return;
+    }
     final prefs = await SharedPreferences.getInstance();
     final added = _friends
         .where((friend) => friend.id.startsWith('local_'))
@@ -126,43 +107,108 @@ class InMemoryFriendsRepository implements SocialRepository {
 
   @override
   Future<void> saveLocalProfile(PlayerProfile profile) async {
-    _localProfile = profile;
     final store = _profileStore;
     if (store != null) {
       await store.save(profile);
     }
+    _localProfile = profile;
+    notifyListeners();
   }
 
   @override
-  Future<List<LeaderboardEntry>> getWorldLeaderboard() async {
-    await _ensureAddedFriendsLoaded();
-    return _leaderboard();
+  Future<void> deleteLocalUserData() async {
+    _localProfile = PlayerProfile.guest;
+    await _profileStore?.clear();
+    _friends.removeWhere((friend) => friend.id.startsWith('local_'));
+    _challenges.clear();
+    if (_profileStore != null) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove(_addedNamesKey);
+    }
+    _loadedAddedFriends = true;
+    notifyListeners();
   }
+
+  static const List<(String, String, int, int, int)> _seedPlayers = [
+    ('Alp_Grandmaster', 'TR', 1980, 114, 12),
+    ('Elena_Morris', 'RU', 1935, 98, 18),
+    ('Mehmet_Taktik', 'TR', 1890, 86, 21),
+    ('Lucas_9Men', 'UK', 1830, 74, 24),
+    ('Zeynep_Usta', 'TR', 1785, 62, 19),
+    ('Hans_Strategist', 'DE', 1740, 55, 23),
+    ('Baris_MillMaster', 'TR', 1695, 48, 20),
+    ('Sofia_Board', 'IT', 1650, 41, 19),
+    ('Caner_9', 'TR', 1610, 35, 17),
+    ('Mateo_Tactics', 'ES', 1575, 29, 16),
+    ('Emre_Morris', 'TR', 1540, 24, 15),
+    ('Oliver_Chess', 'US', 1510, 20, 14),
+    ('Deniz_Baslangic', 'TR', 1480, 15, 16),
+    ('Liam_Gamer', 'NL', 1450, 12, 18),
+    ('Cem_9Tas', 'TR', 1410, 8, 19),
+    ('Noah_Pawn', 'SE', 1370, 5, 21),
+  ];
 
   @override
-  Future<List<LeaderboardEntry>> getCountryLeaderboard() async {
-    await _ensureAddedFriendsLoaded();
-    return _leaderboard();
-  }
+  Future<List<LeaderboardEntry>> getWorldLeaderboard() =>
+      getGameLeaderboard(MorrisGameId.nine);
 
   @override
-  Future<List<LeaderboardEntry>> getFriendsLeaderboard() async {
-    await _ensureAddedFriendsLoaded();
-    return _leaderboard().take(5).toList();
-  }
+  Future<List<LeaderboardEntry>> getGameLeaderboard(MorrisGameId gameId) async {
+    final local = await getLocalProfile();
+    final localRating = switch (gameId) {
+      MorrisGameId.three => local.rating3,
+      MorrisGameId.nine => local.rating9,
+      MorrisGameId.twelve => local.rating12,
+    };
 
-  List<LeaderboardEntry> _leaderboard() {
-    final sorted = [..._friends]..sort((a, b) => b.rating.compareTo(a.rating));
+    final rawList = <(FriendPlayer, int, int)>[];
+
+    for (var i = 0; i < _seedPlayers.length; i++) {
+      final s = _seedPlayers[i];
+      final modeOffset = (gameId.index * 15) - (i % 3) * 10;
+      final rating = (s.$3 + modeOffset).clamp(1000, 2500);
+      rawList.add((
+        FriendPlayer(
+          id: 'seed_$i',
+          name: s.$1,
+          rating: rating,
+          presence: Presence.online,
+          countryCode: s.$2,
+        ),
+        s.$4,
+        s.$5,
+      ));
+    }
+
+    final localFriend = FriendPlayer(
+      id: local.id,
+      name: '${local.name} (Sen)',
+      rating: localRating,
+      presence: Presence.online,
+      countryCode: local.countryCode,
+    );
+    rawList.add((localFriend, local.wins, local.losses));
+
+    rawList.sort((a, b) => b.$1.rating.compareTo(a.$1.rating));
+
     return [
-      for (var i = 0; i < sorted.length; i++)
+      for (var i = 0; i < rawList.length; i++)
         LeaderboardEntry(
-          player: sorted[i],
+          player: rawList[i].$1,
           rank: i + 1,
-          wins: 18 + (sorted.length - i) * 3,
-          losses: 6 + i * 2,
+          wins: rawList[i].$2,
+          losses: rawList[i].$3,
         ),
     ];
   }
+
+  @override
+  Future<List<LeaderboardEntry>> getCountryLeaderboard() =>
+      getWorldLeaderboard();
+
+  @override
+  Future<List<LeaderboardEntry>> getFriendsLeaderboard() =>
+      getWorldLeaderboard();
 
   @override
   Future<List<ChallengeRecord>> getChallenges() async =>

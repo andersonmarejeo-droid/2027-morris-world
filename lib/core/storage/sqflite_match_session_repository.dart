@@ -106,4 +106,9 @@ class SqfliteMatchSessionRepository implements MatchSessionRepository {
       whereArgs: [sessionId],
     );
   }
+
+  @override
+  Future<void> deleteAll() async {
+    await (await _db).delete('match_sessions');
+  }
 }

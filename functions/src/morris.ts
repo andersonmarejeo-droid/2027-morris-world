@@ -10,7 +10,10 @@ export interface MorrisState {
   pendingCaptureBy?: Side | null;
   winner?: Side | null;
   isDraw?: boolean;
+  movesWithoutCapture?: number;
 }
+
+export const DRAW_AFTER_MOVES_WITHOUT_CAPTURE = 100;
 
 export type MoveCommand =
   | { kind: 'place'; to: number }
@@ -123,6 +126,7 @@ export function initialMorrisState(gameId: GameId): MorrisState {
     pendingCaptureBy: null,
     winner: null,
     isDraw: false,
+    movesWithoutCapture: 0,
   };
 }
 
@@ -174,6 +178,7 @@ function place(def: Definition, state: MorrisState, to: number): MorrisState {
   let next: MorrisState = {
     ...state,
     board,
+    movesWithoutCapture: 0,
     lightToPlace: state.turn === 'light' ? state.lightToPlace - 1 : state.lightToPlace,
     darkToPlace: state.turn === 'dark' ? state.darkToPlace - 1 : state.darkToPlace,
   };
@@ -196,7 +201,11 @@ function move(def: Definition, state: MorrisState, from: number, to: number): Mo
   const board = [...state.board];
   board[from] = null;
   board[to] = state.turn;
-  let next: MorrisState = { ...state, board };
+  let next: MorrisState = {
+    ...state,
+    board,
+    movesWithoutCapture: (state.movesWithoutCapture ?? 0) + 1,
+  };
   if (formsMill(def, board, to, state.turn)) {
     if (def.winOnMill) return { ...next, winner: state.turn };
     if (def.captureOnMill) return { ...next, pendingCaptureBy: state.turn };
@@ -231,6 +240,7 @@ function capture(def: Definition, state: MorrisState, to: number): MorrisState {
     board,
     pendingCaptureBy: null,
     turn: targetSide,
+    movesWithoutCapture: 0,
   });
 }
 
@@ -240,13 +250,17 @@ function resolveTerminal(def: Definition, state: MorrisState): MorrisState {
     return { ...state, isDraw: true };
   }
   if (def.winOnMill) {
-    return hasLegalMove(def, state, state.turn)
-      ? state
-      : { ...state, winner: opponent(state.turn) };
+    if (!hasLegalMove(def, state, state.turn)) {
+      return { ...state, winner: opponent(state.turn) };
+    }
+  } else {
+    const active = state.turn;
+    if (stonesOnBoard(state, active) < def.minimumPiecesToContinue || !hasLegalMove(def, state, active)) {
+      return { ...state, winner: opponent(active) };
+    }
   }
-  const active = state.turn;
-  if (stonesOnBoard(state, active) < def.minimumPiecesToContinue || !hasLegalMove(def, state, active)) {
-    return { ...state, winner: opponent(active) };
+  if ((state.movesWithoutCapture ?? 0) >= DRAW_AFTER_MOVES_WITHOUT_CAPTURE) {
+    return { ...state, isDraw: true };
   }
   return state;
 }
@@ -282,6 +296,10 @@ function normalizeAndValidateState(def: Definition, input: MorrisState): MorrisS
     fail('invalid-capture-side');
   }
   if (input.winner != null && input.winner !== 'light' && input.winner !== 'dark') fail('invalid-winner');
+  const movesWithoutCapture = input.movesWithoutCapture ?? 0;
+  if (!Number.isInteger(movesWithoutCapture) || movesWithoutCapture < 0 || movesWithoutCapture > DRAW_AFTER_MOVES_WITHOUT_CAPTURE) {
+    fail('invalid-quiet-move-count');
+  }
   return {
     board,
     turn: input.turn,
@@ -290,6 +308,7 @@ function normalizeAndValidateState(def: Definition, input: MorrisState): MorrisS
     pendingCaptureBy: input.pendingCaptureBy ?? null,
     winner: input.winner ?? null,
     isDraw: input.isDraw === true,
+    movesWithoutCapture,
   };
 }
 

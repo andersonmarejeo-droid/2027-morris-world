@@ -1,12 +1,27 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
     <!-- Required by release builds for Firebase and all other online services. -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Needed by Google Mobile Ads for the Advertising ID declaration in Play Console. -->
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+    <!-- Bildirimler için gerekli izinler (Android 13+ ve Cihaz yeniden başlatma) -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <application
-        android:label="Morris World"
+        android:label="9 Taş"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <!-- Firebase starts only after the player opens the online lobby. -->
+        <provider
+            android:name="com.google.firebase.provider.FirebaseInitProvider"
+            tools:node="remove" />
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="${ADMOB_APP_ID}" />
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:launchMode="singleTop"
             android:taskAffinity=""
@@ -32,6 +47,16 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+    
+        <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
+        <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and
@@ -45,3 +70,6 @@
         </intent>
     </queries>
 </manifest>
+
+
+

@@ -1,8 +1,8 @@
 import '../../app/app_feature_flags.dart';
 import '../firebase/firebase_bootstrap.dart';
 import '../firebase/firebase_remote_feature_gate.dart';
-import 'firebase_match_client.dart';
 import 'online_match_gateway.dart';
+import 'spark_room_client.dart';
 
 /// Builds the only online service exposed to the widget tree.
 ///
@@ -18,13 +18,17 @@ abstract final class OnlineServiceFactory {
         reason: 'binary-candidate-disabled',
       );
     }
-    if (!bootstrap.canUseProtectedServices) {
+    // Spark invite rooms are protected by authenticated, participant-scoped
+    // Realtime Database rules. App Check enforcement is intentionally off
+    // until Play Integrity has been verified, so token availability must not
+    // prevent casual rooms from working in the meantime.
+    if (!bootstrap.firebaseReady) {
       return DisabledOnlineMatchGateway(reason: bootstrap.availabilityCode);
     }
     final decision = await FirebaseRemoteFeatureGate().evaluate(bootstrap);
     if (!decision.enabled) {
       return DisabledOnlineMatchGateway(reason: decision.reason);
     }
-    return FirebaseOnlineMatchGateway(FirebaseMatchClient());
+    return FirebaseOnlineMatchGateway(SparkRoomClient());
   }
 }

@@ -3,12 +3,11 @@ abstract final class AppFeatureFlags {
   /// is still deliberately separated from the offline product.
   static const socialFoundation = true;
 
-  /// First half of the two-key online rollout. This stays false in ordinary
-  /// builds; only a reviewed candidate may pass
-  /// `--dart-define=ONLINE_BACKEND_CANDIDATE=true`.
+  /// First half of the two-key online rollout. Release builds opt in by
+  /// default; local debug builds remain isolated unless explicitly configured.
   static const onlineBackendCandidate = bool.fromEnvironment(
     'ONLINE_BACKEND_CANDIDATE',
-    defaultValue: false,
+    defaultValue: bool.fromEnvironment('dart.vm.product'),
   );
 
   /// Compatibility name for presentation code. It must never be treated as a
@@ -19,7 +18,7 @@ abstract final class AppFeatureFlags {
   /// being enabled by a Remote Config value meant for a newer binary.
   static const buildNumber = int.fromEnvironment(
     'APP_BUILD_NUMBER',
-    defaultValue: 28,
+    defaultValue: 43,
   );
 
   /// Local Emulator Suite builds never consult the production rollout switch.

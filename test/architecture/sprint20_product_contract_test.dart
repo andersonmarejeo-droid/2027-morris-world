@@ -35,11 +35,12 @@ void main() {
 
   test('audio asset pack is complete', () {
     const required = [
-      'piece_pick.wav',
       'piece_drop.wav',
       'slide_wood.wav',
       'slide_marble.wav',
       'slide_stone.wav',
+      'piece_move_swoosh.mp3',
+      'match_gong.wav',
       'mill.wav',
       'capture.wav',
       'success.wav',
@@ -48,6 +49,10 @@ void main() {
     for (final name in required) {
       expect(File('assets/audio/$name').existsSync(), isTrue, reason: name);
     }
+    final feedback =
+        File('lib/core/feedback/app_feedback_service.dart').readAsStringSync();
+    expect(feedback, contains("'audio/piece_move_swoosh.mp3'"));
+    expect(feedback, contains("'audio/match_gong.wav'"));
   });
 
   test(

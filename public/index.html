@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="3-9-12 Taş, üç klasik Morris strateji oyununu tek bir sade mobil oyunda buluşturur."
+    />
+    <meta name="theme-color" content="#0c535b" />
+    <title>3-9-12 Taş — ZP GAMES</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+        color: #17272a;
+        background: #f2f7f6;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 90% 0%, #d8efeb 0, transparent 32rem),
+          #f2f7f6;
+      }
+
+      main {
+        width: min(920px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 48px 0 32px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: #0c535b;
+        font-size: .9rem;
+        font-weight: 750;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+      }
+
+      .mark {
+        display: grid;
+        width: 34px;
+        height: 34px;
+        place-items: center;
+        border-radius: 50%;
+        background: #0c535b;
+        color: #fff;
+        font-size: .75rem;
+        letter-spacing: -.06em;
+      }
+
+      .hero {
+        margin-top: 30px;
+        padding: clamp(28px, 7vw, 64px);
+        border: 1px solid #d7e5e2;
+        border-radius: 30px;
+        background: rgba(255, 255, 255, .94);
+        box-shadow: 0 20px 60px rgba(18, 60, 63, .08);
+      }
+
+      h1 {
+        max-width: 700px;
+        margin: 0;
+        color: #102d31;
+        font-size: clamp(2.5rem, 8vw, 5rem);
+        line-height: .98;
+        letter-spacing: -.055em;
+      }
+
+      .lead {
+        max-width: 650px;
+        margin: 22px 0 0;
+        color: #52666a;
+        font-size: clamp(1.05rem, 2.8vw, 1.3rem);
+        line-height: 1.65;
+      }
+
+      .games {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 34px;
+      }
+
+      .game {
+        min-height: 132px;
+        padding: 20px;
+        border: 1px solid #deebe8;
+        border-radius: 20px;
+        background: #f8fbfa;
+      }
+
+      .game strong {
+        display: block;
+        color: #0c535b;
+        font-size: 1.1rem;
+      }
+
+      .game span {
+        display: block;
+        margin-top: 8px;
+        color: #627477;
+        line-height: 1.45;
+      }
+
+      .support {
+        margin: 28px 0 0;
+        color: #52666a;
+        line-height: 1.6;
+      }
+
+      a { color: #0b6871; }
+
+      footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 24px 4px 0;
+        color: #65787a;
+        font-size: .92rem;
+      }
+
+      .links { display: flex; gap: 18px; }
+
+      @media (max-width: 640px) {
+        main { padding-top: 28px; }
+        .games { grid-template-columns: 1fr; }
+        .game { min-height: 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="brand"><span class="mark" aria-hidden="true">3·9·12</span>ZP GAMES</div>
+      <section class="hero" aria-labelledby="title">
+        <h1 id="title">3-9-12 Taş</h1>
+        <p class="lead">
+          Üç klasik Morris strateji oyunu, tek bir sade mobil deneyimde.
+          Bilgisayara karşı oyna veya aynı cihazı paylaşarak arkadaşınla
+          karşılaş.
+        </p>
+        <div class="games" aria-label="Oyun türleri">
+          <article class="game">
+            <strong>3 Taş</strong>
+            <span>Hızlı, kısa ve taktiksel karşılaşmalar.</span>
+          </article>
+          <article class="game">
+            <strong>9 Taş</strong>
+            <span>Klasik Morris stratejisi ve üçlüler.</span>
+          </article>
+          <article class="game">
+            <strong>12 Taş</strong>
+            <span>Daha geniş tahta, daha derin planlar.</span>
+          </article>
+        </div>
+        <p class="support">
+          Destek ve gizlilik soruları için
+          <a href="mailto:andersonmarejeo@gmail.com">andersonmarejeo@gmail.com</a>
+          adresinden bize ulaşabilirsin.
+        </p>
+      </section>
+      <footer>
+        <span>© 2026 ZP GAMES · Mustafa Polat</span>
+        <nav class="links" aria-label="Yasal bilgiler">
+          <a href="/privacy-policy">Gizlilik</a>
+          <a href="/terms-of-use">Kullanım koşulları</a>
+        </nav>
+      </footer>
+    </main>
+  </body>
+</html>

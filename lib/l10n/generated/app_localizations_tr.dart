@@ -9,7 +9,31 @@ class AppLocalizationsTr extends AppLocalizations {
   AppLocalizationsTr([String locale = 'tr']) : super(locale);
 
   @override
-  String get appTitle => 'Morris World';
+  String get appTitle => '3-9-12 Taş';
+
+  @override
+  String get ageAudienceTitle => 'Kim oynayacak?';
+
+  @override
+  String get ageAudienceBody =>
+      'Herkese uygun bir deneyim sunabilmemiz için yaş grubunu seç.';
+
+  @override
+  String get ageAudienceChild => '18 yaş altı veya belirtmek istemiyorum';
+
+  @override
+  String get ageAudienceAdult => '18 yaş ve üzeri';
+
+  @override
+  String get ageAudiencePrivacy =>
+      'Doğum tarihi istemiyoruz. Bu seçim yalnızca bu cihazda saklanır. 18 yaş altı veya yaşını belirtmek istemeyen kullanıcılar için reklamlar kişiselleştirilmez ve çevrimiçi odalar kapalıdır. Reklamlar en fazla G düzeyinde ve aileye uygundur.';
+
+  @override
+  String get ageAudienceOnlineRestricted =>
+      'Çevrimiçi odalar yalnızca 18 yaş ve üzeri olarak belirtilen kullanıcılar içindir. 18 yaş altı veya belirtmek istemeyenler bilgisayara karşı ya da aynı cihazda oynayabilir.';
+
+  @override
+  String get ageAudienceGotIt => 'Anladım';
 
   @override
   String get home => 'Ana Sayfa';
@@ -48,7 +72,64 @@ class AppLocalizationsTr extends AppLocalizations {
   String get online => 'Çevrimiçi';
 
   @override
-  String get onlineSubtitle => 'Dünyadan gerçek bir rakip bul';
+  String get onlineSubtitle =>
+      'Rakip aranır; bulunamazsa bilgisayara karşı oynanır';
+
+  @override
+  String get createPrivateRoom => 'Özel oda oluştur';
+
+  @override
+  String get joinPrivateRoom => 'Oda koduyla katıl';
+
+  @override
+  String get roomCode => 'Oda kodu';
+
+  @override
+  String get roomCodeHint => 'Arkadaşının paylaştığı kodu gir';
+
+  @override
+  String get waitingForOpponent => 'Arkadaşın katıldığında oyun başlayacak.';
+
+  @override
+  String get copyRoomCode => 'Kodu kopyala';
+
+  @override
+  String get roomCodeCopied => 'Oda kodu kopyalandı.';
+
+  @override
+  String get sparkPrivateRoomNotice =>
+      'Çocuklar çevrimiçi özelliği ebeveyn/veli gözetiminde kullanmalı. Oda kodunu yalnızca tanıdığın kişilerle paylaş. Maçlar sıralamasızdır; herkese açık eşleştirme ve sohbet yoktur.';
+
+  @override
+  String get onlineOpponent => 'Rakip';
+
+  @override
+  String get onlineWaitingTurn => 'Rakibinin hamlesi bekleniyor.';
+
+  @override
+  String get onlineMoveFailed =>
+      'Hamle gönderilemedi. Bağlantını kontrol edip yeniden dene.';
+
+  @override
+  String get onlineRoomUnavailable =>
+      'Oda bulunamadı veya dolu. Kodu kontrol et.';
+
+  @override
+  String get closeOnlineRoom => 'Odayı kapat';
+
+  @override
+  String get exitMatch => 'Maçtan çık';
+
+  @override
+  String get exitMatchConfirm =>
+      'Maç devam ediyor. Çıkarsan rakibin galip sayılacak. Maçtan çıkmak istiyor musun?';
+
+  @override
+  String get opponentLeft => 'Rakibin maçtan ayrıldı; galip ilan edildin.';
+
+  @override
+  String get opponentTimedOut =>
+      'Rakibin iki dakika boyunca hamle yapmadı; galip ilan edildin.';
 
   @override
   String get challenge => 'Meydan Oku';
@@ -290,6 +371,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get noFriendsYet => 'Henüz arkadaşın yok.';
 
   @override
+  String get rankingsUnavailable =>
+      'Dünya, ülke ve arkadaş sıralamaları henüz canlı oyuncu verisine bağlı değil. Doğrulanmış sıralamalar bu hizmet hazır olduğunda burada gösterilecek.';
+
+  @override
   String get sound => 'Ses';
 
   @override
@@ -425,7 +510,11 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get onlineBackendRequired =>
-      'Çevrimiçi istemci altyapısı hazır. Firebase Auth, Realtime Database ve Cloud Functions dağıtılana kadar dereceli eşleştirme güvenli biçimde kapalı kalır.';
+      'Özel çevrimiçi oda şu anda kullanılamıyor. İnternet bağlantını kontrol edip tekrar dene.';
+
+  @override
+  String get challengeInviteOpenedWithoutRoom =>
+      'WhatsApp daveti açıldı. Çevrimiçi oda şu an kurulamadığı için davete oda kodu eklenmedi.';
 
   @override
   String get challengeFriends => 'Arkadaşlarına Meydan Oku';
@@ -588,7 +677,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String whatsappChallengeInvite(String game, String link) {
-    return 'Morris World\'de $game oynamaya meydan okuyorum! Oyunu aç veya indir: $link';
+    return '3-9-12 Taş\'ta birlikte $game oynayalım! Kapalı teste katılmak ve uygulamayı indirmek için: $link';
   }
 
   @override
@@ -638,4 +727,95 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get profileLocalSaveNote =>
       'Profil bilgilerin bu cihazda güvenle saklanır.';
+
+  @override
+  String get accountAndLegal => 'Hesap ve yasal bilgiler';
+
+  @override
+  String get termsOfUse => 'Kullanım koşulları';
+
+  @override
+  String get termsSummary =>
+      '3-9-12 Taş; klasik 3 Taş, 9 Taş ve 12 Taş oyunlarını sunar. Uygulamayı yürürlükteki kurallara uygun kullanın. Profil ve oyun kayıtları bu cihazda saklanır; uygulama içi satın alma bulunmaz.\n\nÇevrimiçi oda özellikleri etkin olduğunda Firebase gibi üçüncü taraf hizmetler kullanılabilir. Oda kodunu yalnızca tanıdığınız kişilerle paylaşın. Harici paylaşım uygulamaları kendi kurallarına tabidir.\n\nBu metin genel uygulama bilgilendirmesidir; resmi yayıncı adresi ve ülke bazlı hukuki hükümler doğrulanana kadar bağlayıcı kullanım sözleşmesi değildir.';
+
+  @override
+  String get legalInformation => 'Yasal bilgilendirme';
+
+  @override
+  String get legalInformationBody =>
+      'Yayıncı: Mustafa Polat · ZP GAMES\nİletişim: andersonmarejeo@gmail.com\n\nResmi tebligat adresi ve kayıtlı şirket unvanı henüz doğrulanmadı. Yasal bildirimler için iletişim e-postasını kullanın.';
+
+  @override
+  String get onlineSignOut => 'Çevrimiçi oturumdan çıkış yap';
+
+  @override
+  String get onlineSignOutDone =>
+      'Çevrimiçi oturum kapatıldı. Bu cihazdaki oyun kayıtları korundu.';
+
+  @override
+  String get onlineSessionMissing =>
+      'Bu cihazda açık bir çevrimiçi oturum yok.';
+
+  @override
+  String get deleteLocalData => 'Bu cihazdaki kullanıcı verilerini sil';
+
+  @override
+  String get deleteLocalDataTitle =>
+      'Bu cihazdaki kullanıcı verileri silinsin mi?';
+
+  @override
+  String get deleteLocalDataBody =>
+      'Bu işlem bu cihazdaki profilini, eklediğin arkadaşları ve kayıtlı oyunları kalıcı olarak siler. Firebase çevrimiçi oda verilerini veya uzaktaki bir hesabı silmez. Bu işlem geri alınamaz.';
+
+  @override
+  String get deleteLocalDataDone =>
+      'Bu cihazdaki profil, arkadaş listesi ve kayıtlı oyunlar silindi.';
+
+  @override
+  String get deleteAction => 'Verileri sil';
+
+  @override
+  String get gameOptions => 'Oyun seçenekleri';
+
+  @override
+  String get drawRuleNotice =>
+      'Aynı tahta konumu, sıra kimde bilgisiyle birlikte 5 kez tekrarlanırsa veya taş alınmadan art arda 100 hamle yapılırsa maç berabere biter.';
+
+  @override
+  String get offerDraw => 'Beraberlik teklif et';
+
+  @override
+  String get drawOfferPrompt =>
+      'Beraberlik teklif edilsin mi? Maç yalnızca rakip kabul ederse berabere biter.';
+
+  @override
+  String get drawOfferReceived => 'Beraberlik teklifi';
+
+  @override
+  String get drawOfferReceivedBody =>
+      'Rakibin beraberlik teklif ediyor. Kabul ediyor musun?';
+
+  @override
+  String get acceptDraw => 'Beraberliği kabul et';
+
+  @override
+  String get declineDraw => 'Reddet';
+
+  @override
+  String get drawOfferDeclined => 'Beraberlik teklifi reddedildi.';
+
+  @override
+  String get computerDrawOfferAccepted =>
+      'Bilgisayar beraberlik teklifini kabul etti.';
+
+  @override
+  String get computerDrawOfferDeclined =>
+      'Bilgisayar beraberlik teklifini reddetti.';
+
+  @override
+  String get resignMatch => 'Pes et';
+
+  @override
+  String get resignConfirm =>
+      'Bu maçı bırakmak istediğine emin misin? Rakibin kazanmış sayılacak.';
 }

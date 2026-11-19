@@ -25,6 +25,7 @@ void main() {
         millPoints: <int>[],
       ),
       moveCount: 1,
+      repetitionCounts: const <String, int>{'light|012': 3},
     );
 
     final restored = MatchSession.fromDatabaseMap(original.toDatabaseMap());
@@ -38,5 +39,6 @@ void main() {
     expect(restored.visualTrace?.to, 0);
     expect(restored.visualTrace?.actor, PlayerSide.light);
     expect(restored.moveCount, 1);
+    expect(restored.repetitionCounts, <String, int>{'light|012': 3});
   });
 }

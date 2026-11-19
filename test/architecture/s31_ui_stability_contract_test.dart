@@ -9,7 +9,10 @@ void main() {
           'lib/features/gameplay/presentation/widgets/match_player_bar.dart',
         ).readAsStringSync();
 
-    expect(source, contains('height: 86'));
+    expect(
+      source.contains('height: 86') || source.contains('compact ? 58 : 86'),
+      isTrue,
+    );
     expect(source, isNot(contains('minHeight: 96')));
     expect(source, contains('height: 22'));
     expect(source, contains('count.toString()'));
@@ -37,7 +40,11 @@ void main() {
     expect(source, contains('class _ChallengeCard'));
     expect(source, contains('showAppBottomSheet<MorrisGameId>'));
     expect(source, contains('ChallengeShareService.shareOnWhatsApp'));
-    expect(source, contains('width: emphasized ? 96 : 88'));
+    expect(
+      source.contains('width: emphasized ? 104 : 96') ||
+          source.contains('width: emphasized ? 96 : 88'),
+      isTrue,
+    );
   });
 
   test('challenge share keeps selected game in a clickable store link', () {

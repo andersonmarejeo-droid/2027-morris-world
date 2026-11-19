@@ -1,22 +1,24 @@
 # Firebase production activation runbook
 
 **Product:** Morris World
-**Current source release:** v1.1.0+28 (from pubspec.yaml)
-**Runbook status:** pre-activation; online ranked play is intentionally disabled
-**Last reviewed:** 2026-09-24
+**Current source release:** v1.1.0+29 (from pubspec.yaml)
+**Runbook status:** required only for future Blaze-backed trusted services and ranked play; Spark private-room setup is separate
+**Last reviewed:** 2026-09-27
 **Applies to:** the exact Git commit and release version recorded in the release record below
 
-This is the controlled path for enabling Morris World's Firebase-backed online
-play. It is not a Firebase Console setup guide and it does not authorize a
-production change by itself. The release owner must complete every applicable
-gate, record the evidence, and obtain the required approvals before enabling
-any client-facing online flag.
+This is the controlled path for enabling Morris World's future trusted,
+Blaze-backed online services. It does not apply to the casual Spark room flow
+described in [Firebase Spark private rooms](FIREBASE_SPARK_PRIVATE_ROOMS.md),
+and it does not authorize a billing-plan change or production change by itself.
+The release owner must complete every applicable gate, record the evidence,
+and obtain the required approvals before enabling ranked or server-authoritative
+features.
 
 > **Stop condition:** Do not enable online ranked play just because Firebase
-> initialization succeeds. The current client deliberately injects
-> DisabledOnlineMatchGateway and onlineBackendConfigured is false. Replacing
-> that protection is a separately reviewed product release after all backend,
-> security, operational, and client gates below have passed.
+> initialization succeeds. The current client may expose invite-code Spark
+> rooms only after the separate RTDB rules gate passes. Ranked play remains
+> disabled until the trusted backend, security, operational, and client gates
+> below have passed.
 
 ## 1. Release record
 
@@ -42,7 +44,7 @@ project, or target environment changes.
 
 ### Version rule
 
-This document names v1.1.0+28 only as the current source baseline. Update
+This document names v1.1.0+29 only as the current source baseline. Update
 the header and perform the release gates again whenever pubspec.yaml,
 functions/package.json, security rules, database schema, callable contract,
 or Firebase project selection changes. A production deployment may only use

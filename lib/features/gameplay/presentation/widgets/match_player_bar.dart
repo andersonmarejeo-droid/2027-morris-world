@@ -19,6 +19,7 @@ class MatchPlayerBar extends StatelessWidget {
     this.thinking = false,
     this.thinkingLabel,
     this.reduceMotion = false,
+    this.compact = false,
   });
 
   final String name;
@@ -30,20 +31,24 @@ class MatchPlayerBar extends StatelessWidget {
   final bool thinking;
   final String? thinkingLabel;
   final bool reduceMotion;
+  final bool compact;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 86,
+      height: compact ? 58 : 86,
       child: AnimatedContainer(
-        duration: MotionTokens.normal,
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        duration: reduceMotion ? Duration.zero : MotionTokens.normal,
+        padding: EdgeInsets.symmetric(
+          horizontal: compact ? 9 : 12,
+          vertical: compact ? 4 : 8,
+        ),
         decoration: BoxDecoration(
           color: active ? AppColors.brandSoft : Colors.white,
           borderRadius: BorderRadius.circular(AppRadii.medium),
           border: Border.all(
             color: active ? AppColors.brandDeep : AppColors.line,
-            width: active ? 1.6 : 1,
+            width: compact ? 1.5 : (active ? 1.6 : 1),
           ),
           boxShadow:
               active
@@ -60,65 +65,135 @@ class MatchPlayerBar extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            _StoneAvatar(side: side),
-            const SizedBox(width: AppSpacing.sm),
+            _StoneAvatar(side: side, diameter: compact ? 32 : 38),
+            SizedBox(width: compact ? 7 : AppSpacing.sm),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Flexible(
-                        child: Text(
-                          name,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.titleSmall
-                              ?.copyWith(fontWeight: FontWeight.w800),
-                        ),
-                      ),
-                      if (active) ...[
-                        const SizedBox(width: 6),
-                        Container(
-                          width: 8,
-                          height: 8,
-                          decoration: BoxDecoration(
-                            color: AppColors.success,
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.success.withValues(alpha: 0.3),
-                                blurRadius: 6,
+                children:
+                    compact
+                        ? [
+                          // The glow is painted inside a permanently reserved
+                          // name box. A turn change only changes decoration;
+                          // it never inserts/removes content or shifts the row.
+                          AnimatedContainer(
+                            duration:
+                                reduceMotion
+                                    ? Duration.zero
+                                    : MotionTokens.fast,
+                            constraints: const BoxConstraints(minHeight: 24),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 5,
+                              vertical: 2,
+                            ),
+                            decoration: BoxDecoration(
+                              color:
+                                  active
+                                      ? Colors.white.withValues(alpha: 0.72)
+                                      : Colors.transparent,
+                              borderRadius: BorderRadius.circular(7),
+                              border: Border.all(
+                                color:
+                                    active
+                                        ? AppColors.brandDeep
+                                        : Colors.transparent,
                               ),
+                              boxShadow:
+                                  active
+                                      ? [
+                                        BoxShadow(
+                                          color: AppColors.brandDeep.withValues(
+                                            alpha: 0.28,
+                                          ),
+                                          blurRadius: 12,
+                                          spreadRadius: 1,
+                                        ),
+                                      ]
+                                      : const <BoxShadow>[],
+                            ),
+                            child: Text(
+                              name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context).textTheme.titleSmall
+                                  ?.copyWith(fontWeight: FontWeight.w800),
+                            ),
+                          ),
+                          const SizedBox(height: 1),
+                          Text(
+                            rating == null
+                                ? '$stonesOnBoard • +$stonesToPlace'
+                                : '$rating • $stonesOnBoard • +$stonesToPlace',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
+                        ]
+                        : [
+                          Row(
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  name,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context).textTheme.titleSmall
+                                      ?.copyWith(fontWeight: FontWeight.w800),
+                                ),
+                              ),
+                              if (active) ...[
+                                const SizedBox(width: 6),
+                                Container(
+                                  width: 8,
+                                  height: 8,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.success,
+                                    shape: BoxShape.circle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: AppColors.success.withValues(
+                                          alpha: 0.3,
+                                        ),
+                                        blurRadius: 6,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ],
                           ),
-                        ),
-                      ],
-                    ],
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    rating == null
-                        ? '$stonesOnBoard • +$stonesToPlace'
-                        : '$rating • $stonesOnBoard • +$stonesToPlace',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.labelSmall,
-                  ),
-                  const SizedBox(height: 3),
-                  _ReserveRack(
-                    side: side,
-                    count: stonesToPlace,
-                    active: active,
-                    reduceMotion: reduceMotion,
-                  ),
-                ],
+                          const SizedBox(height: 2),
+                          Text(
+                            rating == null
+                                ? '$stonesOnBoard • +$stonesToPlace'
+                                : '$rating • $stonesOnBoard • +$stonesToPlace',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
+                          const SizedBox(height: 3),
+                          _ReserveRack(
+                            side: side,
+                            count: stonesToPlace,
+                            active: active,
+                            reduceMotion: reduceMotion,
+                          ),
+                        ],
               ),
             ),
-            if (thinking && thinkingLabel != null) ...[
+            if (thinkingLabel != null) ...[
               const SizedBox(width: 6),
-              SizedBox(width: 82, child: _ThinkingPill(label: thinkingLabel!)),
+              SizedBox(
+                width: 82,
+                child: AnimatedOpacity(
+                  duration: reduceMotion ? Duration.zero : MotionTokens.fast,
+                  opacity: thinking ? 1 : 0,
+                  child: IgnorePointer(
+                    child: _ThinkingPill(label: thinkingLabel!),
+                  ),
+                ),
+              ),
             ],
           ],
         ),
@@ -128,14 +203,15 @@ class MatchPlayerBar extends StatelessWidget {
 }
 
 class _StoneAvatar extends StatelessWidget {
-  const _StoneAvatar({required this.side});
+  const _StoneAvatar({required this.side, required this.diameter});
 
   final PlayerSide side;
+  final double diameter;
 
   @override
   Widget build(BuildContext context) => Container(
-    width: 38,
-    height: 38,
+    width: diameter,
+    height: diameter,
     decoration: _stoneDecoration(side, shadow: true),
     child: Align(
       alignment: const Alignment(-0.28, -0.34),

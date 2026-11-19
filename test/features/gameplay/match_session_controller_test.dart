@@ -61,33 +61,36 @@ void main() {
     controller.dispose();
   });
 
+  test(
+    'offline AI answers the human move using the shared Morris engine',
+    () async {
+      final repository = _MemoryMatchSessionRepository();
+      final feedback = _NoopGameFeedback();
+      final controller = MatchSessionController(
+        config: const MatchConfig(
+          sessionId: 'ai-response-test',
+          gameId: MorrisGameId.nine,
+          mode: MatchMode.offlineAi,
+          difficulty: AiDifficulty.medium,
+        ),
+        repository: repository,
+        feedback: feedback,
+        ai: MorrisAiEngine(seed: 3),
+        aiThinkDelay: Duration.zero,
+        aiCapturePause: Duration.zero,
+      );
 
-  test('offline AI answers the human move using the shared Morris engine', () async {
-    final repository = _MemoryMatchSessionRepository();
-    final controller = MatchSessionController(
-      config: const MatchConfig(
-        sessionId: 'ai-response-test',
-        gameId: MorrisGameId.nine,
-        mode: MatchMode.offlineAi,
-        difficulty: AiDifficulty.medium,
-      ),
-      repository: repository,
-      feedback: _NoopGameFeedback(),
-      ai: MorrisAiEngine(seed: 3),
-      aiThinkDelay: Duration.zero,
-      aiCapturePause: Duration.zero,
-    );
+      await controller.initialize();
+      await controller.tapPoint(0);
 
-    await controller.initialize();
-    await controller.tapPoint(0);
-
-    final state = controller.game!;
-    expect(state.stonesOnBoard(PlayerSide.light), 1);
-    expect(state.stonesOnBoard(PlayerSide.dark), 1);
-    expect(state.turn, PlayerSide.light);
-    expect(controller.aiThinking, isFalse);
-    controller.dispose();
-  });
+      final state = controller.game!;
+      expect(state.stonesOnBoard(PlayerSide.light), 1);
+      expect(state.stonesOnBoard(PlayerSide.dark), 1);
+      expect(state.turn, PlayerSide.light);
+      expect(controller.aiThinking, isFalse);
+      controller.dispose();
+    },
+  );
 
   test('abandon is persisted as the last queued snapshot', () async {
     final repository = _MemoryMatchSessionRepository();
@@ -111,6 +114,80 @@ void main() {
     );
     controller.dispose();
   });
+
+  test('accepted draw offer is completed and persisted as a draw', () async {
+    final repository = _MemoryMatchSessionRepository();
+    final controller = MatchSessionController(
+      config: const MatchConfig(
+        sessionId: 'accepted-draw-test',
+        gameId: MorrisGameId.nine,
+        mode: MatchMode.localTwoPlayer,
+      ),
+      repository: repository,
+      feedback: _NoopGameFeedback(),
+    );
+
+    await controller.initialize(createNew: true);
+    await controller.agreeToDraw();
+
+    expect(controller.session?.status, MatchSessionStatus.completed);
+    expect(controller.game?.isDraw, isTrue);
+    expect(controller.game?.phase, MatchPhase.finished);
+    expect(repository.stored['accepted-draw-test']?.state.isDraw, isTrue);
+    controller.dispose();
+  });
+
+  test(
+    'resigning an AI match awards the win to the computer and persists it',
+    () async {
+      final repository = _MemoryMatchSessionRepository();
+      final controller = MatchSessionController(
+        config: const MatchConfig(
+          sessionId: 'resign-ai-test',
+          gameId: MorrisGameId.nine,
+          mode: MatchMode.offlineAi,
+          difficulty: AiDifficulty.easy,
+        ),
+        repository: repository,
+        feedback: _NoopGameFeedback(),
+        ai: MorrisAiEngine(seed: 5),
+        aiThinkDelay: const Duration(seconds: 1),
+      );
+
+      await controller.initialize(createNew: true);
+      await controller.resign();
+
+      expect(controller.session?.status, MatchSessionStatus.completed);
+      expect(controller.game?.winner, PlayerSide.dark);
+      expect(controller.game?.phase, MatchPhase.finished);
+      expect(
+        repository.stored['resign-ai-test']?.state.winner,
+        PlayerSide.dark,
+      );
+      controller.dispose();
+    },
+  );
+
+  test('resigning a local game forfeits the side whose turn it is', () async {
+    final repository = _MemoryMatchSessionRepository();
+    final controller = MatchSessionController(
+      config: const MatchConfig(
+        sessionId: 'resign-local-test',
+        gameId: MorrisGameId.three,
+        mode: MatchMode.localTwoPlayer,
+      ),
+      repository: repository,
+      feedback: _NoopGameFeedback(),
+    );
+
+    await controller.initialize(createNew: true);
+    await controller.tapPoint(0);
+    expect(controller.game?.turn, PlayerSide.dark);
+    await controller.resign();
+
+    expect(controller.game?.winner, PlayerSide.light);
+    controller.dispose();
+  });
 }
 
 class _MemoryMatchSessionRepository implements MatchSessionRepository {
@@ -123,6 +200,9 @@ class _MemoryMatchSessionRepository implements MatchSessionRepository {
   Future<void> delete(String sessionId) async {
     stored.remove(sessionId);
   }
+
+  @override
+  Future<void> deleteAll() async => stored.clear();
 
   @override
   Future<MatchSession?> getById(String sessionId) async {
@@ -139,17 +219,17 @@ class _MemoryMatchSessionRepository implements MatchSessionRepository {
 
   @override
   Future<MatchSession?> getMostRecentActiveForGame(MorrisGameId gameId) async {
-    final active = _active()
-        .where((session) => session.config.gameId == gameId)
-        .toList();
+    final active =
+        _active().where((session) => session.config.gameId == gameId).toList();
     return active.isEmpty ? null : active.first;
   }
 
   List<MatchSession> _active() {
-    final result = stored.values
-        .where((session) => session.status == MatchSessionStatus.active)
-        .toList()
-      ..sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
+    final result =
+        stored.values
+            .where((session) => session.status == MatchSessionStatus.active)
+            .toList()
+          ..sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
     return result;
   }
 

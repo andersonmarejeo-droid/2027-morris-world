@@ -56,6 +56,7 @@ const rateLimitPolicies = {
 type RateLimitAction = keyof typeof rateLimitPolicies;
 
 const callableOptions = {
+  region: 'europe-west1',
   // There is no App Check emulator. Production calls always require attestation;
   // this explicit local-only exception lets the emulator test the server logic.
   enforceAppCheck: !isFunctionsEmulator,
@@ -109,6 +110,7 @@ function storeMorrisState(state: MorrisState): StoredMorrisState {
     pendingCaptureBy: state.pendingCaptureBy ?? null,
     winner: state.winner ?? null,
     isDraw: state.isDraw === true,
+    movesWithoutCapture: state.movesWithoutCapture ?? 0,
   };
 }
 
@@ -138,6 +140,7 @@ function restoreMorrisState(gameId: GameId, source: unknown): MorrisState {
     pendingCaptureBy: (raw.pendingCaptureBy ?? null) as Side | null,
     winner: (raw.winner ?? null) as Side | null,
     isDraw: raw.isDraw === true,
+    movesWithoutCapture: (raw.movesWithoutCapture ?? 0) as number,
   };
 }
 

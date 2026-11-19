@@ -23,6 +23,8 @@ class InvalidMove implements Exception {
 }
 
 abstract final class MorrisEngine {
+  static const int drawAfterMovesWithoutCapture = 100;
+
   static MorrisGameState initial(MorrisGameDefinition definition) =>
       MorrisGameState.initial(
         pointCount: definition.board.pointCount,
@@ -51,6 +53,7 @@ abstract final class MorrisEngine {
     final remaining = state.toPlace(state.turn) - 1;
     var next = state.copyWith(
       board: board,
+      movesWithoutCapture: 0,
       lightToPlace:
           state.turn == PlayerSide.light ? remaining : state.lightToPlace,
       darkToPlace:
@@ -102,7 +105,10 @@ abstract final class MorrisEngine {
     final board = List<PlayerSide?>.from(state.board)
       ..[from] = null
       ..[to] = state.turn;
-    var next = state.copyWith(board: board);
+    var next = state.copyWith(
+      board: board,
+      movesWithoutCapture: state.movesWithoutCapture + 1,
+    );
 
     if (formsMill(definition, board, to, state.turn)) {
       if (definition.winOnMill) {
@@ -152,6 +158,7 @@ abstract final class MorrisEngine {
       board: board,
       clearPendingCapture: true,
       turn: opponent,
+      movesWithoutCapture: 0,
     );
     next = _resolveTerminal(definition, next);
     return next;
@@ -205,13 +212,16 @@ abstract final class MorrisEngine {
       if (!hasLegalMove(definition, state, state.turn)) {
         return state.copyWith(winner: state.turn.opponent);
       }
-      return state;
+    } else {
+      final playerToAct = state.turn;
+      if (state.stonesOnBoard(playerToAct) <
+              definition.minimumPiecesToContinue ||
+          !hasLegalMove(definition, state, playerToAct)) {
+        return state.copyWith(winner: playerToAct.opponent);
+      }
     }
-
-    final playerToAct = state.turn;
-    if (state.stonesOnBoard(playerToAct) < definition.minimumPiecesToContinue ||
-        !hasLegalMove(definition, state, playerToAct)) {
-      return state.copyWith(winner: playerToAct.opponent);
+    if (state.movesWithoutCapture >= drawAfterMovesWithoutCapture) {
+      return state.copyWith(isDraw: true);
     }
     return state;
   }

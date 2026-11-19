@@ -48,7 +48,10 @@ void main() {
       // fixed-height player cards cannot push the board when the turn changes.
       expect(RegExp(r'overlapFactor\s*=\s*0\.(?:48|50)').hasMatch(bar), isTrue);
       expect(bar, contains('_ActiveReserveStone'));
-      expect(bar, contains('height: 86'));
+      expect(
+        bar.contains('height: 86') || bar.contains('compact ? 58 : 86'),
+        isTrue,
+      );
 
       // WhatsApp may live on the legacy Friends screen or the shared challenge
       // service. The product contract is the behavior, not one source file.

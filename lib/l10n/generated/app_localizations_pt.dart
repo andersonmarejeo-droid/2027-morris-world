@@ -9,7 +9,31 @@ class AppLocalizationsPt extends AppLocalizations {
   AppLocalizationsPt([String locale = 'pt']) : super(locale);
 
   @override
-  String get appTitle => 'Morris World';
+  String get appTitle => '3-9-12 Morris';
+
+  @override
+  String get ageAudienceTitle => 'Quem vai jogar?';
+
+  @override
+  String get ageAudienceBody =>
+      'Escolha uma faixa etária para manter a experiência adequada para todos.';
+
+  @override
+  String get ageAudienceChild => 'Menos de 18 anos ou prefiro não informar';
+
+  @override
+  String get ageAudienceAdult => '18 anos ou mais';
+
+  @override
+  String get ageAudiencePrivacy =>
+      'Não pedimos a data de nascimento. Esta escolha fica apenas neste dispositivo. Os anúncios não são personalizados e as salas online ficam indisponíveis para menores de 18 anos e para quem não quiser responder. Os anúncios são adequados para famílias e têm classificação máxima G.';
+
+  @override
+  String get ageAudienceOnlineRestricted =>
+      'As salas online estão disponíveis apenas para quem indica ter 18 anos ou mais. Pessoas mais novas e quem preferir não responder podem jogar contra o computador ou no mesmo dispositivo.';
+
+  @override
+  String get ageAudienceGotIt => 'Entendi';
 
   @override
   String get home => 'Início';
@@ -49,7 +73,64 @@ class AppLocalizationsPt extends AppLocalizations {
   String get online => 'Online';
 
   @override
-  String get onlineSubtitle => 'Encontre um adversário real no mundo';
+  String get onlineSubtitle =>
+      'Procure um adversário online; se não houver, jogue contra o computador';
+
+  @override
+  String get createPrivateRoom => 'Criar sala privada';
+
+  @override
+  String get joinPrivateRoom => 'Entrar com código da sala';
+
+  @override
+  String get roomCode => 'Código da sala';
+
+  @override
+  String get roomCodeHint => 'Digite o código compartilhado pelo seu amigo';
+
+  @override
+  String get waitingForOpponent => 'A partida começa quando seu amigo entrar.';
+
+  @override
+  String get copyRoomCode => 'Copiar código';
+
+  @override
+  String get roomCodeCopied => 'Código da sala copiado.';
+
+  @override
+  String get sparkPrivateRoomNotice =>
+      'As crianças devem jogar online com um adulto responsável. Compartilhe o código apenas com pessoas conhecidas. Não há ranking, busca pública nem chat.';
+
+  @override
+  String get onlineOpponent => 'Adversário';
+
+  @override
+  String get onlineWaitingTurn => 'Aguardando a jogada do adversário.';
+
+  @override
+  String get onlineMoveFailed =>
+      'Não foi possível enviar a jogada. Verifique a conexão e tente novamente.';
+
+  @override
+  String get onlineRoomUnavailable =>
+      'Sala não encontrada ou cheia. Confira o código.';
+
+  @override
+  String get closeOnlineRoom => 'Fechar sala';
+
+  @override
+  String get exitMatch => 'Sair da partida';
+
+  @override
+  String get exitMatchConfirm =>
+      'A partida ainda está em andamento. Se sair, seu adversário será declarado vencedor. Sair?';
+
+  @override
+  String get opponentLeft => 'Seu adversário saiu da partida; você venceu.';
+
+  @override
+  String get opponentTimedOut =>
+      'Seu adversário não fez uma jogada por dois minutos; você venceu.';
 
   @override
   String get challenge => 'Desafiar';
@@ -291,6 +372,10 @@ class AppLocalizationsPt extends AppLocalizations {
   String get noFriendsYet => 'Você ainda não tem amigos.';
 
   @override
+  String get rankingsUnavailable =>
+      'Os rankings mundial, nacional e de amigos ainda não estão conectados a dados reais de jogadores. Eles aparecerão aqui quando o serviço estiver disponível.';
+
+  @override
   String get sound => 'Som';
 
   @override
@@ -374,14 +459,14 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String ratingValue(int rating) {
-    return 'Rating $rating';
+    return 'Classificação $rating';
   }
 
   @override
   String get inviteLinkReady => 'O link de convite está pronto.';
 
   @override
-  String get ratings => 'Ratings';
+  String get ratings => 'Classificações';
 
   @override
   String get statistics => 'Estatísticas';
@@ -426,7 +511,11 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get onlineBackendRequired =>
-      'A base do cliente online está pronta. O matchmaking ranqueado permanece desativado até a implantação do Firebase Auth, Realtime Database e Cloud Functions.';
+      'As salas privadas estão indisponíveis no momento. Verifique sua conexão e tente novamente.';
+
+  @override
+  String get challengeInviteOpenedWithoutRoom =>
+      'O convite do WhatsApp está pronto. Não foi possível criar uma sala online, então nenhum código foi incluído.';
 
   @override
   String get challengeFriends => 'Desafiar amigos';
@@ -590,7 +679,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String whatsappChallengeInvite(String game, String link) {
-    return 'Desafio você para $game no Morris World! Abra ou instale o jogo aqui: $link';
+    return 'Vamos jogar $game juntos no 3-9-12 Morris! Baixe o aplicativo aqui: $link';
   }
 
   @override
@@ -639,6 +728,95 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get profileLocalSaveNote =>
       'Os dados do teu perfil são guardados com segurança neste dispositivo.';
+
+  @override
+  String get accountAndLegal => 'Conta e informações legais';
+
+  @override
+  String get termsOfUse => 'Termos de uso';
+
+  @override
+  String get termsSummary =>
+      '3-9-12 Tas oferece os jogos clássicos de 3, 9 e 12 peças. Use o aplicativo de acordo com a lei. O perfil e as partidas salvas ficam neste dispositivo; não há compras no aplicativo.\n\nQuando as salas online estiverem ativadas, serviços de terceiros como o Firebase poderão ser usados. Compartilhe códigos de sala apenas com pessoas conhecidas. Aplicativos externos de compartilhamento têm seus próprios termos.\n\nEste texto é uma informação geral sobre o produto, não um contrato vinculativo. O endereço oficial do publicador e os termos jurídicos específicos de cada país ainda não foram verificados.';
+
+  @override
+  String get legalInformation => 'Informações legais';
+
+  @override
+  String get legalInformationBody =>
+      'Publicador: Mustafa Polat · ZP GAMES\nContato: andersonmarejeo@gmail.com\n\nO endereço oficial para notificações e o nome empresarial registrado ainda não foram verificados. Use o e-mail de contato para avisos legais.';
+
+  @override
+  String get onlineSignOut => 'Sair da sessão online';
+
+  @override
+  String get onlineSignOutDone =>
+      'Você saiu da sessão online. As partidas salvas neste dispositivo foram mantidas.';
+
+  @override
+  String get onlineSessionMissing =>
+      'Não há uma sessão online ativa neste dispositivo.';
+
+  @override
+  String get deleteLocalData => 'Excluir dados deste dispositivo';
+
+  @override
+  String get deleteLocalDataTitle => 'Excluir os dados deste dispositivo?';
+
+  @override
+  String get deleteLocalDataBody =>
+      'Isso exclui permanentemente deste dispositivo seu perfil, amigos adicionados e partidas salvas. Não exclui dados de salas Firebase nem uma conta remota. Esta ação não pode ser desfeita.';
+
+  @override
+  String get deleteLocalDataDone =>
+      'O perfil, a lista de amigos e as partidas salvas deste dispositivo foram excluídos.';
+
+  @override
+  String get deleteAction => 'Excluir dados';
+
+  @override
+  String get gameOptions => 'Opções da partida';
+
+  @override
+  String get drawRuleNotice =>
+      'A partida termina empatada se a mesma posição, incluindo quem joga, se repetir 5 vezes ou após 100 jogadas consecutivas sem captura.';
+
+  @override
+  String get offerDraw => 'Propor empate';
+
+  @override
+  String get drawOfferPrompt =>
+      'Quer propor empate? A partida só termina empatada se o adversário aceitar.';
+
+  @override
+  String get drawOfferReceived => 'Proposta de empate';
+
+  @override
+  String get drawOfferReceivedBody => 'O adversário propôs empate. Aceita?';
+
+  @override
+  String get acceptDraw => 'Aceitar empate';
+
+  @override
+  String get declineDraw => 'Recusar';
+
+  @override
+  String get drawOfferDeclined => 'A proposta de empate foi recusada.';
+
+  @override
+  String get computerDrawOfferAccepted =>
+      'O computador aceitou a proposta de empate.';
+
+  @override
+  String get computerDrawOfferDeclined =>
+      'O computador recusou a proposta de empate.';
+
+  @override
+  String get resignMatch => 'Desistir';
+
+  @override
+  String get resignConfirm =>
+      'Tem certeza de que deseja desistir? Seu oponente vencerá.';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -646,7 +824,31 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   AppLocalizationsPtBr() : super('pt_BR');
 
   @override
-  String get appTitle => 'Morris World';
+  String get appTitle => '3-9-12 Morris';
+
+  @override
+  String get ageAudienceTitle => 'Quem vai jogar?';
+
+  @override
+  String get ageAudienceBody =>
+      'Escolha uma faixa etária para manter a experiência adequada para todos.';
+
+  @override
+  String get ageAudienceChild => 'Menos de 18 anos ou prefiro não informar';
+
+  @override
+  String get ageAudienceAdult => '18 anos ou mais';
+
+  @override
+  String get ageAudiencePrivacy =>
+      'Não pedimos a data de nascimento. Esta escolha fica apenas neste dispositivo. Os anúncios não são personalizados e as salas on-line ficam indisponíveis para menores de 18 anos e para quem não quiser responder. Os anúncios são adequados para famílias e têm classificação máxima G.';
+
+  @override
+  String get ageAudienceOnlineRestricted =>
+      'As salas on-line estão disponíveis apenas para quem indica ter 18 anos ou mais. Pessoas mais novas e quem preferir não responder podem jogar contra o computador ou no mesmo dispositivo.';
+
+  @override
+  String get ageAudienceGotIt => 'Entendi';
 
   @override
   String get home => 'Início';
@@ -686,7 +888,64 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get online => 'Online';
 
   @override
-  String get onlineSubtitle => 'Encontre um adversário real no mundo';
+  String get onlineSubtitle =>
+      'Procure um adversário online; se não houver, jogue contra o computador';
+
+  @override
+  String get createPrivateRoom => 'Criar sala privada';
+
+  @override
+  String get joinPrivateRoom => 'Entrar com código da sala';
+
+  @override
+  String get roomCode => 'Código da sala';
+
+  @override
+  String get roomCodeHint => 'Digite o código compartilhado pelo seu amigo';
+
+  @override
+  String get waitingForOpponent => 'A partida começa quando seu amigo entrar.';
+
+  @override
+  String get copyRoomCode => 'Copiar código';
+
+  @override
+  String get roomCodeCopied => 'Código da sala copiado.';
+
+  @override
+  String get sparkPrivateRoomNotice =>
+      'Crianças devem jogar on-line com um responsável. Compartilhe o código somente com pessoas conhecidas. Não há ranking, busca pública nem chat.';
+
+  @override
+  String get onlineOpponent => 'Adversário';
+
+  @override
+  String get onlineWaitingTurn => 'Aguardando a jogada do adversário.';
+
+  @override
+  String get onlineMoveFailed =>
+      'Não foi possível enviar a jogada. Verifique sua conexão e tente novamente.';
+
+  @override
+  String get onlineRoomUnavailable =>
+      'Sala não encontrada ou cheia. Confira o código.';
+
+  @override
+  String get closeOnlineRoom => 'Fechar sala';
+
+  @override
+  String get exitMatch => 'Sair da partida';
+
+  @override
+  String get exitMatchConfirm =>
+      'A partida ainda está em andamento. Se você sair, seu adversário será declarado vencedor. Sair?';
+
+  @override
+  String get opponentLeft => 'Seu adversário saiu da partida; você venceu.';
+
+  @override
+  String get opponentTimedOut =>
+      'Seu adversário não fez uma jogada por dois minutos; você venceu.';
 
   @override
   String get challenge => 'Desafiar';
@@ -928,6 +1187,10 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get noFriendsYet => 'Você ainda não tem amigos.';
 
   @override
+  String get rankingsUnavailable =>
+      'Os rankings mundial, nacional e de amigos ainda não estão conectados a dados reais de jogadores. Eles aparecerão aqui quando o serviço estiver disponível.';
+
+  @override
   String get sound => 'Som';
 
   @override
@@ -1011,14 +1274,14 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String ratingValue(int rating) {
-    return 'Rating $rating';
+    return 'Classificação $rating';
   }
 
   @override
   String get inviteLinkReady => 'O link de convite está pronto.';
 
   @override
-  String get ratings => 'Ratings';
+  String get ratings => 'Classificações';
 
   @override
   String get statistics => 'Estatísticas';
@@ -1063,7 +1326,11 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get onlineBackendRequired =>
-      'A base do cliente online está pronta. O matchmaking ranqueado permanece desativado até a implantação do Firebase Auth, Realtime Database e Cloud Functions.';
+      'As salas privadas estão indisponíveis no momento. Verifique sua conexão e tente novamente.';
+
+  @override
+  String get challengeInviteOpenedWithoutRoom =>
+      'O convite do WhatsApp está pronto. Não foi possível criar uma sala online, então nenhum código foi incluído.';
 
   @override
   String get challengeFriends => 'Desafiar amigos';
@@ -1227,7 +1494,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String whatsappChallengeInvite(String game, String link) {
-    return 'Desafio você para $game no Morris World! Abra ou instale o jogo aqui: $link';
+    return 'Vamos jogar $game juntos no 3-9-12 Morris! Baixe o aplicativo aqui: $link';
   }
 
   @override
@@ -1276,4 +1543,94 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String get profileLocalSaveNote =>
       'Os dados do seu perfil são salvos com segurança neste dispositivo.';
+
+  @override
+  String get accountAndLegal => 'Conta e informações legais';
+
+  @override
+  String get termsOfUse => 'Termos de uso';
+
+  @override
+  String get termsSummary =>
+      '3-9-12 Tas oferece os jogos clássicos de 3, 9 e 12 peças. Use o aplicativo conforme a lei. O perfil e as partidas salvas ficam neste dispositivo; não há compras no app.\n\nQuando as salas online estiverem ativadas, serviços de terceiros como o Firebase poderão ser usados. Compartilhe códigos de sala somente com pessoas conhecidas. Aplicativos externos de compartilhamento têm seus próprios termos.\n\nEste texto é uma informação geral sobre o produto, não um contrato vinculativo. O endereço oficial do publicador e os termos jurídicos específicos de cada país ainda não foram verificados.';
+
+  @override
+  String get legalInformation => 'Informações legais';
+
+  @override
+  String get legalInformationBody =>
+      'Publicador: Mustafa Polat · ZP GAMES\nContato: andersonmarejeo@gmail.com\n\nO endereço oficial para notificações e o nome empresarial registrado ainda não foram verificados. Use o e-mail de contato para avisos legais.';
+
+  @override
+  String get onlineSignOut => 'Sair da sessão online';
+
+  @override
+  String get onlineSignOutDone =>
+      'Você saiu da sessão online. As partidas salvas neste dispositivo foram mantidas.';
+
+  @override
+  String get onlineSessionMissing =>
+      'Não há uma sessão online ativa neste dispositivo.';
+
+  @override
+  String get deleteLocalData => 'Excluir dados deste dispositivo';
+
+  @override
+  String get deleteLocalDataTitle => 'Excluir os dados deste dispositivo?';
+
+  @override
+  String get deleteLocalDataBody =>
+      'Isso exclui permanentemente deste dispositivo seu perfil, amigos adicionados e partidas salvas. Não exclui dados de salas Firebase nem uma conta remota. Esta ação não pode ser desfeita.';
+
+  @override
+  String get deleteLocalDataDone =>
+      'O perfil, a lista de amigos e as partidas salvas deste dispositivo foram excluídos.';
+
+  @override
+  String get deleteAction => 'Excluir dados';
+
+  @override
+  String get gameOptions => 'Opções da partida';
+
+  @override
+  String get drawRuleNotice =>
+      'A partida termina empatada se a mesma posição, incluindo quem joga, se repetir 5 vezes ou após 100 jogadas consecutivas sem captura.';
+
+  @override
+  String get offerDraw => 'Oferecer empate';
+
+  @override
+  String get drawOfferPrompt =>
+      'Quer oferecer empate? A partida só termina empatada se o adversário aceitar.';
+
+  @override
+  String get drawOfferReceived => 'Oferta de empate';
+
+  @override
+  String get drawOfferReceivedBody =>
+      'Seu adversário ofereceu empate. Você aceita?';
+
+  @override
+  String get acceptDraw => 'Aceitar empate';
+
+  @override
+  String get declineDraw => 'Recusar';
+
+  @override
+  String get drawOfferDeclined => 'A oferta de empate foi recusada.';
+
+  @override
+  String get computerDrawOfferAccepted =>
+      'O computador aceitou a oferta de empate.';
+
+  @override
+  String get computerDrawOfferDeclined =>
+      'O computador recusou a oferta de empate.';
+
+  @override
+  String get resignMatch => 'Desistir';
+
+  @override
+  String get resignConfirm =>
+      'Tem certeza de que deseja desistir? Seu oponente vencerá.';
 }

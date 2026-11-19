@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 
 import '../../../core/ai/morris_ai.dart';
@@ -7,12 +9,19 @@ import '../../../core/game/game_catalog.dart';
 import '../../../core/game/game_definition.dart';
 import '../../../core/game/game_models.dart';
 import '../../../core/game/morris_engine.dart';
+import '../../../core/game/morris_repetition.dart';
 import '../../../core/game/morris_rules.dart';
 import '../../../core/match/match_models.dart';
 import '../../../core/storage/match_session_repository.dart';
+import '../../../app/app_tokens.dart';
 
 class MatchSessionController extends ChangeNotifier {
   static const Duration _repositoryLoadTimeout = Duration(seconds: 4);
+  // A slow/locked local database must never keep the board's action lock
+  // active. The state is already in memory and can be played immediately;
+  // persistence is best-effort and retried by the serialized queue.
+  static const Duration _repositorySaveTimeout = Duration(seconds: 2);
+  static const Duration _feedbackTimeout = AppTimeouts.feedback;
 
   MatchSessionController({
     required MatchConfig config,
@@ -274,9 +283,12 @@ class MatchSessionController extends ChangeNotifier {
     try {
       MorrisGameState next;
       var millFormed = false;
+      var completedMovement = false;
+      var clearRepetitionHistory = false;
       MatchVisualTrace? trace = current.visualTrace;
       if (game.pendingCaptureBy != null) {
         next = MorrisEngine.capture(definition, game, point);
+        clearRepetitionHistory = true;
         selectedPoint = null;
         trace = (trace ?? MatchVisualTrace(actor: game.turn, to: point))
             .copyWith(capturedPoint: point);
@@ -297,7 +309,7 @@ class MatchSessionController extends ChangeNotifier {
         // state is committed below so the single-painter travel animation can
         // begin immediately. Settle/drop feedback is emitted after the short
         // reveal window.
-        await _feedback.pieceSelected();
+        _emitFeedback(_feedback.pieceSelected);
         millFormed = mills.isNotEmpty;
       } else if (game.phase == MatchPhase.finished) {
         return;
@@ -308,7 +320,7 @@ class MatchSessionController extends ChangeNotifier {
           if (!_disposed) {
             notifyListeners();
           }
-          await _feedback.pieceSelected();
+          _emitFeedback(_feedback.pieceSelected);
         }
         return;
       } else if (game.board[point] == game.turn) {
@@ -317,11 +329,12 @@ class MatchSessionController extends ChangeNotifier {
         if (!_disposed) {
           notifyListeners();
         }
-        await _feedback.pieceSelected();
+        _emitFeedback(_feedback.pieceSelected);
         return;
       } else {
         final from = selectedPoint!;
         next = MorrisEngine.move(definition, game, from: from, to: point);
+        completedMovement = true;
         final mills = MorrisRules.millPointsAt(
           definition,
           next.board,
@@ -335,11 +348,20 @@ class MatchSessionController extends ChangeNotifier {
           millPoints: mills.toList(growable: false),
         );
         selectedPoint = null;
-        // Start the surface-specific slide sound before the visual travel.
-        await _feedback.pieceMoved();
+        // Feedback is deliberately non-blocking. A stalled haptic/audio
+        // channel must not prevent the already-valid move from reaching the
+        // board state.
+        _emitFeedback(_feedback.pieceMoved);
         millFormed = mills.isNotEmpty;
       }
 
+      final repetitionCounts = Map<String, int>.from(current.repetitionCounts);
+      if (clearRepetitionHistory) {
+        repetitionCounts.clear();
+      } else if (completedMovement &&
+          MorrisRepetition.record(next, repetitionCounts)) {
+        next = next.copyWith(isDraw: true, clearWinner: true);
+      }
       final finished = next.phase == MatchPhase.finished;
       _session = current.copyWith(
         state: next,
@@ -348,6 +370,7 @@ class MatchSessionController extends ChangeNotifier {
         updatedAt: DateTime.now(),
         visualTrace: trace,
         moveCount: current.moveCount + (game.pendingCaptureBy == null ? 1 : 0),
+        repetitionCounts: repetitionCounts,
       );
       errorCode = null;
       if (!_disposed) {
@@ -359,24 +382,18 @@ class MatchSessionController extends ChangeNotifier {
         if (AiTiming.humanCaptureReveal > Duration.zero) {
           await Future<void>.delayed(AiTiming.humanCaptureReveal);
         }
-        await _feedback.pieceCaptured();
+        _emitFeedback(_feedback.pieceCaptured);
       } else {
         if (_humanMoveReveal > Duration.zero) {
           await Future<void>.delayed(_humanMoveReveal);
         }
-        await _feedback.piecePlaced();
+        _emitFeedback(_feedback.piecePlaced);
       }
       if (millFormed) {
-        await _feedback.millFormed();
+        _emitFeedback(_feedback.millFormed);
       }
 
       await flush();
-      if (finished &&
-          (_config.mode != MatchMode.offlineAi ||
-              next.winner == humanSide ||
-              next.isDraw)) {
-        await _feedback.success();
-      }
       shouldRunAi = !finished && _config.mode == MatchMode.offlineAi;
     } on InvalidMove catch (error) {
       errorCode = error.code;
@@ -444,7 +461,7 @@ class MatchSessionController extends ChangeNotifier {
           state: before,
           difficulty: difficulty,
         );
-        final next = _ai.applyCommand(definition, before, command);
+        var next = _ai.applyCommand(definition, before, command);
         if (generation != _aiGeneration || _disposed) {
           break;
         }
@@ -453,10 +470,10 @@ class MatchSessionController extends ChangeNotifier {
         // the pick sound; movement uses the current board surface slide sound.
         switch (command.kind) {
           case AiCommandKind.place:
-            await _feedback.pieceSelected();
+            _emitFeedback(_feedback.pieceSelected);
             break;
           case AiCommandKind.move:
-            await _feedback.pieceMoved();
+            _emitFeedback(_feedback.pieceMoved);
             break;
           case AiCommandKind.capture:
             break;
@@ -502,6 +519,13 @@ class MatchSessionController extends ChangeNotifier {
                 .copyWith(capturedPoint: command.to);
             break;
         }
+        final repetitionCounts = Map<String, int>.from(active.repetitionCounts);
+        if (command.kind == AiCommandKind.capture) {
+          repetitionCounts.clear();
+        } else if (command.kind == AiCommandKind.move &&
+            MorrisRepetition.record(next, repetitionCounts)) {
+          next = next.copyWith(isDraw: true, clearWinner: true);
+        }
         final finished = next.phase == MatchPhase.finished;
         _session = active.copyWith(
           state: next,
@@ -514,6 +538,7 @@ class MatchSessionController extends ChangeNotifier {
           moveCount:
               active.moveCount +
               (command.kind == AiCommandKind.capture ? 0 : 1),
+          repetitionCounts: repetitionCounts,
         );
         if (!_disposed) {
           notifyListeners();
@@ -524,15 +549,15 @@ class MatchSessionController extends ChangeNotifier {
           if (_aiMoveReveal > Duration.zero) {
             await Future<void>.delayed(_aiMoveReveal);
           }
-          await _feedback.piecePlaced();
+          _emitFeedback(_feedback.piecePlaced);
         } else {
           if (AiTiming.aiCaptureReveal > Duration.zero) {
             await Future<void>.delayed(AiTiming.aiCaptureReveal);
           }
-          await _feedback.pieceCaptured();
+          _emitFeedback(_feedback.pieceCaptured);
         }
         if (millFormed) {
-          await _feedback.millFormed();
+          _emitFeedback(_feedback.millFormed);
         }
 
         await flush();
@@ -599,6 +624,71 @@ class MatchSessionController extends ChangeNotifier {
     }
   }
 
+  Future<void> resign() async {
+    final current = _session;
+    if (_actionInProgress ||
+        current == null ||
+        current.status != MatchSessionStatus.active ||
+        current.state.phase == MatchPhase.finished) {
+      return;
+    }
+    _cancelAi();
+    _actionInProgress = true;
+    final resigningSide =
+        _config.mode == MatchMode.offlineAi ? humanSide : current.state.turn;
+    _session = current.copyWith(
+      state: current.state.copyWith(
+        winner: resigningSide.opponent,
+        clearPendingCapture: true,
+        isDraw: false,
+      ),
+      status: MatchSessionStatus.completed,
+      updatedAt: DateTime.now(),
+    );
+    selectedPoint = null;
+    errorCode = null;
+    if (!_disposed) {
+      notifyListeners();
+    }
+    try {
+      await flush();
+    } finally {
+      _actionInProgress = false;
+    }
+  }
+
+  Future<void> agreeToDraw() async {
+    final current = _session;
+    if (_actionInProgress ||
+        current == null ||
+        current.status != MatchSessionStatus.active ||
+        current.state.phase == MatchPhase.finished) {
+      return;
+    }
+    _cancelAi();
+    _actionInProgress = true;
+    _session = current.copyWith(
+      state: current.state.copyWith(
+        clearPendingCapture: true,
+        clearWinner: true,
+        isDraw: true,
+      ),
+      status: MatchSessionStatus.completed,
+      updatedAt: DateTime.now(),
+      clearRepetitionCounts: true,
+    );
+    selectedPoint = null;
+    errorCode = null;
+    if (!_disposed) {
+      notifyListeners();
+    }
+    try {
+      await flush();
+    } finally {
+      _actionInProgress = false;
+    }
+  }
+
   void _cancelAi() {
     _aiGeneration++;
     aiThinking = false;
@@ -622,13 +712,28 @@ class MatchSessionController extends ChangeNotifier {
 
   Future<void> _saveSnapshot(MatchSession snapshot) async {
     try {
-      await _repository.save(snapshot);
+      await _repository.save(snapshot).timeout(_repositorySaveTimeout);
       saveError = null;
     } catch (error) {
       saveError = error;
     }
     if (!_disposed) {
       notifyListeners();
+    }
+  }
+
+  /// Runs optional audio/haptic feedback without making game state depend on
+  /// a platform channel. Some Android devices can leave a haptic/audio call
+  /// pending while the app is backgrounded or the device is under load.
+  void _emitFeedback(Future<void> Function() effect) {
+    unawaited(_runFeedback(effect));
+  }
+
+  Future<void> _runFeedback(Future<void> Function() effect) async {
+    try {
+      await effect().timeout(_feedbackTimeout);
+    } catch (_) {
+      // Feedback is an enhancement; a failure must not block play.
     }
   }
 

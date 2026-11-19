@@ -1,0 +1,18 @@
+{
+  "parameters": {
+    "online_backend_enabled": {
+      "defaultValue": {
+        "value": "true"
+      },
+      "description": "Allows casual Firebase Spark invite-code rooms only for candidate builds at or above online_backend_minimum_build. Disable to immediately close online rooms.",
+      "valueType": "BOOLEAN"
+    },
+    "online_backend_minimum_build": {
+      "defaultValue": {
+        "value": "29"
+      },
+      "description": "Minimum Android app build number allowed to use invite-code rooms.",
+      "valueType": "NUMBER"
+    }
+  }
+}

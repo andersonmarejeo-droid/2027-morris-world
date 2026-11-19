@@ -4,10 +4,13 @@ import '../core/settings/app_settings_models.dart';
 import '../core/settings/app_settings_repository.dart';
 
 class AppSettingsController extends ChangeNotifier {
-  AppSettingsController(this._repository);
+  AppSettingsController(
+    this._repository, {
+    AppSettingsState initialState = const AppSettingsState(),
+  }) : _state = initialState;
 
   final AppSettingsRepository _repository;
-  AppSettingsState _state = const AppSettingsState();
+  AppSettingsState _state;
   AppSettingsState get state => _state;
 
   Future<void> _saveChain = Future<void>.value();

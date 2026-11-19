@@ -29,7 +29,9 @@ service cloud.firestore {
     }
 
     match /users/{uid} {
-      allow read: if signedIn();
+      // Player profile details are private by default for the child-inclusive
+      // audience. Public discovery must be mediated by a reviewed backend.
+      allow read: if isSelf(uid);
       allow create: if isSelf(uid) && validProfile(request.resource.data);
       allow update: if isSelf(uid)
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly([

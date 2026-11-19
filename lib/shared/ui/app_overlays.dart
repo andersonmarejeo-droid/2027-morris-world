@@ -107,6 +107,28 @@ Future<T?> showAppActionDialog<T>({
   );
 }
 
+Future<void> showAppInformationDialog({
+  required BuildContext context,
+  required String title,
+  required String message,
+  required String closeLabel,
+}) {
+  return showDialog<void>(
+    context: context,
+    builder:
+        (dialogContext) => AlertDialog(
+          title: Text(title),
+          content: SingleChildScrollView(child: Text(message)),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(),
+              child: Text(closeLabel),
+            ),
+          ],
+        ),
+  );
+}
+
 void closeAppOverlay<T>(BuildContext overlayContext, [T? result]) {
   Navigator.of(overlayContext).pop(result);
 }

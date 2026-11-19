@@ -10,15 +10,17 @@ void main() {
       final repository = InMemoryFriendsRepository();
       final before = await repository.getLocalProfile();
       await repository.saveLocalProfile(before.copyWith(name: 'Mustafa'));
+      expect(await repository.addFriend('Ahmet'), isTrue);
 
       final saved = await repository.getLocalProfile();
+      final friend = (await repository.getFriends()).single;
       final challenge = await repository.sendChallenge(
-        'ahmet',
+        friend.id,
         MorrisGameId.nine,
       );
 
       expect(saved.name, 'Mustafa');
-      expect(challenge.opponent.id, 'ahmet');
+      expect(challenge.opponent.name, 'Ahmet');
       expect(challenge.status, ChallengeStatus.pending);
       expect(await repository.getChallenges(), hasLength(1));
     },

@@ -29,7 +29,10 @@ class FirebaseRemoteFeatureGate {
         reason: 'binary-candidate-disabled',
       );
     }
-    if (!status.canUseProtectedServices) {
+    // The current Spark room backend does not enforce App Check. Keep the
+    // Remote Config rollout dependent on Firebase itself, not on whether this
+    // device's optional Play Integrity token could be fetched.
+    if (!status.firebaseReady) {
       return OnlineFeatureDecision(
         enabled: false,
         reason: status.availabilityCode,
@@ -37,10 +40,11 @@ class FirebaseRemoteFeatureGate {
     }
     if (AppFeatureFlags.useFirebaseEmulators) {
       // A real Remote Config project must never decide an emulator build's
-      // rollout. Emulator matchmaking gets a separately explicit test path.
+      // rollout. A deliberately opted-in emulator build exercises Spark rooms
+      // locally without enabling any production endpoint.
       return const OnlineFeatureDecision(
-        enabled: false,
-        reason: 'emulator-rollout-disabled',
+        enabled: true,
+        reason: 'emulator-spark-private-rooms',
       );
     }
 

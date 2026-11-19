@@ -90,4 +90,60 @@ void main() {
     expect(command.kind, AiCommandKind.place);
     expect(command.to, 2);
   });
+
+  test('master AI returns a legal move without an unbounded search', () {
+    const state = MorrisGameState(
+      board: [
+        PlayerSide.light,
+        PlayerSide.dark,
+        PlayerSide.light,
+        PlayerSide.dark,
+        PlayerSide.light,
+        PlayerSide.dark,
+        PlayerSide.light,
+        PlayerSide.dark,
+        PlayerSide.light,
+        PlayerSide.dark,
+        PlayerSide.light,
+        PlayerSide.dark,
+        PlayerSide.light,
+        PlayerSide.dark,
+        PlayerSide.light,
+        PlayerSide.dark,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+      ],
+      turn: PlayerSide.light,
+      lightToPlace: 0,
+      darkToPlace: 0,
+    );
+    final ai = MorrisAiEngine(seed: 23);
+    final stopwatch = Stopwatch()..start();
+    final command = ai.chooseCommand(
+      definition: GameCatalog.twelve,
+      state: state,
+      difficulty: AiDifficulty.master,
+      aiSide: PlayerSide.light,
+    );
+    stopwatch.stop();
+
+    expect(
+      ai
+          .legalCommands(GameCatalog.twelve, state)
+          .any(
+            (candidate) =>
+                candidate.kind == command.kind &&
+                candidate.from == command.from &&
+                candidate.to == command.to,
+          ),
+      isTrue,
+    );
+    expect(stopwatch.elapsed, lessThan(const Duration(seconds: 4)));
+  });
 }

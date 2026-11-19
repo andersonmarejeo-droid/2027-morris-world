@@ -33,6 +33,8 @@ class _MemoryRepo implements MatchSessionRepository {
     data.remove(sessionId);
   }
   @override
+  Future<void> deleteAll() async => data.clear();
+  @override
   Future<MatchSession?> getById(String sessionId) async => data[sessionId];
   @override
   Future<MatchSession?> getMostRecentActive() async => null;

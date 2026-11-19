@@ -18,6 +18,7 @@ class SharedPreferencesAppSettingsRepository implements AppSettingsRepository {
   static const _colorAssistKey = 'settings.colorAssist';
   static const _boardViewKey = 'settings.boardView';
   static const _boardSurfaceKey = 'settings.boardSurface';
+  static const _whiteBoardMigrationKey = 'settings.whiteBoardDefault.v1';
   static const _pieceThemeKey = 'settings.pieceTheme';
 
   final SharedPreferencesAsync _prefs = SharedPreferencesAsync();
@@ -26,9 +27,37 @@ class SharedPreferencesAppSettingsRepository implements AppSettingsRepository {
   Future<AppSettingsState> load() async {
     final language = await _prefs.getString(_localeLanguageKey);
     final country = await _prefs.getString(_localeCountryKey);
-    final locale = language == null || language.isEmpty
-        ? null
-        : Locale(language, country == null || country.isEmpty ? null : country);
+    final locale =
+        language == null || language.isEmpty
+            ? null
+            : Locale(
+              language,
+              country == null || country.isEmpty ? null : country,
+            );
+
+    final storedSurface = await _prefs.getString(_boardSurfaceKey);
+    final migratedToWhiteBoard =
+        await _prefs.getBool(_whiteBoardMigrationKey) ?? false;
+    final boardSurface =
+        !migratedToWhiteBoard &&
+                (storedSurface == null ||
+                    storedSurface == BoardSurface.wood.name)
+            ? BoardSurface.minimal
+            : _enumByName(
+              BoardSurface.values,
+              storedSurface,
+              BoardSurface.minimal,
+            );
+
+    // Earlier releases opened every game on the brown wood surface. Move that
+    // legacy default to the new high-contrast white board once, but preserve a
+    // surface a player deliberately chose.
+    if (!migratedToWhiteBoard) {
+      await _prefs.setBool(_whiteBoardMigrationKey, true);
+      if (storedSurface == null || storedSurface == BoardSurface.wood.name) {
+        await _prefs.setString(_boardSurfaceKey, boardSurface.name);
+      }
+    }
 
     return AppSettingsState(
       locale: locale,
@@ -42,11 +71,7 @@ class SharedPreferencesAppSettingsRepository implements AppSettingsRepository {
         await _prefs.getString(_boardViewKey),
         BoardViewStyle.realistic,
       ),
-      boardSurface: _enumByName(
-        BoardSurface.values,
-        await _prefs.getString(_boardSurfaceKey),
-        BoardSurface.wood,
-      ),
+      boardSurface: boardSurface,
       pieceTheme: _enumByName(
         PieceTheme.values,
         await _prefs.getString(_pieceThemeKey),

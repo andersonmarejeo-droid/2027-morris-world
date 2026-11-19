@@ -9,7 +9,7 @@ class AppSettingsState {
     this.showMoveHints = true,
     this.colorAssist = true,
     this.boardView = BoardViewStyle.realistic,
-    this.boardSurface = BoardSurface.wood,
+    this.boardSurface = BoardSurface.minimal,
     this.pieceTheme = PieceTheme.classic,
   });
 
@@ -50,5 +50,7 @@ class AppSettingsState {
 }
 
 enum BoardViewStyle { flat2d, realistic, perspective3d }
+
 enum BoardSurface { wood, darkStone, marble, minimal }
+
 enum PieceTheme { classic, marble, obsidian }

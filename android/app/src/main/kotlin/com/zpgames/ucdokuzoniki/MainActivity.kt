@@ -1,4 +1,4 @@
-package com.morrisworld.nine_tas
+package com.zpgames.ucdokuzoniki
 
 import io.flutter.embedding.android.FlutterActivity
 

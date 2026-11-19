@@ -9,6 +9,7 @@
     "lint": "npm run typecheck",
     "test": "npm run build && node --test test/unit/*.test.cjs",
     "test:emulator": "npm run build && cross-env FIREBASE_AUTH_EMULATOR_HOST=127.0.0.1:9099 firebase --config ../firebase.json emulators:exec --project demo-morris-world --only auth,functions,firestore,database \"node --test --test-concurrency=1 test/emulator/*.test.mjs\"",
+    "test:database-emulator": "cross-env FIREBASE_DATABASE_EMULATOR_HOST=127.0.0.1:9000 firebase --config ../firebase.json emulators:exec --project demo-morris-world --only database \"node --test --test-concurrency=1 test/emulator/spark_rooms.test.mjs\"",
     "verify": "npm run lint && npm test",
     "emulators": "npm run build && firebase --config ../firebase.json emulators:start --project demo-morris-world --only auth,functions,firestore,database",
     "emulators:exec": "npm run test:emulator",

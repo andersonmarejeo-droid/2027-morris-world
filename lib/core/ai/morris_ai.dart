@@ -81,14 +81,19 @@ class MorrisAiEngine {
       AiDifficulty.beginner => const _SearchProfile(depth: 1, nodeLimit: 1),
       AiDifficulty.easy => const _SearchProfile(depth: 1, nodeLimit: 150),
       AiDifficulty.medium => const _SearchProfile(depth: 2, nodeLimit: 1800),
-      AiDifficulty.hard => const _SearchProfile(depth: 3, nodeLimit: 8000),
+      AiDifficulty.hard => const _SearchProfile(
+        depth: 3,
+        nodeLimit: 8000,
+        timeLimit: Duration(milliseconds: 900),
+      ),
       AiDifficulty.master => _SearchProfile(
         depth: state.phase == MatchPhase.placement ? 3 : 4,
-        nodeLimit: 24000,
+        nodeLimit: 12000,
+        timeLimit: Duration(milliseconds: 1200),
       ),
     };
 
-    final budget = _NodeBudget(profile.nodeLimit);
+    final budget = _NodeBudget(profile.nodeLimit, timeLimit: profile.timeLimit);
     final maximizing = state.turn == aiSide;
     final ordered = _orderedCommands(
       definition,
@@ -103,6 +108,7 @@ class MorrisAiEngine {
     var beta = _infinity;
 
     for (final command in ordered) {
+      if (budget.exhausted) break;
       final next = applyCommand(definition, state, command);
       final score = _search(
         definition,
@@ -256,10 +262,14 @@ class MorrisAiEngine {
       aiSide,
       maximizing,
     );
+    if (budget.exhausted) {
+      return _evaluate(definition, state, aiSide);
+    }
     if (maximizing) {
       var value = -_infinity;
       var localAlpha = alpha;
       for (final command in ordered) {
+        if (budget.exhausted) break;
         final child = applyCommand(definition, state, command);
         final score = _search(
           definition,
@@ -286,6 +296,7 @@ class MorrisAiEngine {
     var value = _infinity;
     var localBeta = beta;
     for (final command in ordered) {
+      if (budget.exhausted) break;
       final child = applyCommand(definition, state, command);
       final score = _search(
         definition,
@@ -567,11 +578,17 @@ class MorrisAiEngine {
 }
 
 class _NodeBudget {
-  _NodeBudget(this.remaining);
+  _NodeBudget(this.remaining, {required this.timeLimit})
+    : _stopwatch = Stopwatch()..start();
+
   int remaining;
+  final Duration timeLimit;
+  final Stopwatch _stopwatch;
+
+  bool get exhausted => remaining <= 0 || _stopwatch.elapsed >= timeLimit;
 
   bool take() {
-    if (remaining <= 0) {
+    if (exhausted) {
       return false;
     }
     remaining--;
@@ -580,7 +597,13 @@ class _NodeBudget {
 }
 
 class _SearchProfile {
-  const _SearchProfile({required this.depth, required this.nodeLimit});
+  const _SearchProfile({
+    required this.depth,
+    required this.nodeLimit,
+    this.timeLimit = const Duration(milliseconds: 350),
+  });
+
   final int depth;
   final int nodeLimit;
+  final Duration timeLimit;
 }

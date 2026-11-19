@@ -33,11 +33,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final l10n = AppLocalizations.of(context);
     return AppScreenShell(
       title: l10n.profile,
-      scrollable: true,
+      scrollable: false,
+      padding: const EdgeInsets.fromLTRB(16, 6, 16, 10),
       bottomNavigationBar: const AppBottomNav(active: AppNavTab.profile),
       body: AppAsyncView<PlayerProfile>(
         future: _profile!,
-        errorBuilder: (context) => AppErrorView(message: l10n.genericLoadError),
+        errorBuilder: (context) => Center(
+          child: AppErrorView(message: l10n.genericLoadError),
+        ),
         dataBuilder:
             (context, profile) =>
                 _ProfileBody(initialProfile: profile, l10n: l10n),
@@ -118,92 +121,125 @@ class _ProfileBodyState extends State<_ProfileBody> {
     }
   }
 
+  void _openEditorSheet(BuildContext context) {
+    final l10n = widget.l10n;
+    showAppBottomSheet<void>(
+      context: context,
+      builder:
+          (sheetContext) => Padding(
+            padding: const EdgeInsets.only(bottom: AppSpacing.md),
+            child: _ProfileEditor(
+              l10n: l10n,
+              nameController: _nameController,
+              countryController: _countryController,
+              saving: _saving,
+              onSave: () {
+                closeAppOverlay(sheetContext);
+                unawaited(_saveProfile());
+              },
+            ),
+          ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = widget.l10n;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _ProfileHero(profile: _profile, l10n: l10n),
-        const SizedBox(height: AppSpacing.md),
-        _ProfileEditor(
+        _ProfileHero(
+          profile: _profile,
           l10n: l10n,
-          nameController: _nameController,
-          countryController: _countryController,
-          saving: _saving,
-          onSave: () {
-            unawaited(_saveProfile());
-          },
+          onEdit: () => _openEditorSheet(context),
         ),
-        const SizedBox(height: AppSpacing.lg),
-        Text(l10n.progression, style: Theme.of(context).textTheme.titleLarge),
-        const SizedBox(height: AppSpacing.sm),
         _ProgressCard(profile: _profile, l10n: l10n),
-        const SizedBox(height: AppSpacing.lg),
-        Text(l10n.ratings, style: Theme.of(context).textTheme.titleLarge),
-        const SizedBox(height: AppSpacing.sm),
-        Row(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              child: _StatTile(
-                label: l10n.game3Name,
-                value: _profile.rating3.toString(),
-                icon: Icons.looks_3_rounded,
+            Text(
+              l10n.ratings,
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                fontWeight: FontWeight.w700,
               ),
             ),
-            const SizedBox(width: AppSpacing.sm),
-            Expanded(
-              child: _StatTile(
-                label: l10n.game9Name,
-                value: _profile.rating9.toString(),
-                icon: Icons.looks_rounded,
-              ),
-            ),
-            const SizedBox(width: AppSpacing.sm),
-            Expanded(
-              child: _StatTile(
-                label: l10n.game12Name,
-                value: _profile.rating12.toString(),
-                icon: Icons.looks_two_rounded,
-              ),
+            const SizedBox(height: 4),
+            Row(
+              children: [
+                Expanded(
+                  child: _StatTile(
+                    label: l10n.game3Name,
+                    value: _profile.rating3.toString(),
+                    icon: Icons.looks_3_rounded,
+                  ),
+                ),
+                const SizedBox(width: AppSpacing.xs),
+                Expanded(
+                  child: _StatTile(
+                    label: l10n.game9Name,
+                    value: _profile.rating9.toString(),
+                    icon: Icons.looks_rounded,
+                  ),
+                ),
+                const SizedBox(width: AppSpacing.xs),
+                Expanded(
+                  child: _StatTile(
+                    label: l10n.game12Name,
+                    value: _profile.rating12.toString(),
+                    icon: Icons.looks_two_rounded,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
-        const SizedBox(height: AppSpacing.lg),
-        Text(l10n.statistics, style: Theme.of(context).textTheme.titleLarge),
-        const SizedBox(height: AppSpacing.sm),
-        Row(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              child: _StatTile(
-                label: l10n.wins,
-                value: _profile.wins.toString(),
-                icon: Icons.workspace_premium_rounded,
+            Text(
+              l10n.statistics,
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                fontWeight: FontWeight.w700,
               ),
             ),
-            const SizedBox(width: AppSpacing.sm),
-            Expanded(
-              child: _StatTile(
-                label: l10n.losses,
-                value: _profile.losses.toString(),
-                icon: Icons.flag_outlined,
-              ),
-            ),
-            const SizedBox(width: AppSpacing.sm),
-            Expanded(
-              child: _StatTile(
-                label: l10n.bestStreak,
-                value: _profile.bestStreak.toString(),
-                icon: Icons.local_fire_department_rounded,
-              ),
+            const SizedBox(height: 4),
+            Row(
+              children: [
+                Expanded(
+                  child: _StatTile(
+                    label: l10n.wins,
+                    value: _profile.wins.toString(),
+                    icon: Icons.workspace_premium_rounded,
+                  ),
+                ),
+                const SizedBox(width: AppSpacing.xs),
+                Expanded(
+                  child: _StatTile(
+                    label: l10n.losses,
+                    value: _profile.losses.toString(),
+                    icon: Icons.flag_outlined,
+                  ),
+                ),
+                const SizedBox(width: AppSpacing.xs),
+                Expanded(
+                  child: _StatTile(
+                    label: l10n.bestStreak,
+                    value: _profile.bestStreak.toString(),
+                    icon: Icons.local_fire_department_rounded,
+                  ),
+                ),
+                const SizedBox(width: AppSpacing.xs),
+                Expanded(
+                  child: _StatTile(
+                    label: l10n.winRate,
+                    value: _percentLabel((_profile.winRate * 100).round()),
+                    icon: Icons.show_chart_rounded,
+                  ),
+                ),
+              ],
             ),
           ],
-        ),
-        const SizedBox(height: AppSpacing.sm),
-        _StatTile(
-          label: l10n.winRate,
-          value: _percentLabel((_profile.winRate * 100).round()),
-          icon: Icons.show_chart_rounded,
         ),
       ],
     );
@@ -285,9 +321,14 @@ class _ProfileEditor extends StatelessWidget {
 }
 
 class _ProfileHero extends StatelessWidget {
-  const _ProfileHero({required this.profile, required this.l10n});
+  const _ProfileHero({
+    required this.profile,
+    required this.l10n,
+    this.onEdit,
+  });
   final PlayerProfile profile;
   final AppLocalizations l10n;
+  final VoidCallback? onEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -296,7 +337,7 @@ class _ProfileHero extends StatelessWidget {
             ? '?'
             : profile.name.trim().characters.first.toUpperCase();
     return Container(
-      padding: const EdgeInsets.all(AppSpacing.lg),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
@@ -304,12 +345,16 @@ class _ProfileHero extends StatelessWidget {
           colors: [AppColors.brandDeep, AppColors.brandTop],
         ),
         borderRadius: BorderRadius.circular(AppRadii.large),
+        border: Border.all(
+          color: AppColors.darkOrange.withValues(alpha: 0.45),
+          width: 1.2,
+        ),
       ),
       child: Row(
         children: [
           Container(
-            width: 74,
-            height: 74,
+            width: 52,
+            height: 52,
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.16),
@@ -321,53 +366,104 @@ class _ProfileHero extends StatelessWidget {
             ),
             child: Text(
               initial,
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 color: Colors.white,
                 fontWeight: FontWeight.w900,
               ),
             ),
           ),
-          const SizedBox(width: AppSpacing.lg),
+          const SizedBox(width: AppSpacing.md),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   profile.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.headlineSmall?.copyWith(color: Colors.white),
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
-                const SizedBox(height: AppSpacing.xs),
+                const SizedBox(height: 2),
                 Text(
                   l10n.countryProfile(profile.countryCode),
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: Colors.white.withValues(alpha: 0.84),
                   ),
                 ),
-                const SizedBox(height: AppSpacing.sm),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.sm,
-                    vertical: AppSpacing.xs,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.16),
-                    borderRadius: BorderRadius.circular(AppRadii.pill),
-                  ),
-                  child: Text(
-                    l10n.levelLabel(profile.level),
-                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w800,
+                const SizedBox(height: 4),
+                Wrap(
+                  spacing: AppSpacing.xs,
+                  runSpacing: 4,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.sm,
+                        vertical: 2,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.16),
+                        borderRadius: BorderRadius.circular(AppRadii.pill),
+                      ),
+                      child: Text(
+                        l10n.levelLabel(profile.level),
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
                     ),
-                  ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.sm,
+                        vertical: 2,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.darkOrange.withValues(alpha: 0.32),
+                        borderRadius: BorderRadius.circular(AppRadii.pill),
+                        border: Border.all(
+                          color: AppColors.darkOrange.withValues(alpha: 0.75),
+                          width: 1.0,
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(
+                            Icons.military_tech_rounded,
+                            size: 13,
+                            color: Colors.amberAccent,
+                          ),
+                          const SizedBox(width: 3),
+                          Text(
+                            profile.title.label(l10n.localeName),
+                            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w800,
+                              fontSize: 10,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
+          if (onEdit != null)
+            IconButton(
+              tooltip: l10n.editProfile,
+              onPressed: onEdit,
+              style: IconButton.styleFrom(
+                backgroundColor: Colors.white.withValues(alpha: 0.16),
+                foregroundColor: Colors.white,
+              ),
+              icon: const Icon(Icons.edit_rounded, size: 20),
+            ),
         ],
       ),
     );
@@ -382,27 +478,37 @@ class _ProgressCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Card(
+    margin: EdgeInsets.zero,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(AppRadii.large),
+      side: BorderSide(
+        color: AppColors.darkOrange.withValues(alpha: 0.35),
+        width: 1.1,
+      ),
+    ),
     child: Padding(
-      padding: const EdgeInsets.all(AppSpacing.lg),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Row(
             children: [
               Container(
-                width: 38,
-                height: 38,
+                width: 32,
+                height: 32,
                 decoration: const BoxDecoration(
                   color: AppColors.selection,
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.star_rounded, color: AppColors.ink),
+                child: const Icon(Icons.star_rounded, color: AppColors.ink, size: 20),
               ),
               const SizedBox(width: AppSpacing.sm),
               Expanded(
                 child: Text(
                   l10n.levelLabel(profile.level),
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
               Text(
@@ -411,12 +517,12 @@ class _ProgressCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: AppSpacing.sm),
+          const SizedBox(height: 6),
           ClipRRect(
             borderRadius: BorderRadius.circular(AppRadii.pill),
             child: LinearProgressIndicator(
               value: profile.levelProgress,
-              minHeight: 10,
+              minHeight: 8,
               color: AppColors.brandDeep,
               backgroundColor: AppColors.surfaceMuted,
             ),
@@ -441,25 +547,37 @@ class _StatTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.all(AppSpacing.md),
+    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
     decoration: BoxDecoration(
       color: Theme.of(context).cardColor,
       borderRadius: BorderRadius.circular(AppRadii.medium),
-      border: Border.all(color: AppColors.line),
+      border: Border.all(
+        color: AppColors.darkOrange.withValues(alpha: 0.35),
+        width: 1.1,
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, color: AppColors.brandDeep, size: 19),
-        const SizedBox(height: AppSpacing.sm),
+        Icon(icon, color: AppColors.brandDeep, size: 16),
+        const SizedBox(height: 2),
         Text(
           value,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
           style: Theme.of(
             context,
-          ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
+          ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w900),
         ),
-        const SizedBox(height: AppSpacing.xs),
-        Text(label, style: Theme.of(context).textTheme.bodySmall),
+        Text(
+          label,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: Theme.of(context).textTheme.labelSmall?.copyWith(
+            fontSize: 10,
+            color: AppColors.inkMuted,
+          ),
+        ),
       ],
     ),
   );

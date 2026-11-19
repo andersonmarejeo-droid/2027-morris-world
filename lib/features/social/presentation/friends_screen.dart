@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:nine_tas/l10n/generated/app_localizations.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../app/app_colors.dart';
+import '../../../app/app_routes.dart';
 import '../../../app/app_services_scope.dart';
 import '../../../app/app_tokens.dart';
 import '../../../core/game/game_definition.dart';
@@ -11,6 +12,7 @@ import '../../../shared/ui/app_bottom_nav.dart';
 import '../../../shared/ui/app_overlays.dart';
 import '../../../shared/ui/app_screen_shell.dart';
 import '../../gameplay/presentation/game_ui_labels.dart';
+import '../application/challenge_share_service.dart';
 import '../domain/friend_player.dart';
 
 class FriendsScreen extends StatefulWidget {
@@ -39,42 +41,38 @@ class _FriendsScreenState extends State<FriendsScreen> {
     });
   }
 
-  Future<void> _challenge(FriendPlayer friend) async {
-    final services = AppServicesScope.of(context);
-    final l10n = AppLocalizations.of(context);
-    await services.social.sendChallenge(friend.id, _selectedGame!);
-    if (!mounted) return;
-    showAppNotice(context, l10n.challengePrepared(friend.name));
-  }
-
-  static const _packageId = 'com.morrisworld.nine_tas';
-
   String _challengeLink() {
-    final referrer =
-        'utm_source=whatsapp&utm_medium=challenge&utm_campaign=${_selectedGame!.name}';
-    return Uri.https('play.google.com', '/store/apps/details', <String, String>{
-      'id': _packageId,
-      'referrer': referrer,
-    }).toString();
+    return ChallengeShareService.closedTestingLink;
   }
 
   Future<void> _challengeViaWhatsApp() async {
     final l10n = AppLocalizations.of(context);
-    final game = gameName(l10n, _selectedGame!);
-    final link = _challengeLink();
-    final message = l10n.whatsappChallengeInvite(game, link);
-    final direct = Uri.parse(
-      'whatsapp://send?text=${Uri.encodeComponent(message)}',
+    final gameId = _selectedGame!;
+    final online = AppServicesScope.of(context).online;
+
+    // Gerçek bir özel oda oluşturup davet kodunu WhatsApp mesajına ekliyoruz.
+    final room = await ChallengeShareService.tryCreatePrivateRoom(online, gameId);
+    final opening = l10n.whatsappChallengeInvite(
+      gameName(l10n, gameId),
+      _challengeLink(),
     );
-    var opened = await launchUrl(direct, mode: LaunchMode.externalApplication);
-    if (!opened) {
-      final fallback = Uri.https('wa.me', '/', <String, String>{
-        'text': message,
-      });
-      opened = await launchUrl(fallback, mode: LaunchMode.externalApplication);
+
+    final String message;
+    if (room != null) {
+      message = '$opening\n\n🔑 ${l10n.roomCode}: ${room.id}\n👉 ${l10n.joinPrivateRoom}';
+    } else {
+      message = opening;
     }
-    if (!opened && mounted) {
-      showAppNotice(context, l10n.genericLoadError);
+
+    final opened = await ChallengeShareService.shareOnWhatsApp(message);
+    if (!opened) {
+      if (mounted) showAppNotice(context, l10n.genericLoadError);
+      return;
+    }
+
+    // Oda oluşturulduysa meydan okuyan oyuncuyu doğrudan bekleme odasına alıyoruz.
+    if (room != null && mounted) {
+      context.go(AppRoutes.onlineRoom(room.id));
     }
   }
 
@@ -148,28 +146,24 @@ class _FriendsScreenState extends State<FriendsScreen> {
     final l10n = AppLocalizations.of(context);
     return AppScreenShell(
       title: l10n.friends,
-      scrollable: true,
+      scrollable: false,
+      padding: const EdgeInsets.fromLTRB(16, 6, 16, 8),
       bottomNavigationBar: const AppBottomNav(active: AppNavTab.friends),
+      actions: [
+        IconButton(
+          tooltip: l10n.addFriendButton,
+          onPressed: _addFriend,
+          icon: const Icon(Icons.person_add_alt_1_rounded),
+        ),
+      ],
       body: AppAsyncView<List<FriendPlayer>>(
         future: _friends!,
         errorBuilder:
-            (context) => AppErrorView(
-              message: l10n.genericLoadError,
-              onRetry: _retry,
-              retryLabel: l10n.retry,
-            ),
-        isEmpty: (items) => items.isEmpty,
-        emptyBuilder:
-            (context) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: AppSpacing.xxxl),
-              child: AppEmptyView(
-                icon: Icons.group_outlined,
-                message: l10n.noFriendsYet,
-                action: FilledButton.icon(
-                  onPressed: _addFriend,
-                  icon: const Icon(Icons.person_add_alt_1_rounded),
-                  label: Text(l10n.addFriendButton),
-                ),
+            (context) => Center(
+              child: AppErrorView(
+                message: l10n.genericLoadError,
+                onRetry: _retry,
+                retryLabel: l10n.retry,
               ),
             ),
         dataBuilder:
@@ -179,21 +173,18 @@ class _FriendsScreenState extends State<FriendsScreen> {
                 _FriendsDashboard(
                   count: items.length,
                   title: l10n.friends,
-                  gameName: gameName(l10n, _selectedGame!),
+                  subtitle: l10n.challengeSubtitle,
                 ),
-                const SizedBox(height: AppSpacing.lg),
-                FilledButton.icon(
-                  onPressed: _addFriend,
-                  icon: const Icon(Icons.person_add_alt_1_rounded),
-                  label: Text(l10n.addFriendButton),
-                ),
-                const SizedBox(height: AppSpacing.md),
+                const SizedBox(height: 6),
                 Container(
                   padding: const EdgeInsets.all(AppSpacing.xs),
                   decoration: BoxDecoration(
                     color: AppColors.surfaceMuted,
                     borderRadius: BorderRadius.circular(AppRadii.medium),
-                    border: Border.all(color: AppColors.line),
+                    border: Border.all(
+                      color: AppColors.darkOrange.withValues(alpha: 0.35),
+                      width: 1.1,
+                    ),
                   ),
                   child: SegmentedButton<MorrisGameId>(
                     showSelectedIcon: false,
@@ -209,54 +200,359 @@ class _FriendsScreenState extends State<FriendsScreen> {
                         (value) => setState(() => _selectedGame = value.first),
                   ),
                 ),
-                const SizedBox(height: AppSpacing.lg),
-                for (final friend in items) ...[
-                  _FriendCard(
-                    friend: friend,
-                    presence: _presence(l10n, friend.presence),
-                    rating: l10n.ratingValue(friend.rating),
-                    challengeLabel: l10n.challengeButton,
-                    onChallenge:
-                        friend.presence == Presence.inMatch
-                            ? null
-                            : () => _challenge(friend),
-                  ),
-                  const SizedBox(height: AppSpacing.sm),
-                ],
-                const SizedBox(height: AppSpacing.md),
-                OutlinedButton.icon(
-                  onPressed: _challengeViaWhatsApp,
-                  icon: const Icon(Icons.chat_rounded),
-                  label: Text(l10n.shareInvite),
+                const SizedBox(height: 6),
+                Expanded(
+                  child:
+                      items.isEmpty
+                          ? _EmptySocialHub(
+                            onAddFriend: _addFriend,
+                            onChallengeWhatsApp: _challengeViaWhatsApp,
+                            l10n: l10n,
+                            selectedGameName: gameName(l10n, _selectedGame!),
+                          )
+                          : ListView.separated(
+                            itemCount: items.length,
+                            separatorBuilder:
+                                (_, __) => const SizedBox(height: 6),
+                            itemBuilder:
+                                (context, index) =>
+                                    _FriendCard(friend: items[index]),
+                          ),
                 ),
               ],
             ),
       ),
     );
   }
+}
 
-  String _presence(AppLocalizations l10n, Presence presence) =>
-      switch (presence) {
-        Presence.online => l10n.presenceOnline,
-        Presence.inMatch => l10n.presenceInMatch,
-        Presence.offline => l10n.presenceOffline,
-      };
+class _EmptySocialHub extends StatelessWidget {
+  const _EmptySocialHub({
+    required this.onAddFriend,
+    required this.onChallengeWhatsApp,
+    required this.l10n,
+    required this.selectedGameName,
+  });
+
+  final VoidCallback onAddFriend;
+  final VoidCallback onChallengeWhatsApp;
+  final AppLocalizations l10n;
+  final String selectedGameName;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Material(
+          color: const Color(0xFFF0FAF3),
+          borderRadius: BorderRadius.circular(AppRadii.large),
+          elevation: 1,
+          shadowColor: const Color(0xFF25D366).withValues(alpha: 0.16),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(AppRadii.large),
+            onTap: onChallengeWhatsApp,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(AppRadii.large),
+                border: Border.all(
+                  color: AppColors.darkOrange.withValues(alpha: 0.40),
+                  width: 1.2,
+                ),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 40,
+                    height: 40,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFF25D366),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.chat_rounded,
+                      color: Colors.white,
+                      size: 22,
+                    ),
+                  ),
+                  const SizedBox(width: AppSpacing.sm),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          l10n.challengeFriends,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(
+                            context,
+                          ).textTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.w800,
+                            color: AppColors.ink,
+                            height: 1.15,
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          l10n.inviteLinkReady,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodySmall?.copyWith(
+                            color: AppColors.inkMuted,
+                            fontSize: 11,
+                            height: 1.15,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: AppSpacing.xs),
+                  Container(
+                    width: 30,
+                    height: 30,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFF25D366),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.arrow_forward_rounded,
+                      color: Colors.white,
+                      size: 16,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 6),
+        Material(
+          color: const Color(0xFFF0F6FF),
+          borderRadius: BorderRadius.circular(AppRadii.large),
+          elevation: 1,
+          shadowColor: const Color(0xFF1E88E5).withValues(alpha: 0.16),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(AppRadii.large),
+            onTap: onAddFriend,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(AppRadii.large),
+                border: Border.all(
+                  color: AppColors.darkOrange.withValues(alpha: 0.55),
+                  width: 1.3,
+                ),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 40,
+                    height: 40,
+                    decoration: const BoxDecoration(
+                      color: AppColors.darkOrange,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.person_add_alt_1_rounded,
+                      color: Colors.white,
+                      size: 22,
+                    ),
+                  ),
+                  const SizedBox(width: AppSpacing.sm),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          l10n.addFriendButton,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(
+                            context,
+                          ).textTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.w800,
+                            color: AppColors.ink,
+                            height: 1.15,
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          l10n.addFriendSubtitle,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodySmall?.copyWith(
+                            color: AppColors.inkMuted,
+                            fontSize: 11,
+                            height: 1.15,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: AppSpacing.xs),
+                  Container(
+                    width: 30,
+                    height: 30,
+                    decoration: const BoxDecoration(
+                      color: AppColors.darkOrange,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.arrow_forward_rounded,
+                      color: Colors.white,
+                      size: 16,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 6),
+        Row(
+          children: [
+            Expanded(
+              child: _SocialPill(
+                icon: Icons.emoji_events_rounded,
+                label: l10n.rankings,
+                accent: AppColors.selection,
+              ),
+            ),
+            const SizedBox(width: 6),
+            Expanded(
+              child: _SocialPill(
+                icon: Icons.public_rounded,
+                label: l10n.online,
+                accent: AppColors.brandDeep,
+              ),
+            ),
+            const SizedBox(width: 6),
+            Expanded(
+              child: _SocialPill(
+                icon: Icons.sports_esports_rounded,
+                label: l10n.challenge,
+                accent: AppColors.zpOrange,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 6),
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(AppRadii.large),
+              border: Border.all(
+                color: AppColors.darkOrange.withValues(alpha: 0.35),
+                width: 1.1,
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 44,
+                  height: 44,
+                  decoration: const BoxDecoration(
+                    color: AppColors.brandSoft,
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.person_add_alt_1_rounded,
+                    color: AppColors.brandDeep,
+                    size: 24,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  l10n.noFriendsYet,
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
+                ),
+                const SizedBox(height: 3),
+                Text(
+                  l10n.addFriendSubtitle,
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: AppColors.inkMuted,
+                    fontSize: 11,
+                    height: 1.15,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _SocialPill extends StatelessWidget {
+  const _SocialPill({
+    required this.icon,
+    required this.label,
+    required this.accent,
+  });
+
+  final IconData icon;
+  final String label;
+  final Color accent;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
+      decoration: BoxDecoration(
+        color: accent.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(AppRadii.medium),
+        border: Border.all(color: accent.withValues(alpha: 0.28)),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, color: accent, size: 20),
+          const SizedBox(height: 2),
+          Text(
+            label,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+              fontWeight: FontWeight.w700,
+              color: AppColors.ink,
+              fontSize: 10,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class _FriendsDashboard extends StatelessWidget {
   const _FriendsDashboard({
     required this.count,
     required this.title,
-    required this.gameName,
+    required this.subtitle,
   });
 
   final int count;
   final String title;
-  final String gameName;
+  final String subtitle;
 
   @override
   Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.all(AppSpacing.lg),
+    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
     decoration: BoxDecoration(
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
@@ -264,12 +560,16 @@ class _FriendsDashboard extends StatelessWidget {
         colors: [AppColors.brandDeep, AppColors.brandTop],
       ),
       borderRadius: BorderRadius.circular(AppRadii.large),
+      border: Border.all(
+        color: AppColors.darkOrange.withValues(alpha: 0.45),
+        width: 1.2,
+      ),
     ),
     child: Row(
       children: [
         Container(
-          width: 56,
-          height: 56,
+          width: 42,
+          height: 42,
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: Colors.white.withValues(alpha: 0.16),
@@ -278,7 +578,7 @@ class _FriendsDashboard extends StatelessWidget {
           ),
           child: Text(
             count.toString(),
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
               color: Colors.white,
               fontWeight: FontWeight.w900,
             ),
@@ -291,42 +591,35 @@ class _FriendsDashboard extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: Theme.of(
-                  context,
-                ).textTheme.titleLarge?.copyWith(color: Colors.white),
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
-              const SizedBox(height: AppSpacing.xs),
+              const SizedBox(height: 2),
               Text(
-                gameName,
-                maxLines: 1,
+                subtitle,
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Colors.white.withValues(alpha: 0.82),
+                  color: Colors.white.withValues(alpha: 0.84),
+                  fontSize: 11,
+                  height: 1.15,
                 ),
               ),
             ],
           ),
         ),
-        const Icon(Icons.groups_rounded, color: Colors.white, size: 28),
+        const Icon(Icons.groups_rounded, color: Colors.white, size: 24),
       ],
     ),
   );
 }
 
 class _FriendCard extends StatelessWidget {
-  const _FriendCard({
-    required this.friend,
-    required this.presence,
-    required this.rating,
-    required this.challengeLabel,
-    required this.onChallenge,
-  });
+  const _FriendCard({required this.friend});
 
   final FriendPlayer friend;
-  final String presence;
-  final String rating;
-  final String challengeLabel;
-  final VoidCallback? onChallenge;
 
   @override
   Widget build(BuildContext context) {
@@ -334,33 +627,16 @@ class _FriendCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: Padding(
         padding: const EdgeInsets.all(14),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _FriendIdentity(friend: friend, presence: presence, rating: rating),
-            const SizedBox(height: AppSpacing.md),
-            FilledButton.icon(
-              onPressed: onChallenge,
-              icon: const Icon(Icons.sports_esports_rounded, size: 20),
-              label: Text(challengeLabel),
-            ),
-          ],
-        ),
+        child: _FriendIdentity(friend: friend),
       ),
     );
   }
 }
 
 class _FriendIdentity extends StatelessWidget {
-  const _FriendIdentity({
-    required this.friend,
-    required this.presence,
-    required this.rating,
-  });
+  const _FriendIdentity({required this.friend});
 
   final FriendPlayer friend;
-  final String presence;
-  final String rating;
 
   @override
   Widget build(BuildContext context) {
@@ -368,65 +644,21 @@ class _FriendIdentity extends StatelessWidget {
         friend.name.trim().isEmpty
             ? '?'
             : friend.name.trim().characters.first.toUpperCase();
-    final presenceColor = switch (friend.presence) {
-      Presence.online => AppColors.success,
-      Presence.inMatch => AppColors.zpOrange,
-      Presence.offline => AppColors.inkMuted,
-    };
     return Row(
       children: [
-        Stack(
-          clipBehavior: Clip.none,
-          children: [
-            CircleAvatar(
-              radius: 23,
-              backgroundColor: AppColors.brandSoft,
-              foregroundColor: AppColors.brandDeep,
-              child: Text(
-                initial,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-            ),
-            Positioned(
-              right: -1,
-              bottom: -1,
-              child: Semantics(
-                label: presence,
-                child: Container(
-                  width: 14,
-                  height: 14,
-                  decoration: BoxDecoration(
-                    color: presenceColor,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: Theme.of(context).cardColor,
-                      width: 2,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
+        CircleAvatar(
+          radius: 23,
+          backgroundColor: AppColors.brandSoft,
+          foregroundColor: AppColors.brandDeep,
+          child: Text(initial, style: Theme.of(context).textTheme.titleMedium),
         ),
         const SizedBox(width: AppSpacing.md),
         Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                friend.name,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              const SizedBox(height: 2),
-              Text(
-                <String>[presence, rating].join(' • '),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-            ],
+          child: Text(
+            friend.name,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
         ),
       ],

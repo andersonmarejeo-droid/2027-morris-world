@@ -7,4 +7,5 @@ abstract interface class MatchSessionRepository {
   Future<MatchSession?> getMostRecentActiveForGame(MorrisGameId gameId);
   Future<void> save(MatchSession session);
   Future<void> delete(String sessionId);
+  Future<void> deleteAll();
 }

@@ -1,18 +1,20 @@
 # Firebase operations runbook
 
 **Product:** Morris World
-**Current source release:** v1.1.0+28
-**Scope:** future Firebase-backed online play; not authorization to enable it
-**Last reviewed:** 2026-09-24
+**Current source release:** v1.1.0+29
+**Scope:** future Blaze-backed trusted online services; current Spark room mode is documented separately
+**Last reviewed:** 2026-09-27
 
-This runbook defines the minimum operational controls for Morris World's
-Firebase services once online play is introduced. It is deliberately written
-before activation because operational readiness is a release gate, not work to
-do after players depend on the service.
+This runbook defines the operational controls for future trusted online
+services. The current implementation also has an optional, casual Spark mode
+for invite-code rooms; see [Spark private rooms](FIREBASE_SPARK_PRIVATE_ROOMS.md).
+This document's Cloud Functions, Firestore history, public matchmaking, and
+ranked-play procedures are not part of that free mode.
 
-The current repository keeps the online gateway disabled. Until the activation
-runbook is fully complete, no production player data or ranked gameplay should
-depend on Firebase services described here.
+The client-side online feature gate is fail-closed by default. Do not enable
+Spark rooms until their Realtime Database rules have passed the focused
+emulator suite and those rules have been deployed. No ranked gameplay or
+competitive result should depend on client-authored Spark room state.
 
 Related document: [Firebase production activation runbook](FIREBASE_PRODUCTION_ACTIVATION.md).
 
@@ -24,6 +26,7 @@ Related document: [Firebase production activation runbook](FIREBASE_PRODUCTION_A
 | Cloud Functions (2nd gen) | authoritative challenge and move validation | callable operations require Auth and App Check |
 | Cloud Firestore | profiles, challenges, match history, leaderboards, quick messages | trusted backend writes protected match data |
 | Realtime Database | presence, matchmaking, live match state | clients may read only their allowed data and cannot write live matches |
+| Realtime Database `sparkRooms` | optional Spark invite-code casual matches | only authenticated room participants may read; current-turn player may submit casual state; never use for rankings or prizes |
 | App Check | app attestation at callable boundary | rejection rate is a security and rollout signal |
 | Cloud Logging / Monitoring | operations evidence and alerting | retain only as long as the approved data policy permits |
 

@@ -17,7 +17,7 @@ class BrandIntroGate extends StatefulWidget {
 
 class _BrandIntroGateState extends State<BrandIntroGate>
     with SingleTickerProviderStateMixin {
-  static const _introDuration = Duration(milliseconds: 1650);
+  static const _introDuration = Duration(milliseconds: 3150);
 
   late final AnimationController _controller = AnimationController(
     vsync: this,
@@ -62,7 +62,7 @@ class _BrandIntroGateState extends State<BrandIntroGate>
             child: AnnotatedRegion<SystemUiOverlayStyle>(
               value: SystemUiOverlayStyle.dark,
               child: Semantics(
-                label: 'Morris World',
+                label: '9 Taş',
                 child: AbsorbPointer(
                   child: ExcludeSemantics(
                     child: AnimatedBuilder(
@@ -247,7 +247,7 @@ class _BrandWordmark extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'MORRIS',
+            '3-9-12',
             style: TextStyle(
               color: AppColors.brandTop,
               fontSize: 36,
@@ -264,7 +264,7 @@ class _BrandWordmark extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 9),
                 child: Text(
-                  'WORLD',
+                  'TAŞ',
                   style: TextStyle(
                     color: AppColors.zpOrange,
                     fontSize: 13,

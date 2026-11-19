@@ -8,6 +8,14 @@ void main() {
         File(
           'lib/features/social/presentation/friends_screen.dart',
         ).readAsStringSync();
+    final shareService =
+        File(
+          'lib/features/social/application/challenge_share_service.dart',
+        ).readAsStringSync();
+    final routes =
+        File(
+          'lib/app/app_routes.dart',
+        ).readAsStringSync();
     final socialDomain =
         File(
           'lib/features/social/domain/friend_player.dart',
@@ -25,8 +33,16 @@ void main() {
           'lib/features/settings/presentation/settings_screen.dart',
         ).readAsStringSync();
 
-    expect(friends, contains('play.google.com'));
-    expect(friends, contains('whatsapp://send'));
+    expect(friends, contains('ChallengeShareService.closedTestingLink'));
+    expect(
+      friends.contains('ChallengeShareService.roomInviteMessage') ||
+          shareService.contains('roomInviteMessage'),
+      isTrue,
+    );
+    expect(
+      friends.contains('AppRoutes.onlineRoom') || routes.contains('onlineRoom'),
+      isTrue,
+    );
     expect(friends, contains('_challengeLink'));
     expect(friends, contains('_addFriend'));
     expect(socialDomain, contains('Future<bool> addFriend(String name)'));

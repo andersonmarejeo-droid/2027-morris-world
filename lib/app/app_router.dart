@@ -11,6 +11,9 @@ import '../features/gameplay/presentation/game_screen.dart';
 import '../features/home/presentation/game_mode_screen.dart';
 import '../features/home/presentation/home_screen.dart';
 import '../features/online/presentation/online_lobby_screen.dart';
+import '../features/online/presentation/online_room_screen.dart';
+import '../features/puzzles/presentation/puzzle_list_screen.dart';
+import '../features/puzzles/presentation/puzzle_screen.dart';
 import '../features/settings/presentation/settings_screen.dart';
 import '../features/social/presentation/friends_screen.dart';
 import '../features/social/presentation/profile_screen.dart';
@@ -57,6 +60,17 @@ abstract final class AppRouter {
         pageBuilder: (context, state) => _page(state, const ProfileScreen()),
       ),
       GoRoute(
+        path: AppRoutes.puzzles,
+        pageBuilder: (context, state) => _page(state, const PuzzleListScreen()),
+      ),
+      GoRoute(
+        path: '/puzzles/:puzzleId',
+        pageBuilder: (context, state) {
+          final id = state.pathParameters['puzzleId'] ?? 'p_01';
+          return _page(state, PuzzleScreen(puzzleId: id));
+        },
+      ),
+      GoRoute(
         path: '/game/:gameId',
         pageBuilder: (context, state) {
           final game = _tryEnumByName(
@@ -98,6 +112,18 @@ abstract final class AppRouter {
             game == null
                 ? const _RouteErrorScreen()
                 : OnlineLobbyScreen(gameId: game),
+          );
+        },
+      ),
+      GoRoute(
+        path: '/online-room/:roomCode',
+        pageBuilder: (context, state) {
+          final roomCode = state.pathParameters['roomCode'];
+          return _page(
+            state,
+            roomCode == null || roomCode.isEmpty
+                ? const _RouteErrorScreen()
+                : OnlineRoomScreen(roomCode: roomCode),
           );
         },
       ),

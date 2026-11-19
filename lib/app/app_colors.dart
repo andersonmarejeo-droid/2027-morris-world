@@ -32,4 +32,6 @@ abstract final class AppColors {
   static const danger = Color(0xFFC65B55);
   static const success = Color(0xFF2D8E70);
   static const zpOrange = Color(0xFFE9792D);
+  static const darkOrange = Color(0xFFC85A17);
+  static const darkOrangeSoft = Color(0xFFFDF5EE);
 }

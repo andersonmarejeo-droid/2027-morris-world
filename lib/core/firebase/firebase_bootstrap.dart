@@ -11,10 +11,10 @@ import 'firebase_service_exception.dart';
 
 /// The result of bringing the Firebase runtime online.
 ///
-/// Core Firebase and App Check are deliberately reported separately. A
-/// configured project can still be unsafe for ranked play if attestation has
-/// not been activated, so callers must use [canUseProtectedServices] rather
-/// than only checking [firebaseReady].
+/// Core Firebase and App Check are reported separately. Callable or other
+/// App-Check-enforced services must use [canUseProtectedServices]. The current
+/// Spark invite-room service relies on authenticated RTDB rules while RTDB
+/// App Check enforcement is off, so it only requires [firebaseReady].
 class FirebaseBootstrapStatus {
   const FirebaseBootstrapStatus({
     required this.firebaseReady,

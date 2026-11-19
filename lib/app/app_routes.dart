@@ -7,11 +7,14 @@ abstract final class AppRoutes {
   static const rankings = '/rankings';
   static const profile = '/profile';
   static const settings = '/settings';
+  static const puzzles = '/puzzles';
 
+  static String puzzle(String puzzleId) => '/puzzles/$puzzleId';
   static String mode(MorrisGameId gameId) => '/game/${gameId.name}';
   static String friendsForGame(MorrisGameId gameId) => '/friends?game=${gameId.name}';
   static String tutorial(MorrisGameId gameId) => '/learn/${gameId.name}';
   static String online(MorrisGameId gameId) => '/online/${gameId.name}';
+  static String onlineRoom(String roomCode) => '/online-room/$roomCode';
 
   static String play(MatchConfig config, {bool fresh = false}) {
     final parameters = <String, String>{

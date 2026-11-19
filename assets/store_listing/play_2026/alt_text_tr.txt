@@ -1,0 +1,9 @@
+01_three_stones.jpg — 3 Taş maç ekranında siyah ve beyaz taşlarla oynanan oyun tahtası.
+02_nine_stones.jpg — 9 Taş oyununda eşmerkezli karelerden oluşan tahta ve taşlar.
+03_twelve_stones.jpg — 12 Taş oyununda oyuncu panelleri ve oyun tahtası.
+04_game_modes.jpg — 3 Taş, 9 Taş ve 12 Taş oyun seçeneklerinin listesi.
+05_opponent_modes.jpg — Arkadaş meydan okuması, bilgisayar ve aynı cihaz seçenekleri.
+06_friends.jpg — Arkadaşlar listesi ve meydan okuma düğmeleri.
+07_rankings.jpg — Dünya, ülke ve arkadaşlar sıralama sekmeleriyle puan listesi.
+08_settings.jpg — Dil seçimi ve oyun ayarları ekranı.
+play_feature_1024x500.png — 3, 9 ve 12 Taş oyun adının yanında 3 Taş oyun tahtası.

@@ -8,13 +8,15 @@ void main() {
     'seeded friend challenge does not depend on preferences plugin I/O',
     () async {
       final repository = InMemoryFriendsRepository();
+      expect(await repository.addFriend('Ahmet'), isTrue);
+      final friend = (await repository.getFriends()).single;
 
       final challenge = await repository.sendChallenge(
-        'ahmet',
+        friend.id,
         MorrisGameId.nine,
       );
 
-      expect(challenge.opponent.id, 'ahmet');
+      expect(challenge.opponent.name, 'Ahmet');
       expect(challenge.status, ChallengeStatus.pending);
       expect(await repository.getChallenges(), hasLength(1));
     },

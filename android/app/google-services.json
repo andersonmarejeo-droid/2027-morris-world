@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "230062755549",
+    "firebase_url": "https://tas-4e90e-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "tas-4e90e",
+    "storage_bucket": "tas-4e90e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:230062755549:android:5cd3f017c2ef3743181534",
+        "android_client_info": {
+          "package_name": "com.morrisworld.nine_tas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPXTJx3pqvAHNrbOfR6MWoAHbDEZTz4o4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:230062755549:android:8fced6e5f8c816e9181534",
+        "android_client_info": {
+          "package_name": "com.zpgames.ucdokuzoniki"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPXTJx3pqvAHNrbOfR6MWoAHbDEZTz4o4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

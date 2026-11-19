@@ -34,3 +34,13 @@ abstract final class AppElevation {
   static const blurSmall = 10.0;
   static const blurLarge = 26.0;
 }
+
+/// Shared non-visual time budgets used by feature orchestration and tests.
+/// Keeping them here prevents one-off timing literals from becoming hidden
+/// interaction policy in individual screens.
+abstract final class AppTimeouts {
+  static const roomCreation = Duration(milliseconds: 1200);
+  static const feedback = Duration(milliseconds: 350);
+  static const completionReveal = Duration(milliseconds: 850);
+  static const lobbyFallback = Duration(milliseconds: 250);
+}

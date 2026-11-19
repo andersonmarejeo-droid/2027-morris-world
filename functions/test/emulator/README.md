@@ -8,6 +8,8 @@ ID.
 
 - Firestore profile ownership and backend-only challenge writes.
 - Realtime Database participant reads and client-write denial for live matches.
+- Spark private-room creation, invitation access, participant-only reads,
+  three board sizes, turn ownership, and malformed-data rejection.
 - Callable Function flow: anonymous Auth users create and accept a challenge,
   then the active player submits one legal move.
 
@@ -39,3 +41,13 @@ npm --prefix functions run test:emulator
 The committed Firebase configuration must define the same local emulator
 services and expose the default ports through the usual emulator environment
 variables. CI must run this suite after linting and before any deployment step.
+
+The Spark room rules can also be tested independently without downloading or
+starting the Firestore or Functions emulators:
+
+```powershell
+npm --prefix functions run test:database-emulator
+```
+
+That focused test is the required security gate before deploying
+`database.rules.json` for Spark private rooms.

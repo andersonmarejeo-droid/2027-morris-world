@@ -34,71 +34,94 @@ class _TutorialScreenState extends State<TutorialScreen> {
 
     return AppScreenShell(
       title: l10n.howToPlay,
-      scrollable: true,
+      scrollable: false,
       maxWidth: AppConstraints.compactMaxWidth,
+      padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            gameName(l10n, widget.gameId),
-            style: Theme.of(context).textTheme.headlineSmall,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                gameName(l10n, widget.gameId),
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: AppColors.brandSoft,
+                  borderRadius: BorderRadius.circular(AppRadii.pill),
+                ),
+                child: Text(
+                  l10n.tutorialProgress(step + 1, steps.length),
+                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                    color: AppColors.brandDeep,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: AppSpacing.xs),
-          Text(
-            l10n.tutorialProgress(step + 1, steps.length),
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-          const SizedBox(height: AppSpacing.md),
           _TutorialProgressTrack(
             current: step,
             total: steps.length,
             onSelected: (value) => setState(() => step = value),
           ),
-          const SizedBox(height: AppSpacing.lg),
-          Container(
-            padding: const EdgeInsets.all(AppSpacing.md),
-            decoration: BoxDecoration(
-              color: AppColors.surfaceMuted,
-              borderRadius: BorderRadius.circular(AppRadii.extraLarge),
-              border: Border.all(color: AppColors.line),
-            ),
-            child: AnimatedSwitcher(
-              duration: MotionTokens.fast,
-              switchInCurve: Curves.easeOutCubic,
-              switchOutCurve: Curves.easeInCubic,
+          const SizedBox(height: AppSpacing.sm),
+          Expanded(
+            child: Center(
               child: AspectRatio(
-                key: ValueKey(step),
                 aspectRatio: 1,
-                child: MorrisBoard(
-                  definition: definition,
-                  board: board,
-                  onPointTap: (_) {},
-                  interactive: false,
-                  selectedPoint: current.selected,
-                  legalTargets: current.targets,
-                  capturablePoints: current.captures,
-                  activeMillPoints: current.mills,
-                  surface: current.surface,
-                  showHints: true,
+                child: Container(
+                  padding: const EdgeInsets.all(AppSpacing.sm),
+                  decoration: BoxDecoration(
+                    color: AppColors.surfaceMuted,
+                    borderRadius: BorderRadius.circular(AppRadii.large),
+                    border: Border.all(color: AppColors.line),
+                  ),
+                  child: AnimatedSwitcher(
+                    duration: MotionTokens.fast,
+                    switchInCurve: Curves.easeOutCubic,
+                    switchOutCurve: Curves.easeInCubic,
+                    child: MorrisBoard(
+                      key: ValueKey(step),
+                      definition: definition,
+                      board: board,
+                      onPointTap: (_) {},
+                      interactive: false,
+                      selectedPoint: current.selected,
+                      legalTargets: current.targets,
+                      capturablePoints: current.captures,
+                      activeMillPoints: current.mills,
+                      surface: current.surface,
+                      showHints: true,
+                    ),
+                  ),
                 ),
               ),
             ),
           ),
-          const SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.sm),
           Card(
+            margin: EdgeInsets.zero,
             child: Padding(
-              padding: const EdgeInsets.all(AppSpacing.lg),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               child: AnimatedSwitcher(
                 duration: MotionTokens.fast,
                 child: Column(
                   key: ValueKey(current.title),
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Row(
                       children: [
                         Container(
-                          width: 40,
-                          height: 40,
+                          width: 28,
+                          height: 28,
                           decoration: const BoxDecoration(
                             color: AppColors.brandSoft,
                             shape: BoxShape.circle,
@@ -106,34 +129,47 @@ class _TutorialScreenState extends State<TutorialScreen> {
                           child: Center(
                             child: Text(
                               (step + 1).toString(),
-                              style: Theme.of(context).textTheme.titleMedium
-                                  ?.copyWith(color: AppColors.brandDeep),
+                              style: Theme.of(context).textTheme.bodySmall
+                                  ?.copyWith(
+                                    color: AppColors.brandDeep,
+                                    fontWeight: FontWeight.w800,
+                                  ),
                             ),
                           ),
                         ),
-                        const SizedBox(width: AppSpacing.md),
+                        const SizedBox(width: AppSpacing.sm),
                         Expanded(
                           child: Text(
                             current.title,
-                            style: Theme.of(context).textTheme.titleLarge,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                              fontWeight: FontWeight.w700,
+                              height: 1.15,
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: AppSpacing.md),
-                    Text(current.body),
+                    const SizedBox(height: 4),
+                    Text(
+                      current.body,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
                   ],
                 ),
               ),
             ),
           ),
-          const SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.sm),
           Row(
             children: [
               Expanded(
                 child: OutlinedButton.icon(
                   onPressed: step == 0 ? null : () => setState(() => step--),
-                  icon: const Icon(Icons.arrow_back_rounded),
+                  icon: const Icon(Icons.arrow_back_rounded, size: 18),
                   label: Text(l10n.previous),
                 ),
               ),
@@ -148,6 +184,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
                     step == steps.length - 1
                         ? Icons.check_rounded
                         : Icons.arrow_forward_rounded,
+                    size: 18,
                   ),
                   label: Text(
                     step == steps.length - 1 ? l10n.finish : l10n.next,
@@ -307,7 +344,7 @@ class _TutorialStep {
     this.targets = const <int>{},
     this.captures = const <int>{},
     this.mills = const <int>{},
-    this.surface = BoardSurface.wood,
+    this.surface = BoardSurface.minimal,
   });
 
   final String title;

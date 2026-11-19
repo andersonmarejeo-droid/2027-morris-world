@@ -39,6 +39,7 @@ class OnlineMorrisState {
     required this.pendingCaptureBy,
     required this.winner,
     required this.isDraw,
+    this.movesWithoutCapture = 0,
   });
 
   final List<OnlineSide?> board;
@@ -48,6 +49,7 @@ class OnlineMorrisState {
   final OnlineSide? pendingCaptureBy;
   final OnlineSide? winner;
   final bool isDraw;
+  final int movesWithoutCapture;
 
   factory OnlineMorrisState.fromMap(Map<Object?, Object?> source) {
     final boardRaw = source['board'];
@@ -65,6 +67,7 @@ class OnlineMorrisState {
       pendingCaptureBy: _nullableSide(source['pendingCaptureBy']),
       winner: _nullableSide(source['winner']),
       isDraw: source['isDraw'] == true,
+      movesWithoutCapture: _nonNegativeInt(source['movesWithoutCapture']),
     );
   }
 }
@@ -370,4 +373,16 @@ int _requiredInt(Object? raw) {
     FirebaseServiceErrorCode.dataIntegrity,
     debugMessage: 'required-int-missing',
   );
+}
+
+int _nonNegativeInt(Object? raw) {
+  if (raw == null) return 0;
+  final value = _requiredInt(raw);
+  if (value < 0 || value > 100) {
+    throw const FirebaseServiceException(
+      FirebaseServiceErrorCode.dataIntegrity,
+      debugMessage: 'live-match-quiet-move-count-invalid',
+    );
+  }
+  return value;
 }

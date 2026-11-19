@@ -9,7 +9,31 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get appTitle => 'Morris World';
+  String get appTitle => '3-9-12 Morris';
+
+  @override
+  String get ageAudienceTitle => 'من سيلعب؟';
+
+  @override
+  String get ageAudienceBody =>
+      'اختر الفئة العمرية لنقدّم تجربة مناسبة للجميع.';
+
+  @override
+  String get ageAudienceChild => 'أقل من 18 عامًا أو لا أريد الإجابة';
+
+  @override
+  String get ageAudienceAdult => '18 عامًا أو أكثر';
+
+  @override
+  String get ageAudiencePrivacy =>
+      'لا نطلب تاريخ الميلاد. يُحفظ هذا الاختيار على هذا الجهاز فقط. الإعلانات غير مخصصة والغرف عبر الإنترنت غير متاحة لمن هم دون 18 عامًا أو لمن لا يجيبون. الإعلانات مناسبة للعائلة وبحد أقصى لتصنيف G.';
+
+  @override
+  String get ageAudienceOnlineRestricted =>
+      'الغرف عبر الإنترنت متاحة فقط لمن يذكرون أن أعمارهم 18 عامًا أو أكثر. يمكن للأصغر سنًا ومن لا يجيبون اللعب ضد الكمبيوتر أو على الجهاز نفسه.';
+
+  @override
+  String get ageAudienceGotIt => 'فهمت';
 
   @override
   String get home => 'الرئيسية';
@@ -48,7 +72,63 @@ class AppLocalizationsAr extends AppLocalizations {
   String get online => 'عبر الإنترنت';
 
   @override
-  String get onlineSubtitle => 'اعثر على منافس حقيقي من العالم';
+  String get onlineSubtitle =>
+      'ابحث عن خصم عبر الإنترنت؛ وإن لم تجد فستواجه الكمبيوتر';
+
+  @override
+  String get createPrivateRoom => 'إنشاء غرفة خاصة';
+
+  @override
+  String get joinPrivateRoom => 'الانضمام برمز الغرفة';
+
+  @override
+  String get roomCode => 'رمز الغرفة';
+
+  @override
+  String get roomCodeHint => 'أدخل الرمز الذي أرسله صديقك';
+
+  @override
+  String get waitingForOpponent => 'ستبدأ المباراة عند انضمام صديقك.';
+
+  @override
+  String get copyRoomCode => 'نسخ الرمز';
+
+  @override
+  String get roomCodeCopied => 'تم نسخ رمز الغرفة.';
+
+  @override
+  String get sparkPrivateRoomNotice =>
+      'ينبغي للأطفال استخدام اللعب عبر الإنترنت بإشراف أحد الوالدين أو الوصي. شارك الرمز مع أشخاص تعرفهم فقط. لا توجد تصنيفات أو مطابقة عامة أو دردشة.';
+
+  @override
+  String get onlineOpponent => 'الخصم';
+
+  @override
+  String get onlineWaitingTurn => 'بانتظار حركة خصمك.';
+
+  @override
+  String get onlineMoveFailed =>
+      'تعذر إرسال الحركة. تحقق من الاتصال وحاول مجددًا.';
+
+  @override
+  String get onlineRoomUnavailable =>
+      'الغرفة غير موجودة أو ممتلئة. تحقق من الرمز.';
+
+  @override
+  String get closeOnlineRoom => 'إغلاق الغرفة';
+
+  @override
+  String get exitMatch => 'مغادرة المباراة';
+
+  @override
+  String get exitMatchConfirm =>
+      'المباراة مستمرة. إذا غادرت فسيُعلن فوز خصمك. هل تريد المغادرة؟';
+
+  @override
+  String get opponentLeft => 'غادر خصمك المباراة؛ لقد فزت.';
+
+  @override
+  String get opponentTimedOut => 'لم يتحرك خصمك لمدة دقيقتين؛ لقد فزت.';
 
   @override
   String get challenge => 'تحدَّ';
@@ -286,6 +366,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noFriendsYet => 'لا يوجد أصدقاء بعد.';
 
   @override
+  String get rankingsUnavailable =>
+      'لم ترتبط تصنيفات العالم والبلد والأصدقاء بعد ببيانات لاعبين حقيقية. ستظهر التصنيفات الموثقة هنا عند توفر الخدمة.';
+
+  @override
   String get sound => 'الصوت';
 
   @override
@@ -421,7 +505,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get onlineBackendRequired =>
-      'أساس العميل عبر الإنترنت جاهز. يبقى التوفيق المصنف معطلاً بأمان حتى نشر Firebase Auth وRealtime Database وCloud Functions.';
+      'الغرف الخاصة غير متاحة الآن. تحقق من اتصال الإنترنت وحاول مجددًا.';
+
+  @override
+  String get challengeInviteOpenedWithoutRoom =>
+      'تم فتح دعوة واتساب. تعذّر إنشاء غرفة مباشرة، لذا لم تتم إضافة رمز غرفة.';
 
   @override
   String get challengeFriends => 'تحدي الأصدقاء';
@@ -581,7 +669,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String whatsappChallengeInvite(String game, String link) {
-    return 'أتحداك في $game على Morris World! افتح اللعبة أو ثبّتها من هنا: $link';
+    return 'لنلعب $game معًا في 3-9-12 Morris! نزّل التطبيق من هنا: $link';
   }
 
   @override
@@ -628,5 +716,92 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get profileLocalSaveNote =>
-      'يتم حفظ بيانات ملفك الشخصي بأمان على هذا الجهاز.';
+      'يتم حفظ تفاصيل ملفك الشخصي بأمان على هذا الجهاز.';
+
+  @override
+  String get accountAndLegal => 'الحساب والمعلومات القانونية';
+
+  @override
+  String get termsOfUse => 'شروط الاستخدام';
+
+  @override
+  String get termsSummary =>
+      'يقدم 3-9-12 Tas ألعاب 3 و9 و12 قطعة الكلاسيكية. استخدم التطبيق وفقًا للقانون. يُحفظ الملف الشخصي والألعاب على هذا الجهاز، ولا توجد مشتريات داخل التطبيق.\n\nعند تفعيل الغرف عبر الإنترنت، قد تُستخدم خدمات جهات خارجية مثل Firebase. شارك رموز الغرف مع أشخاص تعرفهم فقط. لتطبيقات المشاركة الخارجية شروطها الخاصة.\n\nهذه معلومات عامة عن المنتج وليست اتفاقية ملزمة. لم يتم التحقق بعد من العنوان الرسمي للناشر والشروط القانونية الخاصة بكل بلد.';
+
+  @override
+  String get legalInformation => 'معلومات قانونية';
+
+  @override
+  String get legalInformationBody =>
+      'الناشر: مصطفى بولات · ZP GAMES\nللتواصل: andersonmarejeo@gmail.com\n\nلم يتم التحقق بعد من عنوان التبليغ الرسمي والاسم التجاري المسجل. استخدم بريد التواصل للإشعارات القانونية.';
+
+  @override
+  String get onlineSignOut => 'تسجيل الخروج من الجلسة عبر الإنترنت';
+
+  @override
+  String get onlineSignOutDone =>
+      'تم تسجيل الخروج. تم الاحتفاظ بالألعاب المحفوظة على هذا الجهاز.';
+
+  @override
+  String get onlineSessionMissing =>
+      'لا توجد جلسة نشطة عبر الإنترنت على هذا الجهاز.';
+
+  @override
+  String get deleteLocalData => 'حذف بيانات المستخدم على هذا الجهاز';
+
+  @override
+  String get deleteLocalDataTitle =>
+      'هل تريد حذف بيانات المستخدم على هذا الجهاز؟';
+
+  @override
+  String get deleteLocalDataBody =>
+      'سيؤدي ذلك نهائيًا إلى حذف ملفك الشخصي والأصدقاء الذين أضفتهم والألعاب المحفوظة من هذا الجهاز. لن يحذف بيانات غرف Firebase أو أي حساب بعيد. لا يمكن التراجع عن هذا الإجراء.';
+
+  @override
+  String get deleteLocalDataDone =>
+      'تم حذف الملف الشخصي وقائمة الأصدقاء والألعاب المحفوظة على هذا الجهاز.';
+
+  @override
+  String get deleteAction => 'حذف البيانات';
+
+  @override
+  String get gameOptions => 'خيارات المباراة';
+
+  @override
+  String get drawRuleNotice =>
+      'تنتهي المباراة بالتعادل إذا تكرر الوضع نفسه على اللوحة، مع صاحب الدور، 5 مرات، أو بعد 100 نقلة متتالية دون أسر.';
+
+  @override
+  String get offerDraw => 'اقترح التعادل';
+
+  @override
+  String get drawOfferPrompt =>
+      'هل تريد اقتراح التعادل؟ تنتهي المباراة بالتعادل فقط إذا وافق الخصم.';
+
+  @override
+  String get drawOfferReceived => 'اقتراح تعادل';
+
+  @override
+  String get drawOfferReceivedBody => 'يقترح خصمك التعادل. هل توافق؟';
+
+  @override
+  String get acceptDraw => 'قبول التعادل';
+
+  @override
+  String get declineDraw => 'رفض';
+
+  @override
+  String get drawOfferDeclined => 'رفض الخصم اقتراح التعادل.';
+
+  @override
+  String get computerDrawOfferAccepted => 'وافق الكمبيوتر على اقتراح التعادل.';
+
+  @override
+  String get computerDrawOfferDeclined => 'رفض الكمبيوتر اقتراح التعادل.';
+
+  @override
+  String get resignMatch => 'استسلام';
+
+  @override
+  String get resignConfirm => 'هل أنت متأكد من الاستسلام؟ سيفوز خصمك.';
 }

@@ -51,6 +51,55 @@ void main() {
     state = MorrisEngine.place(def, state, 6);
 
     expect(state.pendingCaptureBy, PlayerSide.light);
-    expect(MorrisEngine.formsMill(def, state.board, 6, PlayerSide.light), isTrue);
+    expect(
+      MorrisEngine.formsMill(def, state.board, 6, PlayerSide.light),
+      isTrue,
+    );
+  });
+
+  test('100 movement moves without a capture end a match in a draw', () {
+    final board =
+        List<PlayerSide?>.filled(24, null)
+          ..[0] = PlayerSide.light
+          ..[4] = PlayerSide.light
+          ..[21] = PlayerSide.light
+          ..[2] = PlayerSide.dark
+          ..[9] = PlayerSide.dark
+          ..[14] = PlayerSide.dark;
+    final state = MorrisGameState(
+      board: board,
+      turn: PlayerSide.light,
+      lightToPlace: 0,
+      darkToPlace: 0,
+      movesWithoutCapture: 99,
+    );
+
+    final next = MorrisEngine.move(GameCatalog.nine, state, from: 0, to: 1);
+
+    expect(next.isDraw, isTrue);
+    expect(next.movesWithoutCapture, MorrisEngine.drawAfterMovesWithoutCapture);
+  });
+
+  test('capturing a stone resets the no-capture move counter', () {
+    final board =
+        List<PlayerSide?>.filled(24, null)
+          ..[0] = PlayerSide.light
+          ..[1] = PlayerSide.light
+          ..[4] = PlayerSide.light
+          ..[3] = PlayerSide.dark
+          ..[9] = PlayerSide.dark
+          ..[14] = PlayerSide.dark;
+    final state = MorrisGameState(
+      board: board,
+      turn: PlayerSide.light,
+      lightToPlace: 0,
+      darkToPlace: 0,
+      pendingCaptureBy: PlayerSide.light,
+      movesWithoutCapture: 99,
+    );
+
+    final next = MorrisEngine.capture(GameCatalog.nine, state, 3);
+
+    expect(next.movesWithoutCapture, 0);
   });
 }

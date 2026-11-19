@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3-9-12 Taş tanıtım videosu</title>
+  <style>
+    :root { color-scheme: dark; font-family: "Segoe UI", Arial, sans-serif; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #101d1f; color: #f8f4e8; }
+    main { width: min(1100px, calc(100vw - 32px)); padding: 24px 0 32px; }
+    h1 { margin: 0 0 6px; font-size: clamp(24px, 4vw, 38px); }
+    p { margin: 0 0 18px; color: #b8cfca; }
+    canvas { display: block; width: 100%; height: auto; border-radius: 14px; background: #06444b; box-shadow: 0 16px 55px #0008; }
+    button, a { border: 0; border-radius: 999px; display: inline-block; margin: 16px 12px 0 0; padding: 13px 22px; background: #c8f0dc; color: #102d30; font: 700 16px "Segoe UI", sans-serif; text-decoration: none; cursor: pointer; }
+    button:disabled { opacity: .55; cursor: wait; }
+    #status { min-height: 24px; margin-top: 12px; color: #d5e9df; }
+    small { display: block; margin-top: 9px; color: #91aaa3; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>3 • 9 • 12 Taş — tanıtım videosu</h1>
+    <p>Gerçek uygulama ekranları ve paylaştığın çocuk dostu arka plan müziğiyle hazırlanmış 28 saniyelik tanıtım.</p>
+    <canvas id="video" width="1280" height="720" aria-label="Video önizlemesi"></canvas>
+    <button id="record">Videoyu oluştur ve indir</button>
+    <a id="download" hidden>Videoyu yeniden indir</a>
+    <div id="status" role="status">Önizleme hazır. Kayıt başlatmak için düğmeye bas.</div>
+    <small>Video yerel olarak tarayıcıda oluşturulur; hiçbir üçüncü taraf servise gönderilmez.</small>
+  </main>
+<script>
+(() => {
+  const W = 1280, H = 720, DURATION = 27.5, FPS = 30;
+  const HERO_END = 2.5, SLIDE_DURATION = 2.25, END_START = HERO_END + SLIDE_DURATION * 10;
+  const canvas = document.querySelector('#video');
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const status = document.querySelector('#status');
+  const button = document.querySelector('#record');
+  const download = document.querySelector('#download');
+  const root = '/assets/store_listing/promo_2026/';
+  const background = new Image(); background.onload = () => drawAt(0); background.src = root + 'hero_background.png';
+  const shots = [
+    {src: '/.codex-remote-attachments/01a0ca43-ff0f-7fb1-ad5b-3333fba102e5/0a07c7c8-caf0-48a1-84c2-5ba670a197e1/2-1000035642.jpg', title:['3 Taş'], lines:['Basit görünen taşlar,','her hamlede yeni plan.']},
+    {src: '/.codex-remote-attachments/01a0ca43-ff0f-7fb1-ad5b-3333fba102e5/5da8b888-54af-4904-9450-11d357874392/4-1000035649.jpg', title:['9 Taş'], lines:['Taşlarını akıllıca yerleştir.','Doğru anı bekle.']},
+    {src: '/.codex-remote-attachments/01a0ca43-ff0f-7fb1-ad5b-3333fba102e5/0a07c7c8-caf0-48a1-84c2-5ba670a197e1/1-1000035641.jpg', title:['12 Taş'], lines:['Taşlarını koru.','Doğru anı bekle.']},
+    {src: '/.codex-remote-attachments/01a0ca43-ff0f-7fb1-ad5b-3333fba102e5/0a07c7c8-caf0-48a1-84c2-5ba670a197e1/3-1000035643.jpg', title:['Hamleni planla'], lines:['Yapay zekâya karşı','ya da aynı cihazda birlikte.'], crop:[35,115,584,627]},
+    {src: '/.codex-remote-attachments/01a0ca43-ff0f-7fb1-ad5b-3333fba102e5/5da8b888-54af-4904-9450-11d357874392/2-1000035647.jpg', title:['Üç klasik oyun'], lines:['3 Taş, 9 Taş ve 12 Taş.','Her biri ayrı bir taktik.']},
+    {src: '/.codex-remote-attachments/01a0ca43-ff0f-7fb1-ad5b-3333fba102e5/5da8b888-54af-4904-9450-11d357874392/3-1000035648.jpg', title:['Rakibini seç'], lines:['Bilgisayara karşı','ya da aynı cihazda.'], crop:[35,490,575,620]},
+    {src: '/.codex-remote-attachments/01a0ca43-ff0f-7fb1-ad5b-3333fba102e5/0a07c7c8-caf0-48a1-84c2-5ba670a197e1/4-1000035644.jpg', title:['Kendi deneyimini','ayarla'], lines:['Dil seçenekleri ve','kişisel oyun tercihleri.']},
+    {src: '/.codex-remote-attachments/01a0ca43-ff0f-7fb1-ad5b-3333fba102e5/0a07c7c8-caf0-48a1-84c2-5ba670a197e1/5-1000035645.jpg', title:['Arkadaşlarınla','meydan oku'], lines:['Rakibini seç.','Hamleni yap.']},
+    {src: '/.codex-remote-attachments/01a0ca43-ff0f-7fb1-ad5b-3333fba102e5/5da8b888-54af-4904-9450-11d357874392/1-1000035646.jpg', title:['Sıralamandaki','yerini gör'], lines:['Dünya, ülke ve','arkadaş listeleri.']},
+    {src: '/.codex-remote-attachments/01a0ca43-ff0f-7fb1-ad5b-3333fba102e5/5da8b888-54af-4904-9450-11d357874392/5-1000035650.jpg', title:['Oyununu seç'], lines:['Klasik strateji oyunları','tek bir yerde.']},
+  ];
+  let loaded = 0;
+  const images = shots.map(s => { const im = new Image(); im.onload = () => { loaded++; if(loaded===shots.length && background.complete) drawAt(0); }; im.src = s.src; return im; });
+  const ivory = '#fbf6e6', mint = '#8ce0c4';
+  const roundRect = (x,y,w,h,r,color) => { ctx.fillStyle=color; ctx.beginPath(); ctx.roundRect(x,y,w,h,r); ctx.fill(); };
+  function drawBackground(t) {
+    if (background.complete && background.naturalWidth) {
+      const z = 1.03 + .025 * Math.sin(t * .3), bw = W*z, bh = H*z;
+      ctx.drawImage(background, (W-bw)/2, (H-bh)/2, bw, bh);
+    } else { ctx.fillStyle='#07454c'; ctx.fillRect(0,0,W,H); }
+    const wash = ctx.createLinearGradient(0,0,W*.95,0);
+    wash.addColorStop(0,'rgba(3,30,34,.96)'); wash.addColorStop(.56,'rgba(4,37,40,.78)'); wash.addColorStop(1,'rgba(2,26,30,.30)');
+    ctx.fillStyle=wash; ctx.fillRect(0,0,W,H);
+    const shade=ctx.createLinearGradient(0,0,0,H); shade.addColorStop(0,'rgba(0,0,0,.05)'); shade.addColorStop(1,'rgba(0,0,0,.23)');
+    ctx.fillStyle=shade; ctx.fillRect(0,0,W,H);
+  }
+  function drawBadge(text='ZP GAMES') {
+    roundRect(82,58,190,42,21,'rgba(8,67,72,.9)');
+    ctx.fillStyle=mint; ctx.font='700 19px "Segoe UI",Arial,sans-serif'; ctx.fillText(text,103,86);
+  }
+  function drawHero(t) {
+    drawBackground(t); drawBadge();
+    ctx.fillStyle=ivory; ctx.font='800 102px "Segoe UI",Arial,sans-serif';
+    ctx.fillText('3 • 9 • 12',84,310); ctx.font='800 94px "Segoe UI",Arial,sans-serif'; ctx.fillText('TAŞ',88,414);
+    ctx.fillStyle='#dcebe2'; ctx.font='400 33px "Segoe UI",Arial,sans-serif';
+    ctx.fillText('Üç klasik oyun.',90,493); ctx.fillText('Bir sonraki hamle senin.',90,541);
+    roundRect(86,586,478,4,2,'rgba(147,228,202,.72)');
+    ctx.fillStyle='#bfdbd0'; ctx.font='700 17px "Segoe UI",Arial,sans-serif'; ctx.fillText('STRATEJİ  •  DOSTÇA REKABET',88,628);
+    // Slow, restrained stone-like orbit dots as a quiet brand motif.
+    const colors=['#ef5146','#ecc35b','#e9e5d9','#121b1c','#529be2','#45a976'];
+    for(let i=0;i<6;i++){ const a=t*.42+i*Math.PI/3, x=1068+Math.cos(a)*61, y=360+Math.sin(a)*61; ctx.beginPath(); ctx.arc(x,y,19,0,Math.PI*2); ctx.fillStyle=colors[i]; ctx.fill(); ctx.strokeStyle='rgba(255,255,255,.55)'; ctx.lineWidth=2; ctx.stroke(); }
+  }
+  function drawShot(t, index, alpha=1) {
+    const shot=shots[index], img=images[index];
+    drawBackground(t); ctx.globalAlpha=alpha; drawBadge(`${index+1} / 10  •  3-9-12 TAŞ`);
+    const enter=Math.min(1,Math.max(0,(t-(2.8+index*3.1))/.48));
+    const sx=90-16*(1-enter);
+    ctx.fillStyle=ivory; ctx.font='800 53px "Segoe UI",Arial,sans-serif';
+    const titleLines = shot.title;
+    titleLines.forEach((line,n)=>ctx.fillText(line, sx, 270+n*65));
+    ctx.fillStyle='#dcebe2'; ctx.font='400 27px "Segoe UI",Arial,sans-serif';
+    const bodyY=300+titleLines.length*65;
+    shot.lines.forEach((line,n)=>ctx.fillText(line,sx,bodyY+n*42));
+    roundRect(sx,bodyY+66,245,4,2,'rgba(147,228,202,.82)');
+    ctx.fillStyle='#bad9ce'; ctx.font='700 17px "Segoe UI",Arial,sans-serif';
+    ctx.fillText(index===5?'BİLGİSAYAR • AYNI CİHAZDA':index===6?'KİŞİSELLEŞTİR':index===7?'ARKADAŞLAR':'KLASİK STRATEJİ',sx,bodyY+103);
+
+    if(img.complete && img.naturalWidth) {
+      let sourceW=img.naturalWidth, sourceH=img.naturalHeight, sourceX=0, sourceY=0;
+      if(shot.crop){ [sourceX,sourceY,sourceW,sourceH]=shot.crop; }
+      const cardH=620, cardW=Math.min(570,cardH*sourceW/sourceH), x=1198-cardW, y=50+(H-cardH)/2+4*(1-enter);
+      ctx.save(); ctx.shadowColor='rgba(0,0,0,.46)'; ctx.shadowBlur=30; ctx.shadowOffsetY=14;
+      roundRect(x-8,y-8,cardW+16,cardH+16,22,'#faf7eb'); ctx.restore();
+      ctx.save(); ctx.beginPath(); ctx.roundRect(x,y,cardW,cardH,16); ctx.clip();
+      ctx.drawImage(img,sourceX,sourceY,sourceW,sourceH,x,y,cardW,cardH); ctx.restore();
+    }
+    ctx.globalAlpha=1;
+  }
+  function drawEnd(t) {
+    drawBackground(t); drawBadge();
+    ctx.textAlign='center'; ctx.fillStyle=ivory; ctx.font='800 92px "Segoe UI",Arial,sans-serif'; ctx.fillText('3 • 9 • 12 TAŞ',W/2,311);
+    ctx.fillStyle='#dcebe2'; ctx.font='400 35px "Segoe UI",Arial,sans-serif'; ctx.fillText('Her hamle yeni bir plan.',W/2,383);
+    ctx.fillStyle=mint; ctx.font='700 21px "Segoe UI",Arial,sans-serif'; ctx.fillText('ZP GAMES',W/2,453);
+    const cols=['#ef5146','#ecc35b','#eee9dc','#111a1b','#529be2','#45a976'];
+    cols.forEach((c,i)=>{const x=W/2+(i-2.5)*72,y=535+12*Math.sin(t*2+i); ctx.beginPath();ctx.arc(x,y,22,0,Math.PI*2);ctx.fillStyle=c;ctx.fill();ctx.strokeStyle='#ffffffaa';ctx.lineWidth=2;ctx.stroke();});
+    ctx.textAlign='start';
+  }
+  function drawAt(t) {
+    if(t<HERO_END) drawHero(t);
+    else if(t<END_START) { const i=Math.min(9,Math.floor((t-HERO_END)/SLIDE_DURATION)); drawShot(t,i); }
+    else drawEnd(t);
+  }
+  drawAt(0);
+
+  async function record() {
+    if(loaded<5 || !background.complete) { status.textContent='Görseller yükleniyor; bir an bekle.'; return; }
+    button.disabled=true; download.hidden=true;
+    status.textContent='Müzik hazırlanıyor…';
+    const audio=new AudioContext(), output=audio.createMediaStreamDestination();
+    let musicSource;
+    try {
+      const response=await fetch('/assets/store_listing/play_2026/promo_background_music.mp3');
+      if(!response.ok) throw new Error('Müzik dosyası bulunamadı.');
+      const musicBuffer=await audio.decodeAudioData(await response.arrayBuffer());
+      musicSource=audio.createBufferSource(); musicSource.buffer=musicBuffer; musicSource.loop=true;
+      const volume=audio.createGain(), now=audio.currentTime;
+      volume.gain.setValueAtTime(0,now); volume.gain.linearRampToValueAtTime(.34,now+.7);
+      volume.gain.setValueAtTime(.34,now+DURATION-.8); volume.gain.linearRampToValueAtTime(0,now+DURATION);
+      musicSource.connect(volume).connect(output); musicSource.start(now);
+    } catch(error) {
+      status.textContent=`Müzik yüklenemedi: ${error.message}`; button.disabled=false; await audio.close(); return;
+    }
+    const visualStream=canvas.captureStream(FPS), stream=new MediaStream([...visualStream.getVideoTracks(),...output.stream.getAudioTracks()]);
+    const mime=MediaRecorder.isTypeSupported('video/webm;codecs=vp9,opus')?'video/webm;codecs=vp9,opus':'video/webm;codecs=vp8,opus';
+    const chunks=[], recorder=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:4800000,audioBitsPerSecond:160000});
+    recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
+    recorder.onstop=()=>{
+      const blob=new Blob(chunks,{type:'video/webm'}), url=URL.createObjectURL(blob);
+      download.href=url; download.download='3-9-12-Tas-ZP-Games-tanitim.webm'; download.textContent='Videoyu yeniden indir'; download.hidden=false;
+      const a=document.createElement('a');a.href=url;a.download=download.download;document.body.append(a);a.click();a.remove();
+      status.textContent=`Tamamlandı — ${(blob.size/1024/1024).toFixed(1)} MB WebM. İndirilenler klasörünü kontrol et.`;
+      button.disabled=false; visualStream.getTracks().forEach(t=>t.stop()); output.stream.getTracks().forEach(t=>t.stop());
+      try { musicSource.stop(); } catch {} audio.close();
+    };
+    recorder.start(200);
+    const start=performance.now();
+    function frame(now) {
+      const t=Math.min((now-start)/1000,DURATION);
+      drawAt(t);
+      if(t<DURATION && recorder.state==='recording') requestAnimationFrame(frame);
+      else setTimeout(()=>{if(recorder.state==='recording')recorder.stop();},150);
+    }
+    requestAnimationFrame(frame);
+  }
+  button.addEventListener('click',record);
+})();
+</script>
+</body>
+</html>

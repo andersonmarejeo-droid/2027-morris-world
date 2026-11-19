@@ -8,13 +8,16 @@ import '../../../app/app_colors.dart';
 import '../../../app/app_routes.dart';
 import '../../../app/app_services_scope.dart';
 import '../../../app/app_tokens.dart';
+import '../../../core/family_ads.dart';
 import '../../../core/diagnostics/runtime_trace.dart';
+import '../../../core/feedback/app_feedback_service.dart';
 import '../../../core/feedback/motion_tokens.dart';
 import '../../../core/game/game_models.dart';
 import '../../../core/match/match_models.dart';
 import '../../../core/online/quick_message.dart';
 import '../../../shared/ui/app_overlays.dart';
 import '../../../shared/ui/app_screen_shell.dart';
+import '../../../shared/ui/match_confetti.dart';
 import '../application/match_session_controller.dart';
 import 'game_ui_labels.dart';
 import 'widgets/match_lifecycle_guard.dart';
@@ -38,9 +41,22 @@ class _GameScreenState extends State<GameScreen> {
   MatchSessionController get controller => _controller!;
   bool _exitPromptOpen = false;
   bool _restartPromptOpen = false;
+  bool _drawOfferOpen = false;
+  bool _gameOptionsOpen = false;
   bool _initializeScheduled = false;
   int _traceBuildCount = 0;
   bool _matchFrameMarked = false;
+  MatchLifecycleFeedback? _matchLifecycleFeedback;
+  Future<void>? _matchIntroFuture;
+  bool _matchIntroStopped = false;
+  bool _introStopScheduled = false;
+  bool _didSeeActiveMatch = false;
+  bool _completionEffectsQueued = false;
+  bool _completionDialogOpen = false;
+  int _completionPromptEpoch = 0;
+  Future<void>? _recordCompletionFuture;
+  String? _activeReaction;
+  Timer? _reactionTimer;
 
   @override
   void initState() {
@@ -66,6 +82,10 @@ class _GameScreenState extends State<GameScreen> {
         'game_screen.services_scope',
         () => AppServicesScope.of(context),
       );
+      final feedback = services.feedback;
+      if (feedback is MatchLifecycleFeedback) {
+        _matchLifecycleFeedback = feedback as MatchLifecycleFeedback;
+      }
       _controller = RuntimeTrace.measureSync(
         'game_screen.controller_construct',
         () => MatchSessionController(
@@ -75,6 +95,9 @@ class _GameScreenState extends State<GameScreen> {
         ),
       );
       RuntimeTrace.mark('game_screen.controller_ready');
+    }
+    if (widget.createNew && _matchIntroFuture == null) {
+      _matchIntroFuture = _matchLifecycleFeedback?.matchStarting();
     }
     if (_initializeScheduled) return;
     _initializeScheduled = true;
@@ -86,6 +109,7 @@ class _GameScreenState extends State<GameScreen> {
       if (!mounted) return;
       RuntimeTrace.setPhase('game_screen.post_frame_initialize');
       RuntimeTrace.mark('game_screen.post_frame_initialize.begin');
+      unawaited(FamilyAds.preloadInterstitial());
       unawaited(
         RuntimeTrace.measureAsync(
           'game_screen.controller_initialize',
@@ -97,8 +121,127 @@ class _GameScreenState extends State<GameScreen> {
 
   @override
   void dispose() {
+    _reactionTimer?.cancel();
+    unawaited(_stopMatchIntro(closing: true));
     _controller?.dispose();
     super.dispose();
+  }
+
+  Future<void> _stopMatchIntro({bool closing = false}) async {
+    if (_matchIntroStopped) {
+      if (closing) await _matchLifecycleFeedback?.matchClosed();
+      return;
+    }
+    _matchIntroStopped = true;
+    final starting = _matchIntroFuture;
+    if (starting == null) {
+      if (closing) await _matchLifecycleFeedback?.matchClosed();
+      return;
+    }
+    try {
+      await starting;
+      if (closing) {
+        await _matchLifecycleFeedback?.matchClosed();
+      } else {
+        await _matchLifecycleFeedback?.matchReady();
+      }
+    } catch (_) {
+      // Optional match audio must not affect match flow.
+    }
+  }
+
+  void _scheduleCompletionEffects(MorrisGameState game) {
+    if (game.phase != MatchPhase.finished) {
+      _didSeeActiveMatch = true;
+      return;
+    }
+    if (!_didSeeActiveMatch || _completionEffectsQueued) return;
+    _completionEffectsQueued = true;
+    _recordCompletionFuture = FamilyAds.recordCompletedMatch();
+    unawaited(FamilyAds.preloadInterstitial());
+    final promptEpoch = _completionPromptEpoch;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final matchAudio = _matchLifecycleFeedback;
+      final localPlayerWon =
+          !game.isDraw &&
+          game.winner != null &&
+          (widget.config.mode != MatchMode.offlineAi ||
+              game.winner == controller.humanSide);
+      if (localPlayerWon && matchAudio is MatchWinFeedback) {
+        unawaited((matchAudio as MatchWinFeedback).matchWon());
+      } else {
+        unawaited(matchAudio?.matchFinished());
+      }
+      unawaited(_updateProfileStats(game, localPlayerWon));
+      unawaited(
+        _showCompletionPrompt(
+          game,
+          widget.config.mode == MatchMode.offlineAi,
+          promptEpoch,
+        ),
+      );
+    });
+  }
+
+  Future<void> _updateProfileStats(
+    MorrisGameState game,
+    bool localPlayerWon,
+  ) async {
+    try {
+      if (!mounted) return;
+      final social = AppServicesScope.of(context).social;
+      final currentProfile = await social.getLocalProfile();
+      final updated = currentProfile.recordMatchResult(
+        gameId: widget.config.gameId,
+        isWin: localPlayerWon,
+        isDraw: game.isDraw,
+      );
+      await social.saveLocalProfile(updated);
+    } catch (_) {
+      // Sessizce yutulur
+    }
+  }
+
+  Future<void> _showCompletionPrompt(
+    MorrisGameState game,
+    bool isAi,
+    int promptEpoch,
+  ) async {
+    if (_completionDialogOpen) return;
+    _completionDialogOpen = true;
+    // Let the first confetti burst be visible before the result prompt opens.
+    await Future<void>.delayed(AppTimeouts.completionReveal);
+    if (!mounted || promptEpoch != _completionPromptEpoch) {
+      _completionDialogOpen = false;
+      return;
+    }
+    final l10n = AppLocalizations.of(context);
+    final choice = await showAppActionDialog<bool>(
+      context: context,
+      title: instructionText(l10n, game),
+      message: '${_resultMessage(l10n, game, isAi)}\n\n${l10n.rematch}?',
+      actions: [
+        AppDialogAction(label: l10n.home, value: false),
+        AppDialogAction(label: l10n.rematch, value: true, primary: true),
+      ],
+    );
+    _completionDialogOpen = false;
+    if (!mounted) return;
+    if (choice == true) {
+      await _recordCompletionFuture;
+      await FamilyAds.showAtMatchEnd();
+      if (!mounted) return;
+      await _requestRematch();
+    } else if (choice == false) {
+      await _leaveCompletedMatch();
+    }
+  }
+
+  Future<void> _leaveCompletedMatch() async {
+    await _recordCompletionFuture;
+    await FamilyAds.showAtMatchEnd();
+    if (mounted) context.go(AppRoutes.home);
   }
 
   Future<void> _requestExit() async {
@@ -114,7 +257,7 @@ class _GameScreenState extends State<GameScreen> {
           showAppNotice(context, l10n.saveFailedStayInMatch);
           return;
         }
-        context.go(AppRoutes.home);
+        await _leaveCompletedMatch();
         return;
       }
 
@@ -153,6 +296,121 @@ class _GameScreenState extends State<GameScreen> {
     }
   }
 
+  void _showReactionSheet() {
+    final l10n = AppLocalizations.of(context);
+    final lang = l10n.localeName.toLowerCase();
+    final thinkingText = lang.startsWith('tr')
+        ? 'Düşünüyorum'
+        : lang.startsWith('de')
+        ? 'Überlege...'
+        : lang.startsWith('es')
+        ? 'Pensando...'
+        : lang.startsWith('fr')
+        ? 'Réflexion...'
+        : lang.startsWith('pt')
+        ? 'Pensando...'
+        : lang.startsWith('ar')
+        ? 'أفكر...'
+        : lang.startsWith('hi')
+        ? 'सोच रहा हूँ...'
+        : 'Thinking...';
+    final brilliantText = lang.startsWith('tr')
+        ? 'Harika!'
+        : lang.startsWith('de')
+        ? 'Klasse!'
+        : lang.startsWith('es')
+        ? '¡Genial!'
+        : lang.startsWith('fr')
+        ? 'Génial !'
+        : lang.startsWith('pt')
+        ? 'Brilhante!'
+        : lang.startsWith('ar')
+        ? 'رائع!'
+        : lang.startsWith('hi')
+        ? 'शानदार!'
+        : 'Brilliant!';
+
+    final reactions = [
+      (emoji: '👏', text: l10n.quickGoodMove, id: QuickMessageId.goodMove),
+      (emoji: '🏆', text: l10n.quickCongrats, id: QuickMessageId.congrats),
+      (emoji: '🤝', text: l10n.quickGoodGame, id: QuickMessageId.goodGame),
+      (emoji: '🤔', text: thinkingText, id: QuickMessageId.more),
+      (emoji: '⚡', text: brilliantText, id: QuickMessageId.more),
+    ];
+    showAppBottomSheet<void>(
+      context: context,
+      builder: (sheetContext) => Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              for (final r in reactions)
+                InkWell(
+                  onTap: () {
+                    closeAppOverlay(sheetContext);
+                    _sendReaction('${r.emoji} ${r.text}', r.id);
+                  },
+                  borderRadius: BorderRadius.circular(AppRadii.pill),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.sm,
+                      vertical: AppSpacing.md,
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          r.emoji,
+                          style: const TextStyle(fontSize: 32),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          r.text,
+                          style: const TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.md),
+        ],
+      ),
+    );
+  }
+
+  void _sendReaction(String reactionText, QuickMessageId quickId) {
+    final feedback = AppServicesScope.of(context).feedback;
+    unawaited(feedback.buttonPressed());
+    _reactionTimer?.cancel();
+    setState(() {
+      _activeReaction = reactionText;
+    });
+    final isOnline = widget.config.mode == MatchMode.onlineRanked ||
+        widget.config.mode == MatchMode.challenge;
+    if (isOnline) {
+      unawaited(
+        AppServicesScope.of(context).online.sendQuickMessage(
+          matchId: widget.config.sessionId,
+          messageId: quickId,
+        ),
+      );
+    }
+    _reactionTimer = Timer(const Duration(seconds: 2), () {
+      if (mounted) {
+        setState(() {
+          _activeReaction = null;
+        });
+      }
+    });
+  }
+
   Future<void> _requestRestart() async {
     if (_restartPromptOpen) return;
     _restartPromptOpen = true;
@@ -168,6 +426,12 @@ class _GameScreenState extends State<GameScreen> {
         ],
       );
       if (confirmed == true) {
+        _completionPromptEpoch++;
+        _completionEffectsQueued = false;
+        _didSeeActiveMatch = true;
+        _matchIntroStopped = false;
+        _introStopScheduled = false;
+        _matchIntroFuture = _matchLifecycleFeedback?.matchStarting();
         await controller.restart();
         if (mounted && controller.saveError != null) {
           showAppNotice(context, l10n.saveFailedStayInMatch);
@@ -178,8 +442,130 @@ class _GameScreenState extends State<GameScreen> {
     }
   }
 
+  Future<void> _offerDraw() async {
+    if (_drawOfferOpen) return;
+    final session = controller.session;
+    if (session == null || session.status != MatchSessionStatus.active) return;
+
+    _drawOfferOpen = true;
+    try {
+      final l10n = AppLocalizations.of(context);
+      final confirmed = await showAppActionDialog<bool>(
+        context: context,
+        title: l10n.offerDraw,
+        message: l10n.drawOfferPrompt,
+        actions: [
+          AppDialogAction(label: l10n.cancel, value: false),
+          AppDialogAction(label: l10n.offerDraw, value: true, primary: true),
+        ],
+      );
+      if (!mounted || confirmed != true) return;
+
+      if (widget.config.mode == MatchMode.offlineAi) {
+        final current = controller.session;
+        if (current == null || current.status != MatchSessionStatus.active) {
+          return;
+        }
+        final mostRepeated = current.repetitionCounts.values.fold<int>(
+          0,
+          (highest, count) => count > highest ? count : highest,
+        );
+        final accepted =
+            current.state.movesWithoutCapture >= 80 || mostRepeated >= 3;
+        showAppNotice(
+          context,
+          accepted
+              ? l10n.computerDrawOfferAccepted
+              : l10n.computerDrawOfferDeclined,
+        );
+        if (accepted) await controller.agreeToDraw();
+        return;
+      }
+
+      final accepted = await showAppActionDialog<bool>(
+        context: context,
+        title: l10n.drawOfferReceived,
+        message: l10n.drawOfferReceivedBody,
+        actions: [
+          AppDialogAction(label: l10n.declineDraw, value: false),
+          AppDialogAction(label: l10n.acceptDraw, value: true, primary: true),
+        ],
+      );
+      if (!mounted || accepted == null) return;
+      if (accepted) {
+        await controller.agreeToDraw();
+      } else {
+        showAppNotice(context, l10n.drawOfferDeclined);
+      }
+    } finally {
+      _drawOfferOpen = false;
+    }
+  }
+
+  Future<void> _openGameOptions() async {
+    if (_gameOptionsOpen ||
+        controller.session?.status != MatchSessionStatus.active) {
+      return;
+    }
+    _gameOptionsOpen = true;
+    try {
+      final l10n = AppLocalizations.of(context);
+      final resign = await showAppBottomSheet<bool>(
+        context: context,
+        builder:
+            (sheetContext) => SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 4, 20, 16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      l10n.gameOptions,
+                      style: Theme.of(sheetContext).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(l10n.drawRuleNotice),
+                    const SizedBox(height: 8),
+                    ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      leading: const Icon(Icons.flag_outlined),
+                      title: Text(l10n.resignMatch),
+                      onTap: () => Navigator.of(sheetContext).pop(true),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+      );
+      if (!mounted || resign != true) return;
+      final confirmed = await showAppActionDialog<bool>(
+        context: context,
+        title: l10n.resignMatch,
+        message: l10n.resignConfirm,
+        actions: [
+          AppDialogAction(label: l10n.cancel, value: false),
+          AppDialogAction(label: l10n.resignMatch, value: true, primary: true),
+        ],
+      );
+      if (confirmed != true || !mounted) return;
+      await controller.resign();
+      if (mounted && controller.saveError != null) {
+        showAppNotice(context, l10n.saveFailedStayInMatch);
+      }
+    } finally {
+      _gameOptionsOpen = false;
+    }
+  }
+
   Future<void> _requestRematch() async {
+    _completionPromptEpoch++;
     controller.pauseAi();
+    _completionEffectsQueued = false;
+    _didSeeActiveMatch = true;
+    _matchIntroStopped = false;
+    _introStopScheduled = false;
+    _matchIntroFuture = _matchLifecycleFeedback?.matchStarting();
     await controller.restart();
     if (!mounted) {
       return;
@@ -227,7 +613,7 @@ class _GameScreenState extends State<GameScreen> {
                   Text(l10n.matchLoadError, textAlign: TextAlign.center),
                   const SizedBox(height: AppSpacing.lg),
                   FilledButton(
-                    onPressed: () => context.go(AppRoutes.home),
+                    onPressed: _leaveCompletedMatch,
                     child: Text(l10n.backHome),
                   ),
                 ],
@@ -259,10 +645,19 @@ class _GameScreenState extends State<GameScreen> {
       _matchFrameMarked = true;
       RuntimeTrace.firstFrame('game_screen.match_first_frame');
     }
+    if (_matchIntroFuture != null &&
+        !_matchIntroStopped &&
+        !_introStopScheduled) {
+      _introStopScheduled = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) unawaited(_stopMatchIntro());
+      });
+    }
     final services = AppServicesScope.of(context);
     final settings = services.settings.state;
     final session = controller.session!;
     final isAi = widget.config.mode == MatchMode.offlineAi;
+    _scheduleCompletionEffects(game);
     final topName = isAi ? l10n.computerPlayer : l10n.darkPlayer;
     final bottomName = isAi ? l10n.you : l10n.lightPlayer;
     final status =
@@ -280,143 +675,233 @@ class _GameScreenState extends State<GameScreen> {
     final lightCaptured = lightCapturedRaw < 0 ? 0 : lightCapturedRaw;
     final darkCaptured = darkCapturedRaw < 0 ? 0 : darkCapturedRaw;
 
-    return AppScreenShell(
-      title: gameName(l10n, widget.config.gameId),
-      scrollable: true,
-      maxWidth: AppConstraints.boardMaxWidth,
-      padding: const EdgeInsets.fromLTRB(16, 12, 16, 32),
-      actions: [
-        IconButton(
-          tooltip: l10n.restart,
-          onPressed: _requestRestart,
-          icon: const Icon(Icons.refresh_rounded),
-        ),
-        IconButton(
-          tooltip: l10n.saveAndExit,
-          onPressed: _requestExit,
-          icon: const Icon(Icons.close_rounded),
-        ),
-      ],
-      body: MatchLifecycleGuard(
-        onPersist: controller.flush,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            MatchPlayerBar(
-              name: topName,
-              side: PlayerSide.dark,
-              active:
-                  visualTurn == PlayerSide.dark &&
-                  game.phase != MatchPhase.finished,
-              stonesOnBoard: game.stonesOnBoard(PlayerSide.dark),
-              stonesToPlace: game.darkToPlace,
-              thinking: controller.aiThinking,
-              thinkingLabel: l10n.aiThinking,
-              reduceMotion: settings.reduceMotion,
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        AppScreenShell(
+          title: gameName(l10n, widget.config.gameId),
+          scrollable: false,
+          maxWidth: AppConstraints.boardMaxWidth,
+          padding: const EdgeInsets.fromLTRB(12, 6, 12, 6),
+          actions: [
+            if (widget.config.mode == MatchMode.offlineAi ||
+                widget.config.mode == MatchMode.localTwoPlayer)
+              IconButton(
+                tooltip: l10n.offerDraw,
+                onPressed:
+                    session.status == MatchSessionStatus.active
+                        ? _offerDraw
+                        : null,
+                icon: const Icon(Icons.handshake_outlined),
+              ),
+            IconButton(
+              tooltip: l10n.restart,
+              onPressed: _requestRestart,
+              icon: const Icon(Icons.refresh_rounded),
             ),
-            const SizedBox(height: AppSpacing.md),
-            _TurnBanner(
-              status: status,
-              moveCountLabel: l10n.moveCountLabel(session.moveCount),
-              captureRequired: game.pendingCaptureBy != null,
+            IconButton(
+              tooltip: l10n.localeName.startsWith('tr')
+                  ? 'Tepki'
+                  : l10n.localeName.startsWith('de')
+                  ? 'Reaktion'
+                  : l10n.localeName.startsWith('es')
+                  ? 'Reacción'
+                  : l10n.localeName.startsWith('fr')
+                  ? 'Réaction'
+                  : l10n.localeName.startsWith('pt')
+                  ? 'Reação'
+                  : l10n.localeName.startsWith('ar')
+                  ? 'تفاعل'
+                  : l10n.localeName.startsWith('hi')
+                  ? 'प्रतिक्रिया'
+                  : 'Reaction',
+              icon: const Icon(Icons.emoji_emotions_outlined),
+              onPressed: _showReactionSheet,
             ),
-            const SizedBox(height: AppSpacing.md),
-            _BoardStage(
-              child: MorrisBoard(
-                definition: controller.definition,
-                board: game.board,
-                selectedPoint: controller.selectedPoint,
-                legalTargets: controller.legalTargets,
-                capturablePoints: controller.capturablePoints,
-                activeMillPoints: controller.activeMillPoints,
-                lastMoveFrom: controller.lastMoveFrom,
-                lastMoveTo: controller.lastMoveTo,
-                lastMoveActor: controller.lastMoveActor,
-                lastCapturedPoint: controller.lastCapturedPoint,
-                capturedLight: lightCaptured,
-                capturedDark: darkCaptured,
-                moveSequence: session.moveCount,
-                moveDuration: controller.visualMoveDuration,
-                onPointTap: controller.tapPoint,
-                // Tap -> tap is the stable canonical interaction. Drag can be
-                // re-enabled later after device profiling; it is not required
-                // for any Morris rule or accessibility flow.
-                onMoveDrop: null,
-                interactive: controller.humanCanAct,
-                reduceMotion: settings.reduceMotion,
-                showHints: settings.showMoveHints,
-                colorAssist: settings.colorAssist,
-                surface: settings.boardSurface,
-                viewStyle: settings.boardView,
-                pieceTheme: settings.pieceTheme,
-                semanticLabelBuilder:
-                    (point, piece) => switch (piece) {
-                      PlayerSide.light => l10n.boardPointLight(point + 1),
-                      PlayerSide.dark => l10n.boardPointDark(point + 1),
-                      null => l10n.boardPointEmpty(point + 1),
-                    },
-              ),
+            IconButton(
+              tooltip: l10n.saveAndExit,
+              onPressed: _requestExit,
+              icon: const Icon(Icons.close_rounded),
             ),
-            const SizedBox(height: AppSpacing.md),
-            MatchPlayerBar(
-              name: bottomName,
-              side: PlayerSide.light,
-              active:
-                  visualTurn == PlayerSide.light &&
-                  game.phase != MatchPhase.finished,
-              stonesOnBoard: game.stonesOnBoard(PlayerSide.light),
-              stonesToPlace: game.lightToPlace,
-              reduceMotion: settings.reduceMotion,
-            ),
-            if (controller.errorCode != null) ...[
-              const SizedBox(height: AppSpacing.md),
-              _InlineNotice(
-                icon: Icons.info_outline_rounded,
-                text: moveErrorText(l10n, controller.errorCode!),
-                danger: true,
-              ),
-            ],
-            if (controller.saveError != null) ...[
-              const SizedBox(height: AppSpacing.md),
-              _InlineNotice(
-                icon: Icons.cloud_off_rounded,
-                text: l10n.saveFailedStayInMatch,
-                danger: true,
-              ),
-            ],
-            if (game.phase == MatchPhase.finished) ...[
-              const SizedBox(height: AppSpacing.md),
-              _ResultCard(
-                title: instructionText(l10n, game),
-                message: _resultMessage(l10n, game, isAi),
-                rematchLabel: l10n.rematch,
-                homeLabel: l10n.home,
-                onRematch: _requestRematch,
-                onHome: () => context.go(AppRoutes.home),
-              ),
-            ],
-            if (widget.config.mode == MatchMode.onlineRanked ||
-                widget.config.mode == MatchMode.challenge) ...[
-              const SizedBox(height: AppSpacing.lg),
-              _QuickMessages(
-                l10n: l10n,
-                onSend: (messageId) async {
-                  try {
-                    await services.online.sendQuickMessage(
-                      matchId: session.config.sessionId,
-                      messageId: messageId,
-                    );
-                  } catch (_) {
-                    if (context.mounted) {
-                      showAppNotice(context, l10n.onlineBackendRequired);
-                    }
-                  }
-                },
-              ),
-            ],
           ],
+          bottomNavigationBar: const FamilyBannerAd(reserveSpace: true),
+          body: MatchLifecycleGuard(
+            onPersist: controller.flush,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                MatchPlayerBar(
+                  compact: true,
+                  name: topName,
+                  side: PlayerSide.dark,
+                  active:
+                      visualTurn == PlayerSide.dark &&
+                      game.phase != MatchPhase.finished,
+                  stonesOnBoard: game.stonesOnBoard(PlayerSide.dark),
+                  stonesToPlace: game.darkToPlace,
+                  thinking: controller.aiThinking,
+                  thinkingLabel: l10n.aiThinking,
+                  reduceMotion: settings.reduceMotion,
+                ),
+                const SizedBox(height: 6),
+                _TurnBanner(
+                  status: status,
+                  moveCountLabel: l10n.moveCountLabel(session.moveCount),
+                  captureRequired: game.pendingCaptureBy != null,
+                  compact: true,
+                ),
+                const SizedBox(height: 6),
+                Expanded(
+                  child: Center(
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: _BoardStage(
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            MorrisBoard(
+                              definition: controller.definition,
+                              board: game.board,
+                              selectedPoint: controller.selectedPoint,
+                              legalTargets: controller.legalTargets,
+                              capturablePoints: controller.capturablePoints,
+                              activeMillPoints: controller.activeMillPoints,
+                              lastMoveFrom: controller.lastMoveFrom,
+                              lastMoveTo: controller.lastMoveTo,
+                              lastMoveActor: controller.lastMoveActor,
+                              lastCapturedPoint: controller.lastCapturedPoint,
+                              capturedLight: lightCaptured,
+                              capturedDark: darkCaptured,
+                              moveSequence: session.moveCount,
+                              moveDuration: controller.visualMoveDuration,
+                              onPointTap: controller.tapPoint,
+                              onMoveDrop: null,
+                              interactive: controller.humanCanAct,
+                              reduceMotion: settings.reduceMotion,
+                              showHints: settings.showMoveHints,
+                              colorAssist: settings.colorAssist,
+                              surface: settings.boardSurface,
+                              viewStyle: settings.boardView,
+                              pieceTheme: settings.pieceTheme,
+                              semanticLabelBuilder:
+                                  (point, piece) => switch (piece) {
+                                    PlayerSide.light => l10n.boardPointLight(
+                                      point + 1,
+                                    ),
+                                    PlayerSide.dark => l10n.boardPointDark(
+                                      point + 1,
+                                    ),
+                                    null => l10n.boardPointEmpty(point + 1),
+                                  },
+                            ),
+                            if (_activeReaction != null)
+                              Positioned(
+                                top: 16,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 16,
+                                    vertical: 8,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.surfaceDarkRaised,
+                                    borderRadius: BorderRadius.circular(AppRadii.pill),
+                                    border: Border.all(
+                                      color: AppColors.darkOrange,
+                                      width: 2,
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withValues(alpha: 0.35),
+                                        blurRadius: 12,
+                                        offset: const Offset(0, 4),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Text(
+                                    _activeReaction!,
+                                    style: const TextStyle(
+                                      color: AppColors.inkOnDark,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 6),
+                MatchPlayerBar(
+                  compact: true,
+                  name: bottomName,
+                  side: PlayerSide.light,
+                  active:
+                      visualTurn == PlayerSide.light &&
+                      game.phase != MatchPhase.finished,
+                  stonesOnBoard: game.stonesOnBoard(PlayerSide.light),
+                  stonesToPlace: game.lightToPlace,
+                  reduceMotion: settings.reduceMotion,
+                ),
+                const SizedBox(height: 4),
+                SizedBox(
+                  height: 40,
+                  child:
+                      controller.errorCode != null
+                          ? _CompactMatchNotice(
+                            icon: Icons.info_outline_rounded,
+                            text: moveErrorText(l10n, controller.errorCode!),
+                            danger: true,
+                          )
+                          : controller.saveError != null
+                          ? _CompactMatchNotice(
+                            icon: Icons.cloud_off_rounded,
+                            text: l10n.saveFailedStayInMatch,
+                            danger: true,
+                          )
+                          : game.phase == MatchPhase.finished
+                          ? Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  instructionText(l10n, game),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context).textTheme.labelLarge,
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: _leaveCompletedMatch,
+                                child: Text(l10n.home),
+                              ),
+                              const SizedBox(width: 4),
+                              FilledButton(
+                                onPressed: _requestRematch,
+                                child: Text(l10n.rematch),
+                              ),
+                            ],
+                          )
+                          : Align(
+                            alignment: AlignmentDirectional.centerEnd,
+                            child: TextButton.icon(
+                              onPressed: _openGameOptions,
+                              icon: const Icon(Icons.more_horiz_rounded),
+                              label: Text(l10n.gameOptions),
+                            ),
+                          ),
+                ),
+              ],
+            ),
+          ),
         ),
-      ),
+        if (!game.isDraw &&
+            game.winner != null &&
+            (!isAi || game.winner == controller.humanSide) &&
+            !settings.reduceMotion)
+          const Positioned.fill(child: MatchConfetti()),
+      ],
     );
   }
 
@@ -442,11 +927,13 @@ class _TurnBanner extends StatelessWidget {
     required this.status,
     required this.moveCountLabel,
     required this.captureRequired,
+    this.compact = false,
   });
 
   final String status;
   final String moveCountLabel;
   final bool captureRequired;
+  final bool compact;
 
   @override
   Widget build(BuildContext context) {
@@ -459,9 +946,15 @@ class _TurnBanner extends StatelessWidget {
     return Semantics(
       liveRegion: true,
       child: AnimatedContainer(
-        duration: MotionTokens.fast,
-        constraints: const BoxConstraints(minHeight: 54),
-        padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
+        duration: compact ? Duration.zero : MotionTokens.fast,
+        height: compact ? 42 : null,
+        constraints: compact ? null : const BoxConstraints(minHeight: 54),
+        padding: EdgeInsets.fromLTRB(
+          compact ? 8 : 10,
+          compact ? 4 : 8,
+          compact ? 8 : 10,
+          compact ? 4 : 8,
+        ),
         decoration: BoxDecoration(
           color: background,
           borderRadius: BorderRadius.circular(AppRadii.medium),
@@ -477,26 +970,27 @@ class _TurnBanner extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              width: 38,
-              height: 38,
+              width: compact ? 30 : 38,
+              height: compact ? 30 : 38,
               decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
               child: Icon(
                 captureRequired
                     ? Icons.gps_fixed_rounded
                     : Icons.touch_app_rounded,
                 color: Colors.white,
-                size: 20,
+                size: compact ? 17 : 20,
               ),
             ),
             const SizedBox(width: AppSpacing.sm),
             Expanded(
               child: Text(
                 status,
-                maxLines: 2,
+                maxLines: compact ? 1 : 2,
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(
-                  context,
-                ).textTheme.titleMedium?.copyWith(color: onBackground),
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: onBackground,
+                  fontSize: compact ? 14 : null,
+                ),
               ),
             ),
             const SizedBox(width: AppSpacing.sm),
@@ -568,12 +1062,13 @@ class _MatchLoadingState extends StatelessWidget {
   }
 }
 
-class _InlineNotice extends StatelessWidget {
-  const _InlineNotice({
+class _CompactMatchNotice extends StatelessWidget {
+  const _CompactMatchNotice({
     required this.icon,
     required this.text,
     required this.danger,
   });
+
   final IconData icon;
   final String text;
   final bool danger;
@@ -582,149 +1077,31 @@ class _InlineNotice extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final color = danger ? scheme.error : scheme.primary;
-    final background = danger ? scheme.errorContainer : scheme.primaryContainer;
-    final foreground =
-        danger ? scheme.onErrorContainer : scheme.onPrimaryContainer;
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 5),
       decoration: BoxDecoration(
-        color: background,
-        borderRadius: BorderRadius.circular(AppRadii.medium),
-        border: Border.all(color: color.withValues(alpha: 0.24)),
+        color: danger ? scheme.errorContainer : scheme.primaryContainer,
+        borderRadius: BorderRadius.circular(AppRadii.small),
+        border: Border.all(color: color.withValues(alpha: 0.28)),
       ),
       child: Row(
         children: [
-          Icon(icon, color: color),
-          const SizedBox(width: AppSpacing.sm),
+          Icon(icon, size: 18, color: color),
+          const SizedBox(width: 6),
           Expanded(
             child: Text(
               text,
-              style: Theme.of(
-                context,
-              ).textTheme.bodySmall?.copyWith(color: foreground),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                color:
+                    danger
+                        ? scheme.onErrorContainer
+                        : scheme.onPrimaryContainer,
+              ),
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _ResultCard extends StatelessWidget {
-  const _ResultCard({
-    required this.title,
-    required this.message,
-    required this.rematchLabel,
-    required this.homeLabel,
-    required this.onRematch,
-    required this.onHome,
-  });
-
-  final String title;
-  final String message;
-  final String rematchLabel;
-  final String homeLabel;
-  final VoidCallback onRematch;
-  final VoidCallback onHome;
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    return Container(
-      padding: const EdgeInsets.all(1),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            scheme.primary.withValues(alpha: 0.62),
-            AppColors.selection.withValues(alpha: 0.72),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(AppRadii.large),
-      ),
-      child: Card(
-        color: scheme.surface,
-        child: Padding(
-          padding: const EdgeInsets.all(AppSpacing.lg),
-          child: Column(
-            children: [
-              Container(
-                width: 64,
-                height: 64,
-                decoration: BoxDecoration(
-                  color: scheme.primaryContainer,
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  Icons.emoji_events_rounded,
-                  size: 34,
-                  color: scheme.primary,
-                ),
-              ),
-              const SizedBox(height: AppSpacing.sm),
-              Text(
-                title,
-                style: Theme.of(context).textTheme.titleLarge,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: AppSpacing.xs),
-              Text(
-                message,
-                style: Theme.of(context).textTheme.bodyMedium,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: AppSpacing.md),
-              Row(
-                children: [
-                  Expanded(
-                    child: OutlinedButton.icon(
-                      onPressed: onHome,
-                      icon: const Icon(Icons.home_rounded),
-                      label: Text(homeLabel),
-                    ),
-                  ),
-                  const SizedBox(width: AppSpacing.sm),
-                  Expanded(
-                    child: FilledButton.icon(
-                      onPressed: onRematch,
-                      icon: const Icon(Icons.replay_rounded),
-                      label: Text(rematchLabel),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _QuickMessages extends StatelessWidget {
-  const _QuickMessages({required this.l10n, required this.onSend});
-
-  final AppLocalizations l10n;
-  final Future<void> Function(QuickMessageId messageId) onSend;
-
-  @override
-  Widget build(BuildContext context) {
-    final items = <(QuickMessageId, String)>[
-      (QuickMessageId.goodMove, l10n.quickGoodMove),
-      (QuickMessageId.congrats, l10n.quickCongrats),
-      (QuickMessageId.goodGame, l10n.quickGoodGame),
-      (QuickMessageId.more, l10n.quickMore),
-    ];
-    return SizedBox(
-      height: 52,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: items.length,
-        separatorBuilder: (_, _) => const SizedBox(width: 8),
-        itemBuilder:
-            (context, index) => ActionChip(
-              label: Text(items[index].$2),
-              onPressed: () => unawaited(onSend(items[index].$1)),
-            ),
       ),
     );
   }

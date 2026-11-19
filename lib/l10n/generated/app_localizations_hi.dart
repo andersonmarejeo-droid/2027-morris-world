@@ -9,7 +9,31 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
-  String get appTitle => 'Morris World';
+  String get appTitle => '3-9-12 Morris';
+
+  @override
+  String get ageAudienceTitle => 'कौन खेलेगा?';
+
+  @override
+  String get ageAudienceBody =>
+      'सबके लिए उपयुक्त अनुभव रखने हेतु अपनी आयु-सीमा चुनें।';
+
+  @override
+  String get ageAudienceChild => '18 वर्ष से कम या बताना नहीं चाहते';
+
+  @override
+  String get ageAudienceAdult => '18 वर्ष या उससे अधिक';
+
+  @override
+  String get ageAudiencePrivacy =>
+      'हम जन्मतिथि नहीं पूछते। यह चयन केवल इस डिवाइस पर सहेजा जाता है। 18 वर्ष से कम और उत्तर न देने वाले लोगों को वैयक्तिकृत विज्ञापन नहीं दिखाए जाते और ऑनलाइन कमरे उपलब्ध नहीं होते। विज्ञापन परिवार-अनुकूल और अधिकतम G रेटिंग वाले होते हैं।';
+
+  @override
+  String get ageAudienceOnlineRestricted =>
+      'ऑनलाइन कमरे केवल उन लोगों के लिए हैं जो बताते हैं कि उनकी उम्र 18 वर्ष या अधिक है। कम उम्र के लोग और उत्तर न देने वाले कंप्यूटर के विरुद्ध या एक ही डिवाइस पर खेल सकते हैं।';
+
+  @override
+  String get ageAudienceGotIt => 'समझ गया';
 
   @override
   String get home => 'मुखपृष्ठ';
@@ -48,7 +72,64 @@ class AppLocalizationsHi extends AppLocalizations {
   String get online => 'ऑनलाइन';
 
   @override
-  String get onlineSubtitle => 'दुनिया भर से असली प्रतिद्वंद्वी खोजें';
+  String get onlineSubtitle =>
+      'ऑनलाइन प्रतिद्वंद्वी खोजें; न मिले तो कंप्यूटर के खिलाफ खेलें';
+
+  @override
+  String get createPrivateRoom => 'निजी कमरा बनाएँ';
+
+  @override
+  String get joinPrivateRoom => 'रूम कोड से जुड़ें';
+
+  @override
+  String get roomCode => 'रूम कोड';
+
+  @override
+  String get roomCodeHint => 'मित्र द्वारा साझा किया गया कोड दर्ज करें';
+
+  @override
+  String get waitingForOpponent => 'मित्र के जुड़ते ही खेल शुरू होगा।';
+
+  @override
+  String get copyRoomCode => 'कोड कॉपी करें';
+
+  @override
+  String get roomCodeCopied => 'रूम कोड कॉपी किया गया।';
+
+  @override
+  String get sparkPrivateRoomNotice =>
+      'बच्चे माता-पिता या अभिभावक की देखरेख में ऑनलाइन खेलें। रूम कोड केवल परिचित लोगों से साझा करें। रैंकिंग, सार्वजनिक मैचमेकिंग और चैट उपलब्ध नहीं हैं।';
+
+  @override
+  String get onlineOpponent => 'प्रतिद्वंद्वी';
+
+  @override
+  String get onlineWaitingTurn => 'प्रतिद्वंद्वी की चाल का इंतज़ार है।';
+
+  @override
+  String get onlineMoveFailed =>
+      'चाल नहीं भेजी जा सकी। कनेक्शन जाँचें और फिर प्रयास करें।';
+
+  @override
+  String get onlineRoomUnavailable =>
+      'कमरा नहीं मिला या भर गया है। कोड जाँचें।';
+
+  @override
+  String get closeOnlineRoom => 'कमरा बंद करें';
+
+  @override
+  String get exitMatch => 'मैच छोड़ें';
+
+  @override
+  String get exitMatchConfirm =>
+      'मैच अभी चल रहा है। छोड़ने पर आपके प्रतिद्वंद्वी को विजेता घोषित किया जाएगा। छोड़ें?';
+
+  @override
+  String get opponentLeft => 'आपका प्रतिद्वंद्वी मैच छोड़ गया; आप जीत गए।';
+
+  @override
+  String get opponentTimedOut =>
+      'आपके प्रतिद्वंद्वी ने दो मिनट तक चाल नहीं चली; आप जीत गए।';
 
   @override
   String get challenge => 'चुनौती दें';
@@ -286,6 +367,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get noFriendsYet => 'अभी कोई मित्र नहीं है।';
 
   @override
+  String get rankingsUnavailable =>
+      'दुनिया, देश और मित्रों की रैंकिंग अभी वास्तविक खिलाड़ी डेटा से जुड़ी नहीं हैं। सेवा उपलब्ध होने पर सत्यापित रैंकिंग यहाँ दिखाई जाएँगी।';
+
+  @override
   String get sound => 'ध्वनि';
 
   @override
@@ -421,7 +506,11 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get onlineBackendRequired =>
-      'ऑनलाइन क्लाइंट आधार तैयार है। Firebase Auth, Realtime Database और Cloud Functions तैनात होने तक रैंक्ड मैचमेकिंग सुरक्षित रूप से बंद रहेगी।';
+      'निजी ऑनलाइन कमरे अभी उपलब्ध नहीं हैं। इंटरनेट कनेक्शन जाँचें और फिर प्रयास करें।';
+
+  @override
+  String get challengeInviteOpenedWithoutRoom =>
+      'WhatsApp आमंत्रण तैयार है। लाइव रूम नहीं बन सका, इसलिए रूम कोड शामिल नहीं किया गया।';
 
   @override
   String get challengeFriends => 'मित्रों को चुनौती दें';
@@ -583,7 +672,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String whatsappChallengeInvite(String game, String link) {
-    return 'मैं आपको Morris World में $game की चुनौती देता हूँ! गेम खोलें या यहाँ से इंस्टॉल करें: $link';
+    return 'आइए 3-9-12 Morris में साथ $game खेलें! ऐप यहाँ से डाउनलोड करें: $link';
   }
 
   @override
@@ -631,4 +720,94 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get profileLocalSaveNote =>
       'आपकी प्रोफ़ाइल जानकारी इस डिवाइस पर सुरक्षित रूप से सहेजी जाती है।';
+
+  @override
+  String get accountAndLegal => 'खाता और कानूनी जानकारी';
+
+  @override
+  String get termsOfUse => 'उपयोग की शर्तें';
+
+  @override
+  String get termsSummary =>
+      '3-9-12 Tas में 3, 9 और 12 मोहरों वाले क्लासिक खेल शामिल हैं। ऐप का उपयोग कानून के अनुसार करें। प्रोफ़ाइल और सहेजे गए खेल इसी डिवाइस पर रखे जाते हैं; ऐप में खरीदारी नहीं है।\n\nऑनलाइन कमरे चालू होने पर Firebase जैसी तृतीय-पक्ष सेवाओं का उपयोग हो सकता है। कमरे के कोड केवल परिचित लोगों के साथ साझा करें। बाहरी साझाकरण ऐप की अपनी शर्तें होती हैं।\n\nयह उत्पाद की सामान्य जानकारी है, बाध्यकारी समझौता नहीं। प्रकाशक का आधिकारिक पता और देश-विशिष्ट कानूनी शर्तें अभी सत्यापित नहीं हुई हैं।';
+
+  @override
+  String get legalInformation => 'कानूनी जानकारी';
+
+  @override
+  String get legalInformationBody =>
+      'प्रकाशक: Mustafa Polat · ZP GAMES\nसंपर्क: andersonmarejeo@gmail.com\n\nआधिकारिक सूचना-पता और पंजीकृत कंपनी का नाम अभी सत्यापित नहीं हुआ है। कानूनी सूचनाओं के लिए संपर्क ईमेल का उपयोग करें।';
+
+  @override
+  String get onlineSignOut => 'ऑनलाइन सत्र से साइन आउट करें';
+
+  @override
+  String get onlineSignOutDone =>
+      'आपने ऑनलाइन सत्र से साइन आउट कर लिया है। इस डिवाइस के सहेजे गए खेल सुरक्षित रखे गए।';
+
+  @override
+  String get onlineSessionMissing =>
+      'इस डिवाइस पर कोई सक्रिय ऑनलाइन सत्र नहीं है।';
+
+  @override
+  String get deleteLocalData => 'इस डिवाइस का उपयोगकर्ता डेटा हटाएँ';
+
+  @override
+  String get deleteLocalDataTitle => 'इस डिवाइस का उपयोगकर्ता डेटा हटाएँ?';
+
+  @override
+  String get deleteLocalDataBody =>
+      'इससे इस डिवाइस से आपकी प्रोफ़ाइल, जोड़े गए मित्र और सहेजे गए खेल स्थायी रूप से हट जाएँगे। Firebase ऑनलाइन-कक्ष डेटा या दूरस्थ खाता नहीं हटेगा। यह कार्रवाई वापस नहीं की जा सकती।';
+
+  @override
+  String get deleteLocalDataDone =>
+      'इस डिवाइस से प्रोफ़ाइल, मित्र सूची और सहेजे गए खेल हटा दिए गए।';
+
+  @override
+  String get deleteAction => 'डेटा हटाएँ';
+
+  @override
+  String get gameOptions => 'खेल विकल्प';
+
+  @override
+  String get drawRuleNotice =>
+      'यदि चाल चलने वाले खिलाड़ी सहित वही बोर्ड स्थिति 5 बार दोहराई जाए या बिना मोहरा पकड़े लगातार 100 चालें हों, तो खेल ड्रॉ होगा।';
+
+  @override
+  String get offerDraw => 'ड्रॉ का प्रस्ताव दें';
+
+  @override
+  String get drawOfferPrompt =>
+      'क्या आप ड्रॉ का प्रस्ताव देना चाहते हैं? प्रतिद्वंद्वी की सहमति पर ही खेल ड्रॉ होगा।';
+
+  @override
+  String get drawOfferReceived => 'ड्रॉ का प्रस्ताव';
+
+  @override
+  String get drawOfferReceivedBody =>
+      'आपका प्रतिद्वंद्वी ड्रॉ का प्रस्ताव दे रहा है। क्या आप स्वीकार करते हैं?';
+
+  @override
+  String get acceptDraw => 'ड्रॉ स्वीकार करें';
+
+  @override
+  String get declineDraw => 'अस्वीकार करें';
+
+  @override
+  String get drawOfferDeclined => 'ड्रॉ का प्रस्ताव अस्वीकार कर दिया गया।';
+
+  @override
+  String get computerDrawOfferAccepted =>
+      'कंप्यूटर ने ड्रॉ का प्रस्ताव स्वीकार कर लिया।';
+
+  @override
+  String get computerDrawOfferDeclined =>
+      'कंप्यूटर ने ड्रॉ का प्रस्ताव अस्वीकार कर दिया।';
+
+  @override
+  String get resignMatch => 'हार मानें';
+
+  @override
+  String get resignConfirm =>
+      'क्या आप सचमुच हार मानना चाहते हैं? आपका प्रतिद्वंद्वी जीत जाएगा।';
 }

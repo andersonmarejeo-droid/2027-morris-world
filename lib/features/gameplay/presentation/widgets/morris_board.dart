@@ -38,7 +38,7 @@ class MorrisBoard extends StatelessWidget {
     this.reduceMotion = false,
     this.showHints = true,
     this.colorAssist = true,
-    this.surface = BoardSurface.wood,
+    this.surface = BoardSurface.minimal,
     this.viewStyle = BoardViewStyle.realistic,
     this.pieceTheme = PieceTheme.classic,
     this.semanticLabelBuilder,
@@ -827,10 +827,14 @@ class _BoardPalette {
   );
 
   static const _minimal = _BoardPalette(
-    background: LinearGradient(colors: [Color(0xFFFFFFFF), Color(0xFFF4F6F7)]),
-    border: AppColors.line,
-    line: AppColors.ink,
-    node: AppColors.ink,
+    background: LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [Color(0xFFFFFFFF), Color(0xFFFDFDFD)],
+    ),
+    border: Color(0xFF101718),
+    line: Color(0xFF101718),
+    node: Color(0xFF101718),
   );
 
   static _BoardPalette forSurface(BoardSurface surface) => switch (surface) {

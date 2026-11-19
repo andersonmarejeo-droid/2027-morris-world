@@ -6,7 +6,12 @@ import 'package:nine_tas/features/social/domain/friend_player.dart';
 void main() {
   test('challenge creation is single-record and starts pending', () async {
     final repository = InMemoryFriendsRepository();
-    final challenge = await repository.sendChallenge('ahmet', MorrisGameId.nine);
+    expect(await repository.addFriend('Ahmet'), isTrue);
+    final friend = (await repository.getFriends()).single;
+    final challenge = await repository.sendChallenge(
+      friend.id,
+      MorrisGameId.nine,
+    );
     expect(challenge.status, ChallengeStatus.pending);
     expect(challenge.gameId, MorrisGameId.nine);
     expect((await repository.getChallenges()).length, 1);

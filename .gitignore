@@ -24,14 +24,6 @@ morris_world_flutter_offline_ai_v040.zip
 MW_FULL_INSTALL_V042.ps1
 README_FIRST.txt
 
-android/app/google-services.json
-ios/Runner/GoogleService-Info.plist
-lib/firebase_options.dart
-
-# Firebase project selection is local to each developer or CI environment.
-# Keep the checked-in example as the setup template, never a real project map.
-.firebaserc
-
 # Firebase local state, emulator exports, and function credentials.
 .firebase/
 .firebase-emulator/
@@ -56,3 +48,11 @@ functions/lib/
 android/key.properties
 android/*.jks
 android/*.keystore
+
+# Crash logs & local Gradle caches
+.gradle-local/
+.codex-remote-attachments/
+android/*.log
+android/hs_err_pid*
+android/replay_pid*
+

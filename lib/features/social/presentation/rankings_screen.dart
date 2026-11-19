@@ -4,13 +4,11 @@ import 'package:nine_tas/l10n/generated/app_localizations.dart';
 import '../../../app/app_colors.dart';
 import '../../../app/app_services_scope.dart';
 import '../../../app/app_tokens.dart';
-import '../../../core/feedback/motion_tokens.dart';
-import '../../../shared/ui/app_async_view.dart';
+import '../../../core/game/game_definition.dart';
 import '../../../shared/ui/app_bottom_nav.dart';
 import '../../../shared/ui/app_screen_shell.dart';
+import '../../gameplay/presentation/game_ui_labels.dart';
 import '../domain/friend_player.dart';
-
-enum _RankingTab { world, country, friends }
 
 class RankingsScreen extends StatefulWidget {
   const RankingsScreen({super.key});
@@ -20,65 +18,322 @@ class RankingsScreen extends StatefulWidget {
 }
 
 class _RankingsScreenState extends State<RankingsScreen> {
-  _RankingTab tab = _RankingTab.world;
+  MorrisGameId _selectedGame = MorrisGameId.nine;
+  List<LeaderboardEntry>? _entries;
+  bool _loading = true;
 
-  Future<List<LeaderboardEntry>> _load() {
-    final social = AppServicesScope.of(context).social;
-    return switch (tab) {
-      _RankingTab.world => social.getWorldLeaderboard(),
-      _RankingTab.country => social.getCountryLeaderboard(),
-      _RankingTab.friends => social.getFriendsLeaderboard(),
-    };
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _loadData();
+  }
+
+  Future<void> _loadData() async {
+    setState(() => _loading = true);
+    try {
+      final social = AppServicesScope.of(context).social;
+      final list = await social.getGameLeaderboard(_selectedGame);
+      if (!mounted) return;
+      setState(() {
+        _entries = list;
+        _loading = false;
+      });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _loading = false);
+    }
+  }
+
+  void _onGameChanged(MorrisGameId id) {
+    if (_selectedGame == id) return;
+    setState(() => _selectedGame = id);
+    _loadData();
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final lang = l10n.localeName.toLowerCase();
+    final headerSubtitle = lang.startsWith('tr')
+        ? 'Küresel ve Yerel Lig Sıralaması'
+        : lang.startsWith('de')
+        ? 'Globale & lokale Liga-Ranglisten'
+        : lang.startsWith('es')
+        ? 'Clasificación de ligas globales y locales'
+        : lang.startsWith('fr')
+        ? 'Classements des ligues mondiales et locales'
+        : lang.startsWith('pt')
+        ? 'Classificação das ligas globais e locais'
+        : lang.startsWith('ar')
+        ? 'ترتيب الدوريات العالمية والمحلية'
+        : lang.startsWith('hi')
+        ? 'वैश्विक और स्थानीय लीग स्टैंडिंग'
+        : 'Global & Local League Standings';
+
     return AppScreenShell(
       title: l10n.rankings,
-      scrollable: true,
+      scrollable: false,
+      padding: const EdgeInsets.fromLTRB(16, 10, 16, 12),
       bottomNavigationBar: const AppBottomNav(active: AppNavTab.rankings),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          _RankingsHero(
-            title: l10n.rankings,
-            scope: switch (tab) {
-              _RankingTab.world => l10n.world,
-              _RankingTab.country => l10n.country,
-              _RankingTab.friends => l10n.friends,
-            },
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [AppColors.ink, AppColors.brandDeep],
+              ),
+              borderRadius: BorderRadius.circular(AppRadii.large),
+              border: Border.all(
+                color: AppColors.darkOrange.withValues(alpha: 0.45),
+                width: 1.2,
+              ),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 42,
+                  height: 42,
+                  decoration: const BoxDecoration(
+                    color: AppColors.selection,
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.emoji_events_rounded,
+                    color: AppColors.ink,
+                    size: 24,
+                  ),
+                ),
+                const SizedBox(width: AppSpacing.md),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        l10n.rankings,
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                            ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        headerSubtitle,
+                        style: const TextStyle(
+                          color: AppColors.inkMutedOnDark,
+                          fontSize: 11,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-          const SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.sm),
           _RankingTabs(
-            selected: tab,
-            worldLabel: l10n.world,
-            countryLabel: l10n.country,
-            friendsLabel: l10n.friends,
-            onChanged: (value) {
-              if (value == tab) {
-                return;
-              }
-              setState(() {
-                tab = value;
-              });
-            },
+            selected: _selectedGame,
+            onChanged: _onGameChanged,
           ),
-          const SizedBox(height: AppSpacing.lg),
-          AppAsyncView<List<LeaderboardEntry>>(
-            key: ValueKey(tab),
-            future: _load(),
-            errorBuilder:
-                (context) => AppErrorView(message: l10n.genericLoadError),
-            dataBuilder:
-                (context, entries) => Column(
+          const SizedBox(height: AppSpacing.sm),
+          Expanded(
+            child: _loading
+                ? const Center(child: CircularProgressIndicator())
+                : _entries == null || _entries!.isEmpty
+                    ? Center(
+                        child: Text(
+                          l10n.rankingsUnavailable,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      )
+                    : ListView.builder(
+                        itemCount: _entries!.length,
+                        itemBuilder: (context, index) {
+                          final entry = _entries![index];
+                          final isMe = entry.player.name.contains('(Sen)');
+                          return _LeaderboardRow(
+                            entry: entry,
+                            isMe: isMe,
+                            locale: l10n.localeName,
+                          );
+                        },
+                      ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _LeaderboardRow extends StatelessWidget {
+  const _LeaderboardRow({
+    required this.entry,
+    required this.isMe,
+    required this.locale,
+  });
+
+  final LeaderboardEntry entry;
+  final bool isMe;
+  final String locale;
+
+  @override
+  Widget build(BuildContext context) {
+    final rank = entry.rank;
+    final player = entry.player;
+    final ratingLabel = '${player.rating} ELO';
+    final winLossLabel = '${entry.wins}G ${entry.losses}M';
+    final titleLabel = player.title.label(locale);
+    final rankLabel = '#$rank';
+    final youBadge = locale.startsWith('tr') ? 'SEN' : 'YOU';
+    final statsLabel = '• $winLossLabel';
+
+    Color rankColor = AppColors.inkMuted;
+    IconData? rankIcon;
+    if (rank == 1) {
+      rankColor = const Color(0xFFFFD700);
+      rankIcon = Icons.military_tech_rounded;
+    } else if (rank == 2) {
+      rankColor = const Color(0xFFC0C0C0);
+      rankIcon = Icons.military_tech_rounded;
+    } else if (rank == 3) {
+      rankColor = const Color(0xFFCD7F32);
+      rankIcon = Icons.military_tech_rounded;
+    }
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: isMe
+            ? AppColors.darkOrange.withValues(alpha: 0.14)
+            : AppColors.card,
+        borderRadius: BorderRadius.circular(AppRadii.medium),
+        border: Border.all(
+          color: isMe
+              ? AppColors.darkOrange
+              : AppColors.line.withValues(alpha: 0.7),
+          width: isMe ? 1.6 : 1.0,
+        ),
+      ),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 32,
+            child: rankIcon != null
+                ? Icon(rankIcon, color: rankColor, size: 22)
+                : Text(
+                    rankLabel,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: rankColor,
+                      fontSize: 13,
+                    ),
+                  ),
+          ),
+          const SizedBox(width: 8),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+            decoration: BoxDecoration(
+              color: AppColors.brandSoft,
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Text(
+              player.countryCode,
+              style: const TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.w700,
+                color: AppColors.brandDeep,
+              ),
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
                   children: [
-                    for (final entry in entries) ...[
-                      _RankingRow(entry: entry, l10n: l10n),
-                      const SizedBox(height: AppSpacing.sm),
+                    Flexible(
+                      child: Text(
+                        player.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: isMe ? FontWeight.w900 : FontWeight.w700,
+                          color: isMe ? AppColors.darkOrange : AppColors.ink,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ),
+                    if (isMe) ...[
+                      const SizedBox(width: 4),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 1,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.darkOrange,
+                          borderRadius: BorderRadius.circular(AppRadii.pill),
+                        ),
+                        child: Text(
+                          youBadge,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ],
                   ],
                 ),
+                const SizedBox(height: 2),
+                Row(
+                  children: [
+                    Text(
+                      titleLabel,
+                      style: const TextStyle(
+                        fontSize: 10,
+                        color: AppColors.inkMuted,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      statsLabel,
+                      style: const TextStyle(
+                        fontSize: 10,
+                        color: AppColors.inkMuted,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: isMe
+                  ? AppColors.darkOrange.withValues(alpha: 0.18)
+                  : AppColors.surfaceMuted,
+              borderRadius: BorderRadius.circular(AppRadii.pill),
+            ),
+            child: Text(
+              ratingLabel,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+                color: isMe ? AppColors.darkOrange : AppColors.brandDeep,
+              ),
+            ),
           ),
         ],
       ),
@@ -87,286 +342,35 @@ class _RankingsScreenState extends State<RankingsScreen> {
 }
 
 class _RankingTabs extends StatelessWidget {
-  const _RankingTabs({
-    required this.selected,
-    required this.worldLabel,
-    required this.countryLabel,
-    required this.friendsLabel,
-    required this.onChanged,
-  });
+  const _RankingTabs({required this.selected, required this.onChanged});
 
-  final _RankingTab selected;
-  final String worldLabel;
-  final String countryLabel;
-  final String friendsLabel;
-  final ValueChanged<_RankingTab> onChanged;
+  final MorrisGameId selected;
+  final ValueChanged<MorrisGameId> onChanged;
 
   @override
   Widget build(BuildContext context) {
-    final items = <(_RankingTab, String, IconData)>[
-      (_RankingTab.world, worldLabel, Icons.public_rounded),
-      (_RankingTab.country, countryLabel, Icons.flag_rounded),
-      (_RankingTab.friends, friendsLabel, Icons.people_alt_rounded),
-    ];
-
-    return Container(
-      height: 48,
-      padding: const EdgeInsets.all(3),
-      decoration: BoxDecoration(
-        color: AppColors.surfaceMuted,
-        borderRadius: BorderRadius.circular(AppRadii.medium),
-        border: Border.all(color: AppColors.line),
-      ),
-      child: Row(
-        children: [
-          for (final item in items)
-            Expanded(
-              child: _RankingTabButton(
-                label: item.$2,
-                icon: item.$3,
-                selected: selected == item.$1,
-                onTap: () => onChanged(item.$1),
+    final l10n = AppLocalizations.of(context);
+    return Row(
+      children: [
+        for (final gameId in MorrisGameId.values)
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 3),
+              child: ChoiceChip(
+                selected: selected == gameId,
+                onSelected: (_) => onChanged(gameId),
+                label: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    gameName(l10n, gameId),
+                    softWrap: false,
+                    maxLines: 1,
+                  ),
+                ),
               ),
             ),
-        ],
-      ),
-    );
-  }
-}
-
-class _RankingsHero extends StatelessWidget {
-  const _RankingsHero({required this.title, required this.scope});
-
-  final String title;
-  final String scope;
-
-  @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.all(AppSpacing.lg),
-    decoration: BoxDecoration(
-      gradient: const LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-        colors: [AppColors.ink, AppColors.brandDeep],
-      ),
-      borderRadius: BorderRadius.circular(AppRadii.large),
-    ),
-    child: Row(
-      children: [
-        Container(
-          width: 54,
-          height: 54,
-          decoration: const BoxDecoration(
-            color: AppColors.selection,
-            shape: BoxShape.circle,
           ),
-          child: const Icon(
-            Icons.emoji_events_rounded,
-            color: AppColors.ink,
-            size: 30,
-          ),
-        ),
-        const SizedBox(width: AppSpacing.md),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: Theme.of(
-                  context,
-                ).textTheme.titleLarge?.copyWith(color: Colors.white),
-              ),
-              const SizedBox(height: AppSpacing.xs),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppSpacing.sm,
-                  vertical: AppSpacing.xs,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.13),
-                  borderRadius: BorderRadius.circular(AppRadii.pill),
-                ),
-                child: Text(
-                  scope,
-                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
       ],
-    ),
-  );
-}
-
-class _RankingTabButton extends StatelessWidget {
-  const _RankingTabButton({
-    required this.label,
-    required this.icon,
-    required this.selected,
-    required this.onTap,
-  });
-
-  final String label;
-  final IconData icon;
-  final bool selected;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final foreground = selected ? Colors.white : AppColors.ink;
-    return Semantics(
-      button: true,
-      selected: selected,
-      label: label,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(AppRadii.medium),
-        onTap: onTap,
-        child: AnimatedContainer(
-          duration: MotionTokens.fast,
-          margin: const EdgeInsets.symmetric(horizontal: 2),
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          decoration: BoxDecoration(
-            color: selected ? AppColors.ink : Colors.transparent,
-            borderRadius: BorderRadius.circular(AppRadii.medium),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, size: 17, color: foreground),
-              const SizedBox(width: 4),
-              Flexible(
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  alignment: Alignment.center,
-                  child: Text(
-                    label,
-                    maxLines: 1,
-                    softWrap: false,
-                    overflow: TextOverflow.visible,
-                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                      color: foreground,
-                      fontWeight: selected ? FontWeight.w800 : FontWeight.w700,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
-}
-
-class _RankingRow extends StatelessWidget {
-  const _RankingRow({required this.entry, required this.l10n});
-  final LeaderboardEntry entry;
-  final AppLocalizations l10n;
-
-  @override
-  Widget build(BuildContext context) {
-    final podiumColor = _podiumColor(entry.rank);
-    final initial =
-        entry.player.name.trim().isEmpty
-            ? '?'
-            : entry.player.name.trim().characters.first.toUpperCase();
-    return Card(
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppRadii.large),
-          border:
-              entry.rank <= 3
-                  ? Border.all(
-                    color: podiumColor.withValues(alpha: 0.7),
-                    width: 1.5,
-                  )
-                  : null,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-          child: Row(
-            children: [
-              Container(
-                width: 38,
-                height: 38,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color:
-                      entry.rank <= 3
-                          ? podiumColor.withValues(alpha: 0.18)
-                          : AppColors.surfaceMuted,
-                  shape: BoxShape.circle,
-                ),
-                child:
-                    entry.rank <= 3
-                        ? Icon(
-                          Icons.emoji_events_rounded,
-                          color: podiumColor,
-                          size: 21,
-                        )
-                        : Text(
-                          entry.rank.toString(),
-                          style: Theme.of(context).textTheme.labelLarge
-                              ?.copyWith(fontWeight: FontWeight.w900),
-                        ),
-              ),
-              const SizedBox(width: AppSpacing.sm),
-              CircleAvatar(
-                radius: 20,
-                backgroundColor: AppColors.brandSoft,
-                foregroundColor: AppColors.brandDeep,
-                child: Text(initial),
-              ),
-              const SizedBox(width: AppSpacing.md),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      entry.player.name,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      l10n.recordValue(entry.wins, entry.losses),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: AppSpacing.sm),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Icon(Icons.bolt_rounded, color: podiumColor, size: 17),
-                  Text(
-                    entry.player.rating.toString(),
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Color _podiumColor(int rank) => switch (rank) {
-    1 => AppColors.selection,
-    2 => AppColors.inkMuted,
-    3 => AppColors.zpOrange,
-    _ => AppColors.brandDeep,
-  };
 }

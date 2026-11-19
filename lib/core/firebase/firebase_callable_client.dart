@@ -14,7 +14,8 @@ class FirebaseCallableClient {
     FirebaseFunctions? functions,
     required FirebaseAuthSession auth,
     required FirebaseAppCheckService appCheck,
-  }) : _functions = functions ?? FirebaseFunctions.instance,
+  }) : _functions =
+           functions ?? FirebaseFunctions.instanceFor(region: 'europe-west1'),
        _auth = auth,
        _appCheck = appCheck;
 

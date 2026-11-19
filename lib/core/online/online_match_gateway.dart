@@ -2,6 +2,7 @@ import '../firebase/firebase_service_exception.dart';
 import '../game/game_definition.dart';
 import 'firebase_match_client.dart';
 import 'quick_message.dart';
+import 'spark_room_client.dart';
 
 class OnlineAvailability {
   const OnlineAvailability({required this.enabled, this.reason});
@@ -12,6 +13,24 @@ class OnlineAvailability {
 
 abstract interface class OnlineMatchGateway {
   Future<OnlineAvailability> availability();
+  Future<OnlineRoom> createPrivateRoom(MorrisGameId gameId);
+  Future<OnlineRoom> joinPrivateRoom(String roomCode);
+  Stream<OnlineRoom?> watchPrivateRoom(String roomCode);
+  Future<OnlineRoom> submitRoomMove({
+    required String roomCode,
+    required int expectedRevision,
+    required OnlineMoveCommand command,
+  });
+  Future<void> closePrivateRoom(String roomCode);
+  Future<void> confirmMatch(String roomCode);
+  Future<void> resignPrivateRoom({
+    required String roomCode,
+    required int expectedRevision,
+  });
+  Future<void> claimPrivateRoomTimeout({
+    required String roomCode,
+    required int expectedRevision,
+  });
   Future<String> createQuickMatch(MorrisGameId gameId);
   Future<void> cancelQuickMatch(String ticketId);
   Future<void> sendQuickMessage({
@@ -36,6 +55,43 @@ class DisabledOnlineMatchGateway implements OnlineMatchGateway {
       Future.error(StateError('Online backend is not configured.'));
 
   @override
+  Future<OnlineRoom> createPrivateRoom(MorrisGameId gameId) =>
+      Future.error(StateError('Online backend is not configured.'));
+
+  @override
+  Future<OnlineRoom> joinPrivateRoom(String roomCode) =>
+      Future.error(StateError('Online backend is not configured.'));
+
+  @override
+  Stream<OnlineRoom?> watchPrivateRoom(String roomCode) =>
+      Stream.error(StateError('Online backend is not configured.'));
+
+  @override
+  Future<OnlineRoom> submitRoomMove({
+    required String roomCode,
+    required int expectedRevision,
+    required OnlineMoveCommand command,
+  }) => Future.error(StateError('Online backend is not configured.'));
+
+  @override
+  Future<void> closePrivateRoom(String roomCode) async {}
+
+  @override
+  Future<void> confirmMatch(String roomCode) async {}
+
+  @override
+  Future<void> resignPrivateRoom({
+    required String roomCode,
+    required int expectedRevision,
+  }) => Future.error(StateError('Online backend is not configured.'));
+
+  @override
+  Future<void> claimPrivateRoomTimeout({
+    required String roomCode,
+    required int expectedRevision,
+  }) => Future.error(StateError('Online backend is not configured.'));
+
+  @override
   Future<void> cancelQuickMatch(String ticketId) async {}
 
   @override
@@ -45,42 +101,80 @@ class DisabledOnlineMatchGateway implements OnlineMatchGateway {
   }) => Future.error(StateError('Online backend is not configured.'));
 }
 
-/// Firebase transport for protected match operations.
-///
-/// Quick matchmaking intentionally remains unavailable until a server-side
-/// queue, cancellation protocol, fairness policy and load tests exist. The
-/// transport is still useful to verified match screens for server-authoritative
-/// quick messages and the dedicated [FirebaseMatchClient] APIs.
+/// Firebase transport for Spark-plan private matches.
 class FirebaseOnlineMatchGateway implements OnlineMatchGateway {
-  FirebaseOnlineMatchGateway(this.matchClient);
+  FirebaseOnlineMatchGateway(this.roomClient);
 
-  final FirebaseMatchClient matchClient;
+  final SparkRoomClient roomClient;
 
   @override
-  Future<OnlineAvailability> availability() async => const OnlineAvailability(
-    enabled: false,
-    reason: 'quick-match-server-not-configured',
+  Future<OnlineAvailability> availability() async =>
+      const OnlineAvailability(enabled: true);
+
+  @override
+  Future<OnlineRoom> createPrivateRoom(MorrisGameId gameId) =>
+      roomClient.createPrivateRoom(gameId);
+
+  @override
+  Future<OnlineRoom> joinPrivateRoom(String roomCode) =>
+      roomClient.joinPrivateRoom(roomCode);
+
+  @override
+  Stream<OnlineRoom?> watchPrivateRoom(String roomCode) =>
+      roomClient.watchRoom(roomCode);
+
+  @override
+  Future<OnlineRoom> submitRoomMove({
+    required String roomCode,
+    required int expectedRevision,
+    required OnlineMoveCommand command,
+  }) => roomClient.submitMove(
+    roomId: roomCode,
+    expectedRevision: expectedRevision,
+    command: command,
   );
 
   @override
-  Future<String> createQuickMatch(MorrisGameId gameId) => Future.error(
-    const FirebaseServiceException(
-      FirebaseServiceErrorCode.unsupported,
-      debugMessage: 'quick-match-server-not-configured',
-    ),
+  Future<void> closePrivateRoom(String roomCode) =>
+      roomClient.closeRoom(roomCode);
+
+  @override
+  Future<void> confirmMatch(String roomCode) =>
+      roomClient.confirmMatch(roomCode);
+
+  @override
+  Future<void> resignPrivateRoom({
+    required String roomCode,
+    required int expectedRevision,
+  }) => roomClient.resignRoom(
+    roomId: roomCode,
+    expectedRevision: expectedRevision,
   );
 
   @override
-  Future<void> cancelQuickMatch(String ticketId) => Future.error(
-    const FirebaseServiceException(
-      FirebaseServiceErrorCode.unsupported,
-      debugMessage: 'quick-match-server-not-configured',
-    ),
+  Future<void> claimPrivateRoomTimeout({
+    required String roomCode,
+    required int expectedRevision,
+  }) => roomClient.claimTimeout(
+    roomId: roomCode,
+    expectedRevision: expectedRevision,
   );
+
+  @override
+  Future<String> createQuickMatch(MorrisGameId gameId) =>
+      roomClient.createQuickMatch(gameId);
+
+  @override
+  Future<void> cancelQuickMatch(String ticketId) => roomClient.closeRoom(ticketId);
 
   @override
   Future<void> sendQuickMessage({
     required String matchId,
     required QuickMessageId messageId,
-  }) => matchClient.sendQuickMessage(matchId: matchId, messageId: messageId);
+  }) => Future.error(
+    const FirebaseServiceException(
+      FirebaseServiceErrorCode.unsupported,
+      debugMessage: 'quick-messages-require-trusted-backend',
+    ),
+  );
 }

@@ -18,6 +18,7 @@ class MorrisGameState {
     this.pendingCaptureBy,
     this.winner,
     this.isDraw = false,
+    this.movesWithoutCapture = 0,
   });
 
   factory MorrisGameState.initial({
@@ -38,6 +39,7 @@ class MorrisGameState {
   final PlayerSide? pendingCaptureBy;
   final PlayerSide? winner;
   final bool isDraw;
+  final int movesWithoutCapture;
 
   MatchPhase get phase {
     if (winner != null || isDraw) return MatchPhase.finished;
@@ -60,6 +62,7 @@ class MorrisGameState {
     PlayerSide? winner,
     bool clearWinner = false,
     bool? isDraw,
+    int? movesWithoutCapture,
   }) {
     return MorrisGameState(
       board: board ?? this.board,
@@ -70,6 +73,7 @@ class MorrisGameState {
           clearPendingCapture ? null : (pendingCaptureBy ?? this.pendingCaptureBy),
       winner: clearWinner ? null : (winner ?? this.winner),
       isDraw: isDraw ?? this.isDraw,
+      movesWithoutCapture: movesWithoutCapture ?? this.movesWithoutCapture,
     );
   }
 }

@@ -114,8 +114,50 @@ abstract class AppLocalizations {
   /// No description provided for @appTitle.
   ///
   /// In en, this message translates to:
-  /// **'Morris World'**
+  /// **'3-9-12 Morris'**
   String get appTitle;
+
+  /// No description provided for @ageAudienceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Who will be playing?'**
+  String get ageAudienceTitle;
+
+  /// No description provided for @ageAudienceBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose an age group so we can keep the experience suitable for everyone.'**
+  String get ageAudienceBody;
+
+  /// No description provided for @ageAudienceChild.
+  ///
+  /// In en, this message translates to:
+  /// **'Under 18, or prefer not to say'**
+  String get ageAudienceChild;
+
+  /// No description provided for @ageAudienceAdult.
+  ///
+  /// In en, this message translates to:
+  /// **'18 or older'**
+  String get ageAudienceAdult;
+
+  /// No description provided for @ageAudiencePrivacy.
+  ///
+  /// In en, this message translates to:
+  /// **'We do not ask for a birth date. This choice is stored only on this device. Ads are non-personalized and online rooms are unavailable for under-18 users or anyone who prefers not to answer. Ads are family-friendly and rated G or lower.'**
+  String get ageAudiencePrivacy;
+
+  /// No description provided for @ageAudienceOnlineRestricted.
+  ///
+  /// In en, this message translates to:
+  /// **'Online rooms are available only to users who indicate that they are 18 or older. Under-18 users and anyone who prefers not to say can play against the computer or on the same device.'**
+  String get ageAudienceOnlineRestricted;
+
+  /// No description provided for @ageAudienceGotIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Got it'**
+  String get ageAudienceGotIt;
 
   /// No description provided for @home.
   ///
@@ -186,8 +228,110 @@ abstract class AppLocalizations {
   /// No description provided for @onlineSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Find a real opponent worldwide'**
+  /// **'Find an online opponent; play the computer if none is found'**
   String get onlineSubtitle;
+
+  /// No description provided for @createPrivateRoom.
+  ///
+  /// In en, this message translates to:
+  /// **'Create private room'**
+  String get createPrivateRoom;
+
+  /// No description provided for @joinPrivateRoom.
+  ///
+  /// In en, this message translates to:
+  /// **'Join with room code'**
+  String get joinPrivateRoom;
+
+  /// No description provided for @roomCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Room code'**
+  String get roomCode;
+
+  /// No description provided for @roomCodeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the code shared by your friend'**
+  String get roomCodeHint;
+
+  /// No description provided for @waitingForOpponent.
+  ///
+  /// In en, this message translates to:
+  /// **'The game starts when your friend joins.'**
+  String get waitingForOpponent;
+
+  /// No description provided for @copyRoomCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy code'**
+  String get copyRoomCode;
+
+  /// No description provided for @roomCodeCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Room code copied.'**
+  String get roomCodeCopied;
+
+  /// No description provided for @sparkPrivateRoomNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'Children should use online play with a parent or guardian. Share room codes only with people you know. Matches are unranked; public matchmaking and chat are off.'**
+  String get sparkPrivateRoomNotice;
+
+  /// No description provided for @onlineOpponent.
+  ///
+  /// In en, this message translates to:
+  /// **'Opponent'**
+  String get onlineOpponent;
+
+  /// No description provided for @onlineWaitingTurn.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for your opponent to move.'**
+  String get onlineWaitingTurn;
+
+  /// No description provided for @onlineMoveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Move could not be sent. Check your connection and try again.'**
+  String get onlineMoveFailed;
+
+  /// No description provided for @onlineRoomUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Room not found or already full. Check the code.'**
+  String get onlineRoomUnavailable;
+
+  /// No description provided for @closeOnlineRoom.
+  ///
+  /// In en, this message translates to:
+  /// **'Close room'**
+  String get closeOnlineRoom;
+
+  /// No description provided for @exitMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave match'**
+  String get exitMatch;
+
+  /// No description provided for @exitMatchConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'The match is still in progress. If you leave, your opponent will be declared the winner. Leave the match?'**
+  String get exitMatchConfirm;
+
+  /// No description provided for @opponentLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'Your opponent left the match; you win.'**
+  String get opponentLeft;
+
+  /// No description provided for @opponentTimedOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Your opponent made no move for two minutes; you win.'**
+  String get opponentTimedOut;
 
   /// No description provided for @challenge.
   ///
@@ -627,6 +771,12 @@ abstract class AppLocalizations {
   /// **'No friends yet.'**
   String get noFriendsYet;
 
+  /// No description provided for @rankingsUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'World, country, and friends rankings are not connected to live player data yet. Verified rankings will appear here when that service is available.'**
+  String get rankingsUnavailable;
+
   /// No description provided for @sound.
   ///
   /// In en, this message translates to:
@@ -858,8 +1008,14 @@ abstract class AppLocalizations {
   /// No description provided for @onlineBackendRequired.
   ///
   /// In en, this message translates to:
-  /// **'The online client foundation is ready. Ranked matchmaking stays safely disabled until Firebase Auth, Realtime Database and Cloud Functions are deployed.'**
+  /// **'Private online rooms are unavailable right now. Check your internet connection and try again.'**
   String get onlineBackendRequired;
+
+  /// No description provided for @challengeInviteOpenedWithoutRoom.
+  ///
+  /// In en, this message translates to:
+  /// **'The WhatsApp invitation is ready. A live room could not be created, so no room code was included.'**
+  String get challengeInviteOpenedWithoutRoom;
 
   /// No description provided for @challengeFriends.
   ///
@@ -1146,7 +1302,7 @@ abstract class AppLocalizations {
   /// No description provided for @whatsappChallengeInvite.
   ///
   /// In en, this message translates to:
-  /// **'I challenge you to {game} in Morris World! Open or install the game here: {link}'**
+  /// **'Let\'s play {game} together in 3-9-12 Morris! Get the app here: {link}'**
   String whatsappChallengeInvite(String game, String link);
 
   /// No description provided for @resultVictoryPraise.
@@ -1238,6 +1394,162 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your profile details are saved safely on this device.'**
   String get profileLocalSaveNote;
+
+  /// No description provided for @accountAndLegal.
+  ///
+  /// In en, this message translates to:
+  /// **'Account and legal'**
+  String get accountAndLegal;
+
+  /// No description provided for @termsOfUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of use'**
+  String get termsOfUse;
+
+  /// No description provided for @termsSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'3-9-12 Tas offers the classic 3, 9, and 12 Stone games. Use the app lawfully. Your profile and saved games are stored on this device; there are no in-app purchases.\n\nWhen online room features are enabled, third-party services such as Firebase may be used. Share room codes only with people you know. External sharing apps have their own terms.\n\nThis is general product information, not a binding agreement. The publisher\'s official address and country-specific legal terms have not yet been verified.'**
+  String get termsSummary;
+
+  /// No description provided for @legalInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Legal information'**
+  String get legalInformation;
+
+  /// No description provided for @legalInformationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Publisher: Mustafa Polat · ZP GAMES\nContact: andersonmarejeo@gmail.com\n\nThe official service address and registered company name have not yet been verified. Use the contact email for legal notices.'**
+  String get legalInformationBody;
+
+  /// No description provided for @onlineSignOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out of online session'**
+  String get onlineSignOut;
+
+  /// No description provided for @onlineSignOutDone.
+  ///
+  /// In en, this message translates to:
+  /// **'You are signed out of the online session. Saved games on this device were kept.'**
+  String get onlineSignOutDone;
+
+  /// No description provided for @onlineSessionMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'There is no active online session on this device.'**
+  String get onlineSessionMissing;
+
+  /// No description provided for @deleteLocalData.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete user data on this device'**
+  String get deleteLocalData;
+
+  /// No description provided for @deleteLocalDataTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete user data on this device?'**
+  String get deleteLocalDataTitle;
+
+  /// No description provided for @deleteLocalDataBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This permanently deletes your profile, added friends, and saved games from this device. It does not delete Firebase online-room data or a remote account. This action cannot be undone.'**
+  String get deleteLocalDataBody;
+
+  /// No description provided for @deleteLocalDataDone.
+  ///
+  /// In en, this message translates to:
+  /// **'The profile, friend list, and saved games on this device were deleted.'**
+  String get deleteLocalDataDone;
+
+  /// No description provided for @deleteAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete data'**
+  String get deleteAction;
+
+  /// No description provided for @gameOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Game options'**
+  String get gameOptions;
+
+  /// No description provided for @drawRuleNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'The game is drawn if the same board position, including whose turn it is, occurs 5 times, or after 100 consecutive moves without a capture.'**
+  String get drawRuleNotice;
+
+  /// No description provided for @offerDraw.
+  ///
+  /// In en, this message translates to:
+  /// **'Offer draw'**
+  String get offerDraw;
+
+  /// No description provided for @drawOfferPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Offer a draw? The game ends in a draw only if the opponent accepts.'**
+  String get drawOfferPrompt;
+
+  /// No description provided for @drawOfferReceived.
+  ///
+  /// In en, this message translates to:
+  /// **'Draw offer'**
+  String get drawOfferReceived;
+
+  /// No description provided for @drawOfferReceivedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your opponent offers a draw. Do you accept?'**
+  String get drawOfferReceivedBody;
+
+  /// No description provided for @acceptDraw.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept draw'**
+  String get acceptDraw;
+
+  /// No description provided for @declineDraw.
+  ///
+  /// In en, this message translates to:
+  /// **'Decline'**
+  String get declineDraw;
+
+  /// No description provided for @drawOfferDeclined.
+  ///
+  /// In en, this message translates to:
+  /// **'The draw offer was declined.'**
+  String get drawOfferDeclined;
+
+  /// No description provided for @computerDrawOfferAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'The computer accepted the draw offer.'**
+  String get computerDrawOfferAccepted;
+
+  /// No description provided for @computerDrawOfferDeclined.
+  ///
+  /// In en, this message translates to:
+  /// **'The computer declined the draw offer.'**
+  String get computerDrawOfferDeclined;
+
+  /// No description provided for @resignMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Resign'**
+  String get resignMatch;
+
+  /// No description provided for @resignConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to resign? Your opponent will win.'**
+  String get resignConfirm;
 }
 
 class _AppLocalizationsDelegate
